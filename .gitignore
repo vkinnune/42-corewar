@@ -1,0 +1,5 @@
+asm
+corewar
+!srcs/asm/
+!srcs/corewar/
+#resources/*
