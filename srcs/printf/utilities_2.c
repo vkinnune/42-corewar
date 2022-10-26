@@ -71,7 +71,7 @@ void	mfw_prec_assigner(char **fmt, va_list ap)
 		write(2, "error: cannot open file\n", 24);
 } */
 
-void	extra_functionality(char **fmt, char default_color[6], int *fd,
+void	extra_functionality(char **fmt, char default_color[5], int *fd,
 			va_list ap)
 {
 	char	*color;
@@ -100,3 +100,4 @@ void	extra_functionality(char **fmt, char default_color[6], int *fd,
 	if (default_color && color)
 		ft_strcpy(default_color, color);
 }
+

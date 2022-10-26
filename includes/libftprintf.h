@@ -62,7 +62,7 @@ void	check_f_value(long double *f);
 void	put_flag(int ammount, char c, int fd);
 void	a_wild_mfw_appeared(va_list ap, char m_p);
 void	mfw_prec_assigner(char **fmt, va_list ap);
-void	extra_functionality(char **fmt, char default_color[6], int *fd,
+void	extra_functionality(char **fmt, char default_color[5], int *fd,
 			va_list ap);
 
 //printer.c
@@ -85,3 +85,4 @@ void	set_percent_sign(void);
 void	set_f_values(void);
 
 #endif
+
