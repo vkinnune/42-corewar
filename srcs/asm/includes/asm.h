@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 21:33:20 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/27 13:44:20 by vkinnune         ###   ########.fr       */
+/*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
+/*   Updated: 2022/10/27 14:00:47 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef COREWAR_H
+# define COREWAR_H
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
-{
-	size_t	i;
+# include "libftprintf.h"
+# include "errors.h"
 
-	i = 0;
-	if (dst == NULL && src == NULL && n == 0)
-		return (NULL);
-	while (i < n)
-	{
-		((char *)dst)[i] = ((char *)src)[i];
-		if (((char *)src)[i] == (char)c)
-			break ;
-		i++;
-	}
-	if (((char *)src)[i] == (char)c)
-		return (dst + i + 1);
-	return (NULL);
-}
+void	validate_argument(int ac, char **av);
+
+#endif

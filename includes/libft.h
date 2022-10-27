@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 01:47:36 by qnguyen           #+#    #+#             */
-/*   Updated: 2021/11/07 01:47:36 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/27 13:45:29 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,5 +191,7 @@ int			ft_toupper(int c);
 int			ft_tolower(int c);
 
 int			ft_udiglen(unsigned long long n, int base);
+
+int			ft_out(char *reason);
 
 #endif

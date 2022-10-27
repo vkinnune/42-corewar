@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 21:33:20 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/27 13:44:20 by vkinnune         ###   ########.fr       */
+/*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
+/*   Updated: 2022/10/27 14:00:20 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/asm.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+int	main(int ac, char **av)
 {
-	size_t	i;
-
-	i = 0;
-	if (dst == NULL && src == NULL && n == 0)
-		return (NULL);
-	while (i < n)
-	{
-		((char *)dst)[i] = ((char *)src)[i];
-		if (((char *)src)[i] == (char)c)
-			break ;
-		i++;
-	}
-	if (((char *)src)[i] == (char)c)
-		return (dst + i + 1);
-	return (NULL);
+	validate_argument(ac, av);
+	return (0);
 }
