@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/27 14:17:25 by vkinnune         ###   ########.fr        #
+#    Updated: 2022/10/27 14:36:09 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ all: $(COR_NAME) $(ASM_NAME)
 ################ COREWAR ################
 
 $(COR_NAME): $(COR_OBJS) $(PRINTF)
-	gcc $< $(INCLUDES) $(PRINTF) -o $@
+	gcc $(COR_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
 	mkdir -p $(COR_OBJS_DIR)
@@ -44,7 +44,7 @@ $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
 ################ ASM ################
 
 $(ASM_NAME): $(ASM_OBJS) $(PRINTF)
-	gcc $< $(INCLUDES) $(PRINTF) -o $@
+	gcc $(ASM_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c
 	mkdir -p $(ASM_OBJS_DIR)
