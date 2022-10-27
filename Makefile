@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/27 14:04:54 by vkinnune         ###   ########.fr        #
+#    Updated: 2022/10/27 14:17:25 by vkinnune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
 ASM_NAME = asm
-ASM_DIR = srcs/asm/src/
+ASM_DIR = srcs/asm/
 # add new .c files here
-ASM_FILE = main
+ASM_FILE = main validate
 ASM_OBJS_DIR = objs/asm/
 ASM_OBJS = $(addprefix $(ASM_OBJS_DIR), $(addsuffix .o, $(ASM_FILE)))
 
@@ -29,7 +29,6 @@ PRINTF_DIR = srcs/printf/
 
 FLAG = -Wall -Werror -Wextra
 INCLUDES = -I includes
-ASM_INCLUDES = -I srcs/asm/includes/
 
 all: $(COR_NAME) $(ASM_NAME)
 
@@ -45,11 +44,11 @@ $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
 ################ ASM ################
 
 $(ASM_NAME): $(ASM_OBJS) $(PRINTF)
-	gcc $< $(INCLUDES) $(ASM_INCLUDES) $(PRINTF) -o $@
+	gcc $< $(INCLUDES) $(PRINTF) -o $@
 
 $(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c
 	mkdir -p $(ASM_OBJS_DIR)
-	gcc -c $< $(INCLUDES) $(ASM_INCLUDES) -o $@
+	gcc -c $< $(INCLUDES) -o $@
 
 ################ Printf ################
 

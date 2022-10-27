@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/27 14:00:20 by vkinnune         ###   ########.fr       */
+/*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
+/*   Updated: 2022/10/27 14:16:58 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/asm.h"
+#ifndef COREWAR_H
+# define COREWAR_H
 
-int	main(int ac, char **av)
-{
-	validate_argument(ac, av);
-	return (0);
-}
+# include "libftprintf.h"
+# include "errors.h"
+
+void	validate_argument(int ac, char **av);
+
+#endif
