@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 12:00:03 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/28 13:13:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	print_man_page(void)
 
 int	main(int argc, char **argv)
 {
-	int			fd;
-	int			ret;
-	char		*str;
-	int			i;
-	t_header_t	player_header[4];
-	t_player	player[4];
+	int				fd;
+	int				ret;
+	unsigned char	*str;
+	int				i;
+	t_header_t		player_header[4];
+	t_player		player[4];
 
 	if (argc < 2)
 		print_man_page();

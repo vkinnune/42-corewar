@@ -6,14 +6,14 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/28 10:13:51 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/10/28 13:10:47 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
-COR_FILE = main player_handler
+COR_FILE = main player_handler error utilities
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
@@ -37,18 +37,22 @@ all: $(COR_NAME) $(ASM_NAME)
 $(COR_NAME): $(COR_OBJS) $(PRINTF)
 	gcc $(COR_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
-$(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
-	mkdir -p $(COR_OBJS_DIR)
+$(COR_OBJS_DIR)%.o: $(COR_DIR)%.c $(COR_OBJS_DIR)
 	gcc -c $< $(INCLUDES) -o $@
+
+$(COR_OBJS_DIR):
+	mkdir -p $(COR_OBJS_DIR)
 
 ################ ASM ################
 
 $(ASM_NAME): $(ASM_OBJS) $(PRINTF)
 	gcc $(ASM_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
-$(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c
-	mkdir -p $(ASM_OBJS_DIR)
+$(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c $(ASM_OBJS_DIR)
 	gcc -c $< $(INCLUDES) -o $@
+
+$(ASM_OBJS_DIR):
+	mkdir -p $(ASM_OBJS_DIR)
 
 ################ Printf ################
 
