@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 13:13:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:15:32 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,39 @@ void	print_man_page(void)
 	exit(0);
 }
 
+void	arena_init(unsigned char *arena, t_header_t *player, int p_count)
+{
+	int	i;
+	int	p_start;
+
+	ft_bzero((void *)arena, MEM_SIZE);
+	i = 0;
+	p_start = 0;
+	while (i < p_count)
+	{
+		ft_memcpy(arena + p_start, player[i].code, player[i].prog_size);
+		p_start += MEM_SIZE / p_count;
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
-	int				fd;
-	int				ret;
-	unsigned char	*str;
 	int				i;
-	t_header_t		player_header[4];
-	t_player		player[4];
+	int				p_count;
+	t_header_t		player[4];
+	unsigned char	arena[MEM_SIZE];
 
 	if (argc < 2)
 		print_man_page();
 	i = 1;
 	while (i < argc)
 	{
-		fd = open(argv[i], O_RDONLY);
-		str = ft_memalloc(sizeof(char) * MEM_SIZE * 2);
-		ret = read(fd, str, MEM_SIZE);
-		if (ft_strstr(argv[i], "."))
-			assign_player(player_header, player, str);
-		close(fd);
+		p_count = parse(player, argv[i]);
 		i++;
 	}
+	// print_mem(player[0].prog_size, player[0].code);
+	arena_init(arena, player, p_count);
+	// print_mem(MEM_SIZE, arena);
 	return (0);
 }

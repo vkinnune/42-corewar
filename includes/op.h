@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/10/26 13:14:19 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:22:57 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # define REG_SIZE			4
 # define DIR_SIZE			REG_SIZE
 
-# define REG_CODE			1
-# define DIR_CODE			2
-# define IND_CODE			3
+# define REG_CODE			0b01 //1
+# define DIR_CODE			0b10 //2
+# define IND_CODE			0b11 //3
 
 # define MAX_ARGS_NUMBER	4
 # define MAX_PLAYERS		4
@@ -72,9 +72,10 @@ typedef char	t_arg_type;
 typedef struct s_header_s
 {
 	unsigned int	magic;
-	char			prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int	prog_size;
-	char			comment[COMMENT_LENGTH + 1];
+	unsigned char	prog_name[PROG_NAME_LENGTH + 1];
+	unsigned char	comment[COMMENT_LENGTH + 1];
+	unsigned char	*code;
 }			t_header_t;
 
 #endif
