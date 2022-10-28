@@ -6,14 +6,14 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/27 14:36:09 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/10/28 10:13:51 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
-COR_FILE = main
+COR_FILE = main player_handler
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
