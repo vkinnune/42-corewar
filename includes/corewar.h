@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 17:16:44 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/28 22:02:14 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ struct s_process
 	unsigned int	reg[REG_NUMBER]; //??
 	t_process		*next;
 };
+
+typedef struct s_info
+{
+	t_process		*head;
+} t_info;
 
 //parse.c
 int		parse(t_header_t *player, char *file_name);

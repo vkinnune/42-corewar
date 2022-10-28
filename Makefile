@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/28 17:25:38 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/10/28 22:37:40 by jrummuka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ $(COR_NAME): $(COR_OBJS) includes/corewar.h $(PRINTF)
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
 	@mkdir -p $(COR_OBJS_DIR)
-	gcc -c $< $(INCLUDES) -o $@
+	gcc -g -c $< $(INCLUDES) -o $@
 
 ################ ASM ################
 
