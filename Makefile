@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/27 14:36:09 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/10/28 21:42:15 by vkinnune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ $(ASM_NAME): $(ASM_OBJS) $(PRINTF)
 
 $(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c
 	mkdir -p $(ASM_OBJS_DIR)
-	gcc -c $< $(INCLUDES) -o $@
+	gcc -g -c $< $(INCLUDES) -o $@
 
 ################ Printf ################
 
