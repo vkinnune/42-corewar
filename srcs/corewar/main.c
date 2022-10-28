@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 17:15:32 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/28 19:45:47 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main(int argc, char **argv)
 		p_count = parse(player, argv[i]);
 		i++;
 	}
-	// print_mem(player[0].prog_size, player[0].code);
+//	print_mem(player[0].prog_size, player[0].code);
 	arena_init(arena, player, p_count);
-	// print_mem(MEM_SIZE, arena);
+//	print_mem(MEM_SIZE, arena);
 	return (0);
 }
