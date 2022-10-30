@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/30 20:31:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 22:15:43 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_file_type(unsigned char *file)
 	exit (0);
 }
 
-void	check_file_size(int size)
+void	check_file_size(uint32_t size)
 {
 	if (size > CHAMP_MAX_SIZE)
 	{
@@ -37,4 +37,10 @@ void	check_err_malloc(void *ptr)
 		// free_everything();
 		exit (0);
 	}
+}
+
+void	print_man_page(void)
+{
+	ft_printf("man page goes here\n");
+	exit(0);
 }

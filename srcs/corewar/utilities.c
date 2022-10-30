@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/30 20:48:51 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 22:44:18 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ int	get_4byte(unsigned char *size_byte)
 	while (i < 4)
 		value = (value * 0x100) + size_byte[i++];
 	return (value);
+}
+
+void	initialize(t_header_t *player)
+{
+	uint8_t	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		player[i].code = NULL;
+		player[i].prog_size = 0;
+		i++;
+	}
 }
 
 //test functions

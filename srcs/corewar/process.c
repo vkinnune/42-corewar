@@ -6,13 +6,13 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/30 20:54:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 22:51:45 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-t_process	*set_processes(t_process *head, unsigned int pos, int id)
+t_process	*set_processes(t_process *head, uint16_t pos, int id)
 {
 	t_process	*process;
 
@@ -24,7 +24,7 @@ t_process	*set_processes(t_process *head, unsigned int pos, int id)
 	return (process);
 }
 
-void	process_init(t_header_t *player, int p_count)
+void	process_init(t_header_t *player, uint8_t p_count)
 {
 	uint8_t		i;
 	uint16_t	p_start;
@@ -36,7 +36,7 @@ void	process_init(t_header_t *player, int p_count)
 	head = NULL;
 	while (i < p_count)
 	{
-		new_process = set_processes(head, p_start, i);
+		new_process = set_processes(head, p_start, i + 1);
 		head = new_process;
 		p_start += MEM_SIZE / p_count;
 		i++;

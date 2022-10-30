@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/30 21:11:13 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 22:49:03 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,26 @@ struct s_process
 };
 
 //parse.c
-int		parse(t_header_t *player, char *arg);
+int		parse(t_header_t *player, char **argv, uint32_t argc);
 
 //player_handler.c
-int		assign_player(t_header_t *player, unsigned char *file);
+void	assign_player(t_header_t *player, unsigned char *file, int8_t p_num);
 
 //error.c
-void	check_open(int fd);
-void	check_file_size(int size);
+void	check_file_size(uint32_t size);
 void	check_file_type(unsigned char *file);
 void	check_err_malloc(void *ptr);
+void	print_man_page(void);
 
 //process.c
-void	process_init(t_header_t *player, int p_count);
+void	process_init(t_header_t *player, uint8_t p_count);
 
 //utilities.c
 int		get_4byte(unsigned char *size_byte);
+void	initialize(t_header_t *player);
+
+//corewar.c
+void	corewar(t_header_t *player, uint8_t p_count);
 
 //test functions
 void	print_mem(int size, unsigned char *mem);
