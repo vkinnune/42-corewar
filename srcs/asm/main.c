@@ -89,7 +89,7 @@ void	parser(const char *input)
 
 	forward_p = (char *)input;
 	stay_p = (char *)input;
-	while (forward_p != 0)
+	while (*forward_p)
 	{
 		if (check_valid(stay_p, forward_p - stay_p))
 			stay_p = forward_p + 1;
@@ -106,6 +106,8 @@ char *read_file(char *file_name)
 	char	*str;
 
 	fd = open(file_name, O_RDONLY);
+	if (fd == -1)
+		ft_out(CANNOT_OPEN_FILE);
 	ret = 1;
 	str = 0;
 	read_size = 0;
@@ -126,3 +128,4 @@ int	main(int ac, char **av)
 	parser(read_file(av[1]));
 	return (0);
 }
+
