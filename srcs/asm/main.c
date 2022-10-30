@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "asm.h"
+#include <stdio.h>
 
 t_parser	*get_parser()
 {
@@ -121,11 +122,26 @@ char *read_file(char *file_name)
 	return (str);
 }
 
+void	print_tokens()
+{
+	int	i;
+	t_token_list	*token_list;
+
+	token_list = get_token_list();
+	i = 0;
+	while (i != token_list->token_count)
+	{
+		printf("%d ", token_list->tokens[i].type);
+		i++;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	init_parser();
 	validate_argument(ac, av);
 	parser(read_file(av[1]));
+	print_tokens();
 	return (0);
 }
 
