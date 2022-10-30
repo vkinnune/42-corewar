@@ -12,6 +12,7 @@
 
 #include "asm.h"
 
+
 int	is_dot_s(char *av)
 {
 	int	len;
@@ -42,3 +43,4 @@ void	validate_argument(int ac, char **av)
 	else
 		ft_out(USAGE);
 }
+
