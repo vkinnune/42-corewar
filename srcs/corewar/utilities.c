@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 14:55:16 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 20:48:51 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	get_4byte(unsigned char *size_byte)
 {
-	int	value;
-	int	i;
+	uint8_t		i;
+	uint32_t	value;
 
 	value = 0;
 	i = 0;
@@ -38,4 +38,28 @@ void	print_mem(int size, unsigned char *mem)
 			ft_printf("\n");
 	}
 	ft_printf("\n");
+}
+
+void	print_process(t_process *process)
+{
+	ft_printf("id: %d\n", process->process_id);
+	ft_printf("prog_count: %d\n", process->prog_counter);
+	ft_printf("carry: %d\n", process->carry);
+	ft_printf("instruction: %d\n", process->instruction);
+	ft_printf("last_live_cyc: %d\n", process->last_live_cycle);
+	ft_printf("byte_next: %d\n", process->bytes_to_next_instr);
+	ft_printf("wait_cycle: %d\n", process->wait_cycle);
+	int i = 0;
+	while (i < REG_NUMBER)
+		ft_printf("%d - ", process->reg[i++]);
+	ft_printf("\n\n");
+}
+
+void	print_all_process(t_process *head)
+{
+	while(head)
+	{
+		print_process(head);
+		head = head->next;
+	}
 }

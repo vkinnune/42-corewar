@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:13:37 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 17:22:00 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 20:49:27 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ static void	introduce_le_champ(t_header_t *player, int p_num)
 
 int	assign_player(t_header_t *player, unsigned char *file)
 {
-	static int		p_num;
+	static uint8_t	p_num;
 	unsigned char	*idx;
 
-	idx = file + check_file_type(file);
+	idx = file + 4; //skip magic header
 	idx += get_data(player[p_num].prog_name, idx, PROG_NAME_LENGTH);
 	idx += get_size(&player[p_num].prog_size, idx);
 	check_file_size(player[p_num].prog_size);

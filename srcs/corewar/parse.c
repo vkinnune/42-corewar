@@ -6,24 +6,27 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 16:51:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/30 20:50:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-int	parse(t_header_t *player, char *file_name)
+int	parse(t_header_t *player, char *arg)
 {
-	int				fd;
-	int				ret;
-	int				p_count;
+	uint8_t			p_count;
+	uint16_t		fd;
+	uint32_t		ret;
 	unsigned char	str[MEM_SIZE];
 
-	//check if flag
-	fd = open(file_name, O_RDONLY);
+	// if (arg == option flags)
+	// {
+		//do_the_thing();
+		//return (0);
+	// }
+	fd = open(arg, O_RDONLY);
 	ret = read(fd, str, MEM_SIZE);
+	check_file_type(str);
 	close(fd);
-	if (ft_strstr(file_name, "."))
-		return (assign_player(player, str));
-	return (0);
+	return (assign_player(player, str));
 }

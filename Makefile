@@ -6,14 +6,14 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/28 17:25:38 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/10/30 19:22:28 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
-COR_FILE = main player_handler error utilities parse
+COR_FILE = main player_handler error utilities parse process
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
@@ -39,7 +39,7 @@ $(COR_NAME): $(COR_OBJS) includes/corewar.h $(PRINTF)
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
 	@mkdir -p $(COR_OBJS_DIR)
-	gcc -c $< $(INCLUDES) -o $@
+	gcc -g -c $< $(INCLUDES) -o $@
 
 ################ ASM ################
 
