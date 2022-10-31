@@ -2,5 +2,3 @@
 does this mean some .cor file might not have prog_size data?
 
 check if -n value exists "./corewar moro.cor -n"
-check for invalidly skipped number "./corewar -n 3 ex.cor"
-check duplicate -n value

@@ -6,24 +6,26 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 10:55:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 13:03:15 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
 static void	flag_handler(char **arg, uint8_t i
-			, uint8_t *p_num, uint64_t *dump_nbr)
+			, int8_t *p_num, uint64_t *dump_nbr)
 {
 	if (!ft_strcmp(arg[i], "-n"))
 	{
-		*p_num = check_valid_arg(arg[i + 1]);
+		check_valid_arg(arg[i + 1]);
+		*p_num = ft_atoi((const char *)arg[i + 1]);
 		check_num_within_range(*p_num);
 	}
 	else if (!ft_strcmp(arg[i], "-dump"))
 	{
-		*dump_nbr = check_valid_arg(arg[i + 1]);
-		//check if number < 0 (?)
+		check_valid_arg(arg[i + 1]);
+		*dump_nbr = ft_atoi((const char *)arg[i + 1]);
+		//check if number < 0? or just ignore it?
 	}
 	else
 		print_man_page();
@@ -46,6 +48,7 @@ void	introduce_le_champ(t_header_t *player, uint8_t p_count)
 	i = 0;
 	while (i < p_count)
 	{
+		check_missing_id(player[i].id);
 		ft_printf("* Player %d @%d, weighing %d bytes, \"%s\" (\"%s\")!\n",
 			player[i].id, i, player[i].prog_size,
 			player[i].prog_name, player[i].comment);

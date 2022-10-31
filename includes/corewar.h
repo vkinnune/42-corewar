@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 11:05:44 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 13:07:17 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct s_process t_process;
 
 struct s_process
 {
-	uint8_t		instruction :5;
+	uint8_t		instruction :5; //5-bit for 1-16 instruction
 	uint8_t		carry :1; //one-bit var
 	uint16_t	prog_counter; //current position
 	uint16_t	bytes_to_next_instr;
 	uint16_t	wait_cycle; //amount of waiting until executing $(instruction)
 	uint32_t	process_id;
 	uint32_t	last_live_cycle;
-	uint32_t	reg[REG_NUMBER]; //??
+	uint32_t	reg[REG_NUMBER];
 	t_process	*next;
 };
 
@@ -48,10 +48,13 @@ void		check_file_size(uint32_t size);
 void		check_file_type(unsigned char *file);
 void		check_err_malloc(void *ptr);
 void		print_man_page(void);
-uint32_t	check_valid_arg(unsigned char *arg);
+void		check_valid_arg(char *arg);
+void		check_existing_id(int8_t id);
+void		check_missing_id(int8_t id);
 void		check_num_within_range(uint8_t num);
 
 //process.c
+t_process	*new_process(t_process *head, uint16_t pos, int id);
 void		process_init(t_header_t *player, uint8_t p_count);
 
 //utilities.c

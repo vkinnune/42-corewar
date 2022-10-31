@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:05:02 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 11:05:22 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 13:03:38 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ static void	copy_with_id(t_header_t *player, t_header_t *temp, uint8_t p_count)
 	while (i < p_count)
 	{
 		if (player[i].id != NOT_SET)
+		{
+			check_existing_id(temp[player[i].id - 1].id);
 			ft_memcpy((void *)&temp[player[i].id - 1], (void *)&player[i],
 				sizeof(player[i]));
+		}
 		i++;
 	}
 }

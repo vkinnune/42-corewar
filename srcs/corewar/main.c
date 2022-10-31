@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 10:47:05 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 12:09:55 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 unsigned char	g_arena[MEM_SIZE];
 
-int	main(uint32_t argc, char **argv)
+int	main(int argc, char **argv)
 {
 	uint8_t			p_count;
 	t_header_t		player[MAX_PLAYERS];
