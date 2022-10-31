@@ -6,7 +6,11 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/28 22:00:59 by jrummuka         ###   ########.fr       */
+=======
+/*   Updated: 2022/10/31 09:03:18 by qnguyen          ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +75,7 @@ typedef char	t_arg_type;
 
 typedef struct s_header_s
 {
+	int8_t			id;
 	unsigned int	magic;
 	unsigned int	prog_size;
 	unsigned char	prog_name[PROG_NAME_LENGTH + 1];
