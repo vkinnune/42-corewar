@@ -6,11 +6,18 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:56:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 19:42:12 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
+
+void	delete_process(t_process *prev, t_process *delete)
+{
+	if (prev)
+		prev->next = delete->next;
+	ft_memdel((void **)&delete);
+}
 
 t_process	*new_process(t_process *head, uint16_t pos, int id)
 {
@@ -28,7 +35,7 @@ t_process	*new_process(t_process *head, uint16_t pos, int id)
 	return (process);
 }
 
-void	process_init(t_header_t *player)
+t_process	*process_init(t_header_t *player)
 {
 	uint8_t		i;
 	uint16_t	p_start;
@@ -45,5 +52,6 @@ void	process_init(t_header_t *player)
 		p_start += MEM_SIZE / g_p_count;
 		i++;
 	}
-	print_all_process(head);
+	// print_all_process(head);
+	return (head);
 }

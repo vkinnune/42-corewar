@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 14:08:21 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 18:06:58 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int	main(int argc, char **argv)
 	initialize(player);
 	parse(player, argv, argc);
 	corewar(player);
-	ft_printf("%lld\n", g_dump_nbr);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 10:47:13 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 20:25:45 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,40 @@ void	print_mem(int size, unsigned char *mem)
 		ft_printf("%02x ", mem[i++]);
 		if (i % 64 == 0)
 			ft_printf("\n");
+	}
+	ft_printf("\n");
+}
+
+void	print_arena(t_header_t *player, int size, unsigned char *mem)
+{
+	int			i;
+	uint16_t	p_start;
+	int 		p_count;
+	int			program_size;
+
+	p_start = MEM_SIZE / g_p_count;
+	program_size = 0;
+	i = 0;
+	p_count = 0;
+	while (i < size)
+	{
+		if (mem[i] == 0 && i > (player[p_count].prog_size + p_start - MEM_SIZE / g_p_count))
+			ft_printf("%02x ", mem[i++]);
+		else if (p_count == 0)
+			ft_printf("%$g02x ", mem[i++]);
+		else if (p_count == 1)
+			ft_printf("%$b02x ", mem[i++]);
+		else if (p_count == 2)
+			ft_printf("%$r02x ", mem[i++]);
+		else if (p_count == 3)
+			ft_printf("%$b02x ", mem[i++]);
+		if (i % 64 == 0)
+			ft_printf("\n");
+		if (i == p_start)
+		{
+			p_count++;
+			p_start += MEM_SIZE / g_p_count;
+		}
 	}
 	ft_printf("\n");
 }

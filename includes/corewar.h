@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 14:07:29 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 20:28:18 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,19 @@ struct s_process
 	uint32_t	process_id;
 	uint32_t	last_live_cycle;
 	uint32_t	reg[REG_NUMBER];
+	// uint16_t	die_cycle; // init to CYCLE_TO_DIE
 	t_process	*next;
 };
+
+typedef struct s_game_param
+{
+	uint8_t		check_counter;
+	uint16_t	cycle_to_die;
+	uint32_t	live_performed;
+	uint64_t	cycle;
+	t_process	*head;
+}				t_game_param;
+
 
 //parse.c
 void		parse(t_header_t *player, char **argv, int argc);
@@ -56,8 +67,9 @@ void		check_missing_id(int8_t id);
 void		check_num_within_range(uint8_t num);
 
 //process.c
+void		delete_process(t_process *prev, t_process *delete);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
-void		process_init(t_header_t *player);
+t_process	*process_init(t_header_t *player);
 
 //utilities.c
 int			get_4byte(unsigned char *size_byte);
@@ -66,9 +78,13 @@ void		initialize(t_header_t *player);
 //corewar.c
 void		corewar(t_header_t *player);
 
+//game.c
+void		vm(t_header_t *player, t_process *head);
+
 //test functions
 void		print_mem(int size, unsigned char *mem);
 void		print_process(t_process *process);
 void		print_all_process(t_process *head);
+void		print_arena(t_header_t *player, int size, unsigned char *mem);
 
 #endif
