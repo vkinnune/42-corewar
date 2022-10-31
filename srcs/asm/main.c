@@ -6,12 +6,11 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 21:52:25 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:06:38 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-#include <stdio.h>
 
 t_parser	*get_parser()
 {
@@ -26,6 +25,14 @@ t_token_list	*get_token_list()
 
 	parse = get_parser();
 	return (&parse->token_list);
+}
+
+t_source	*get_source()
+{
+	t_parser	*parse;
+
+	parse = get_parser();
+	return (&parse->source);
 }
 
 void	init_parser()
@@ -83,19 +90,95 @@ int	check_valid(char *line, int len)
 	return (1);
 }
 
-void	parser(const char *input)
+int	move_forward(char **forward_p)
 {
-	char	*forward_p;
-	char	*stay_p;
+	t_source	*source;
 
-	forward_p = (char *)input;
-	stay_p = (char *)input;
-	while (*forward_p)
+	source = get_source();
+	if (**forward_p == '\n')
 	{
+		source->row++;
+		source->col = 0;
+	}
+	else if (**forward_p == '\0')
+		return (0);
+	(*forward_p)++;
+	source->col++;
+	return (1);
+}
+
+void	handle_asm(char *forward_p, char *stay_p)
+{
+	while (move_forward(&forward_p))
+	{
+		if (*forward_p == ' ' || *forward_p == '\t' || *forward_p == '\n')
+			continue ;
 		if (check_valid(stay_p, forward_p - stay_p))
 			stay_p = forward_p + 1;
-		forward_p++;
+		else
+		{
+			printf("Error in col: %d row: %d", get_source()->col, get_source()->col);
+			exit(EXIT_FAILURE);
+		}
 	}
+}
+
+char	*save_header_string(char *p, t_header_type type)
+{
+	char	*saved_string;
+	char	*stay_p;
+
+	stay_p = 0;
+	while (1)
+	{
+		if (*p == '\"')
+		{
+			if (!stay_p)
+			{
+				if (type == name && (p - stay_p) < NAME_SIZE)
+					ft_memcpy(get_source()->name, stay_p, p - stay_p);
+				else if (type == comment && (p - stay_p) < COMMENT_SIZE)
+					ft_memcpy(get_source()->comment, stay_p, p - stay_p);
+				else
+					ft_out(HEADER_TOO_BIG);
+				break ;
+			}
+			stay_p = p;
+		}
+		else if (*p != ' ' || *p != '\t')
+			ft_out(HEADER_ERROR);
+		p++;
+	}
+}
+
+char	*handle_header(const char *input)
+{
+	char	*p;
+
+	p = (char *)input;
+	while (!get_source()->name || get_source()->comment)
+	{
+		if (*p == '\t' || *p == ' ')
+		{
+			p++;
+			continue ;
+		}
+		if (ft_strncmp(".name", p, 5))
+			p = save_header_string(&p[5], name);
+		else if (ft_strncmp(".comment", &p[8], 8))
+			p = save_header_string(p, comment);
+	}
+	return (p);
+}
+
+void	parser(const char *input)
+{
+	char	*p;
+
+	//handle header, handle header goes to the start of the asm
+	p = handle_header(input);
+	//handle asm
+	handle_asm(p, p);
 }
 
 char *read_file(char *file_name)
