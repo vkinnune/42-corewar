@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:56:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 17:46:00 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
+
+void		delete_process(t_process *prev, t_process *delete)
+{
+	prev->next = delete->next;
+	ft_memdel((void **)&delete);
+}
 
 t_process	*new_process(t_process *head, uint16_t pos, int id)
 {
