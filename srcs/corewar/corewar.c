@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/30 21:21:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 10:53:06 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void	arena_init(t_header_t *player, uint8_t p_count)
 void	corewar(t_header_t *player, uint8_t p_count)
 {
 	arena_init(player, p_count);
+	// print_mem(MEM_SIZE, arena);
 	process_init(player, p_count);
 }

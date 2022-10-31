@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/30 22:51:45 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 08:57:57 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	process_init(t_header_t *player, uint8_t p_count)
 	head = NULL;
 	while (i < p_count)
 	{
-		new_process = set_processes(head, p_start, i + 1);
+		new_process = set_processes(head, p_start, player[i].id);
 		head = new_process;
 		p_start += MEM_SIZE / p_count;
 		i++;
