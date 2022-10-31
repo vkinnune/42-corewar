@@ -6,25 +6,24 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:03:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 14:06:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-static void	flag_handler(char **arg, uint8_t i
-			, int8_t *p_num, uint64_t *dump_nbr)
+static void	flag_handler(char **argv, int argc, uint8_t i, int8_t *id)
 {
-	if (!ft_strcmp(arg[i], "-n"))
+	if (!ft_strcmp(argv[i], "-n"))
 	{
-		check_valid_arg(arg[i + 1]);
-		*p_num = ft_atoi((const char *)arg[i + 1]);
-		check_num_within_range(*p_num);
+		check_valid_arg(argv, argc, i);
+		*id = ft_atoi((const char *)argv[i + 1]);
+		check_num_within_range(*id);
 	}
-	else if (!ft_strcmp(arg[i], "-dump"))
+	else if (!ft_strcmp(argv[i], "-dump"))
 	{
-		check_valid_arg(arg[i + 1]);
-		*dump_nbr = ft_atoi((const char *)arg[i + 1]);
+		check_valid_arg(argv, argc, i);
+		g_dump_nbr = ft_atoi((const char *)argv[i + 1]);
 		//check if number < 0? or just ignore it?
 	}
 	else
@@ -41,12 +40,12 @@ static void	get_file_content(unsigned char *str, char *file)
 	check_file_type(str);
 }
 
-void	introduce_le_champ(t_header_t *player, uint8_t p_count)
+void	introduce_le_champ(t_header_t *player)
 {
 	uint8_t	i;
 
 	i = 0;
-	while (i < p_count)
+	while (i < g_p_count)
 	{
 		check_missing_id(player[i].id);
 		ft_printf("* Player %d @%d, weighing %d bytes, \"%s\" (\"%s\")!\n",
@@ -57,32 +56,29 @@ void	introduce_le_champ(t_header_t *player, uint8_t p_count)
 	}
 }
 
-int	parse(t_header_t *player, char **argv, uint32_t argc)
+void	parse(t_header_t *player, char **argv, int argc)
 {
-	uint8_t			p_count; //might move this to global
 	uint8_t			i;
 	int8_t			id;
-	uint64_t		dump_nbr; //and this too
 	unsigned char	str[MEM_SIZE];
 
-	p_count = 0;
+	g_p_count = 0;
 	id = NOT_SET;
 	i = 1;
 	while (i < argc)
 	{
 		if (argv[i][0] == '-')
-			flag_handler(argv, i++, &id, &dump_nbr);
+			flag_handler(argv, argc, i++, &id);
 		else
 		{
 			get_file_content(str, argv[i]);
 			assign_player(player, str, id);
 			id = NOT_SET;
-			p_count++;
+			g_p_count++;
 		}
 		i++;
 	}
-	check_num_within_range(p_count);
-	player_sort(player, p_count);
-	introduce_le_champ(player, p_count);
-	return (p_count);
+	check_num_within_range(g_p_count);
+	player_sort(player);
+	introduce_le_champ(player);
 }

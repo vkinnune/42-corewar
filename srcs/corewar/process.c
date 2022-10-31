@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:12:23 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 13:56:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_process	*new_process(t_process *head, uint16_t pos, int id)
 	return (process);
 }
 
-void	process_init(t_header_t *player, uint8_t p_count)
+void	process_init(t_header_t *player)
 {
 	uint8_t		i;
 	uint16_t	p_start;
@@ -38,11 +38,11 @@ void	process_init(t_header_t *player, uint8_t p_count)
 	i = 0;
 	p_start = 0;
 	head = NULL;
-	while (i < p_count)
+	while (i < g_p_count)
 	{
 		new = new_process(head, p_start, player[i].id);
 		head = new;
-		p_start += MEM_SIZE / p_count;
+		p_start += MEM_SIZE / g_p_count;
 		i++;
 	}
 	print_all_process(head);

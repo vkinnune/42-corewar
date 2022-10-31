@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:05:25 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 13:39:09 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,25 @@ void	check_num_within_range(uint8_t num)
 	}
 }
 
-void	check_valid_arg(char *arg)
+void	check_valid_arg(char **argv, int argc, uint8_t i)
 {
-	uint8_t	i;
+	uint8_t	j;
+	uint8_t	error;
 
-	i = 0;
-	while (arg[i])
+	error = 0;
+	j = 0;
+	if (i + 1 == argc)
+		error = 1;
+	else
 	{
-		if (!ft_isdigit(arg[i]))
-		{
-			ft_printf("Stop teasing me B..BAKA!!! (>ε<)\"\n");
-			exit(0);
-		}
-		i++;
+		while (argv[i + 1][j])
+			if (!ft_isdigit(argv[i + 1][j++]))
+				error = 1;
+	}
+	if (error)
+	{
+		ft_printf("Stop teasing me B..BAKA!!! (>ε<)\"\n");
+		exit(0);
 	}
 }
 

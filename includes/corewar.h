@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:07:17 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/31 14:07:29 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@
 
 # define NOT_SET -1
 
-unsigned char	g_arena[MEM_SIZE];
+extern unsigned char	g_arena[MEM_SIZE];
+extern uint8_t			g_p_count;
+extern uint64_t			g_dump_nbr;
 
 typedef struct s_process t_process;
 
@@ -37,32 +39,32 @@ struct s_process
 };
 
 //parse.c
-int			parse(t_header_t *player, char **argv, uint32_t argc);
+void		parse(t_header_t *player, char **argv, int argc);
 
 //player_handler.c
 void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num);
-void		player_sort(t_header_t *player, uint8_t p_count);
+void		player_sort(t_header_t *player);
 
 //error.c
 void		check_file_size(uint32_t size);
 void		check_file_type(unsigned char *file);
 void		check_err_malloc(void *ptr);
 void		print_man_page(void);
-void		check_valid_arg(char *arg);
+void		check_valid_arg(char **argv, int argc, uint8_t i);
 void		check_existing_id(int8_t id);
 void		check_missing_id(int8_t id);
 void		check_num_within_range(uint8_t num);
 
 //process.c
 t_process	*new_process(t_process *head, uint16_t pos, int id);
-void		process_init(t_header_t *player, uint8_t p_count);
+void		process_init(t_header_t *player);
 
 //utilities.c
 int			get_4byte(unsigned char *size_byte);
 void		initialize(t_header_t *player);
 
 //corewar.c
-void		corewar(t_header_t *player, uint8_t p_count);
+void		corewar(t_header_t *player);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);
