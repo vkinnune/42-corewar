@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
+#    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/31 11:05:53 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/10/31 16:56:28 by jrummuka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ $(ASM_NAME): $(ASM_OBJS) $(PRINTF)
 	gcc $(ASM_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c
-	@mkdir -p $(ASM_OBJS_DIR)
-	gcc -c $< $(INCLUDES) -o $@
+	mkdir -p $(ASM_OBJS_DIR)
+	gcc -g -c $< $(INCLUDES) -o $@
 
 ################ Printf ################
 
