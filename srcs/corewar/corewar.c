@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 20:28:54 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 14:33:39 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,16 @@ void	arena_init(t_header_t *player)
 
 void	corewar(t_header_t *player)
 {
+	t_process	*head;
+
 	arena_init(player);
-	print_arena(player, MEM_SIZE, g_arena);
-	vm(player, process_init(player));
+	print_arena(player);
+	head = process_init(player);
+	// print_all_process(head);
+	vm(player, head);
+	while (head)
+	{
+		delete_process(0, head);
+		head = head->next;
+	}
 }

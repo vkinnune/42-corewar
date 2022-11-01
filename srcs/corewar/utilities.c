@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 20:25:45 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 14:30:41 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,36 +54,31 @@ void	print_mem(int size, unsigned char *mem)
 	ft_printf("\n");
 }
 
-void	print_arena(t_header_t *player, int size, unsigned char *mem)
+void	print_arena(t_header_t *player)
 {
 	int			i;
-	uint16_t	p_start;
-	int 		p_count;
-	int			program_size;
+	int			p_area;
 
-	p_start = MEM_SIZE / g_p_count;
-	program_size = 0;
+	p_area = (MEM_SIZE / g_p_count);
 	i = 0;
-	p_count = 0;
-	while (i < size)
+	while (i < MEM_SIZE)
 	{
-		if (mem[i] == 0 && i > (player[p_count].prog_size + p_start - MEM_SIZE / g_p_count))
-			ft_printf("%02x ", mem[i++]);
-		else if (p_count == 0)
-			ft_printf("%$g02x ", mem[i++]);
-		else if (p_count == 1)
-			ft_printf("%$b02x ", mem[i++]);
-		else if (p_count == 2)
-			ft_printf("%$r02x ", mem[i++]);
-		else if (p_count == 3)
-			ft_printf("%$b02x ", mem[i++]);
+		if (i == p_area * 0)
+			ft_printf("$g");
+		else if (i == p_area * 1)
+			ft_printf("$b");
+		else if (i == p_area * 2)
+			ft_printf("$r");
+		else if (i == p_area * 3)
+			ft_printf("$b");
+		else if (i == p_area * 0 + player[0].prog_size
+			|| i == p_area * 1 + player[1].prog_size
+			|| i == p_area * 2 + player[2].prog_size
+			|| i == p_area * 3 + player[3].prog_size)
+			ft_printf("$d");
+		ft_printf("%02x ", g_arena[i++]);
 		if (i % 64 == 0)
 			ft_printf("\n");
-		if (i == p_start)
-		{
-			p_count++;
-			p_start += MEM_SIZE / g_p_count;
-		}
 	}
 	ft_printf("\n");
 }
@@ -93,7 +88,7 @@ void	print_process(t_process *process)
 	int	i;
 
 	i = 0;
-	ft_printf("id: %d\n", process->process_id);
+	// ft_printf("id: %d\n", process->process_id);
 	ft_printf("prog_count: %d\n", process->prog_counter);
 	ft_printf("carry: %d\n", process->carry);
 	ft_printf("instruction: %d\n", process->instruction);
