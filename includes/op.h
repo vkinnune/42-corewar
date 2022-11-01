@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/01 17:22:51 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 18:12:43 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@
 
 typedef char	t_arg_type;
 
-# define T_REG				1
-# define T_DIR				2
-# define T_IND				4
+# define T_REG				0b001 //1
+# define T_DIR				0b010 //2
+# define T_IND				0b100 //4
 # define T_LAB				8
 
 /*

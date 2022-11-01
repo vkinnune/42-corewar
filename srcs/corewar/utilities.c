@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 17:23:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 19:44:30 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,22 @@ int	get_4byte(unsigned char *size_byte)
 
 	value = 0;
 	i = 0;
-	while (i < MAX_PLAYERS)
+	while (i < 4)
 		value = (value * 0x100) + size_byte[i++];
 	return (value);
+}
+
+uint8_t	get_2bit(uint8_t byte, uint8_t position)
+{
+	uint8_t	bit;
+
+	if (position == 0)
+		bit = 6;
+	if (position == 1)
+		bit = 4;
+	if (position == 2)
+		bit = 2;
+	return ((byte >> bit) & 0b11);
 }
 
 void	initialize(t_header_t *player)

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 17:24:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 20:03:34 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,16 @@ void		check_missing_id(int8_t id);
 void		check_num_within_range(uint8_t num);
 
 //process.c
+void		processor(t_game_param *game);
+
+//process_util.c
 void		delete_process(t_process *prev, t_process *delete);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
 t_process	*process_init(t_header_t *player);
-void		processor(t_game_param *game);
 void		process_kill(t_game_param *game);
-
 //utilities.c
 int			get_4byte(unsigned char *size_byte);
+uint8_t		get_2bit(uint8_t byte, uint8_t position);
 void		initialize(t_header_t *player);
 
 //corewar.c
@@ -124,6 +126,11 @@ void		corewar(t_header_t *player, t_flag *flags);
 
 //game.c
 void		vm(t_header_t *player, t_process *head, t_flag *flag);
+
+//instruction.c
+void		sti(t_process *process);
+void		check_matching_arg(t_process *process);
+
 
 //test functions
 void		print_mem(int size, unsigned char *mem);
