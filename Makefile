@@ -6,11 +6,7 @@
 #    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2022/10/31 17:54:05 by jrummuka         ###   ########.fr        #
-=======
-#    Updated: 2022/11/01 13:29:29 by qnguyen          ###   ########.fr        #
->>>>>>> origin/quang_branch
+#    Updated: 2022/11/01 14:55:07 by jrummuka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 14:33:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 16:54:16 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	arena_init(t_header_t *player)
 	}
 }
 
-void	corewar(t_header_t *player)
+void	corewar(t_header_t *player, t_flag *flags)
 {
 	t_process	*head;
 
 	arena_init(player);
-	print_arena(player);
+	print_arena(player, flags);
 	head = process_init(player);
 	// print_all_process(head);
 	vm(player, head);

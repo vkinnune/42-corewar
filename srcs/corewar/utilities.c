@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 14:30:41 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:01:27 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_mem(int size, unsigned char *mem)
 	ft_printf("\n");
 }
 
-void	print_arena(t_header_t *player)
+void	print_arena(t_header_t *player, t_flag *flags)
 {
 	int			i;
 	int			p_area;
@@ -69,7 +69,7 @@ void	print_arena(t_header_t *player)
 			ft_printf("$b");
 		else if (i == p_area * 2)
 			ft_printf("$r");
-		else if (i == p_area * 3)
+		else if (i == p_area * 3 && g_p_count > 3)
 			ft_printf("$b");
 		else if (i == p_area * 0 + player[0].prog_size
 			|| i == p_area * 1 + player[1].prog_size
@@ -77,7 +77,7 @@ void	print_arena(t_header_t *player)
 			|| i == p_area * 3 + player[3].prog_size)
 			ft_printf("$d");
 		ft_printf("%02x ", g_arena[i++]);
-		if (i % 64 == 0)
+		if (i % flags->byte == 0)
 			ft_printf("\n");
 	}
 	ft_printf("\n");
