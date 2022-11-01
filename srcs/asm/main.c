@@ -61,6 +61,11 @@ int	label_check(char **p)
 	}
 }
 
+int	instruction_check(char **p)
+{
+
+}
+
 void	save_token(char **p, t_token_type token_type)
 {
 	t_token_list	*token_list;
@@ -76,10 +81,9 @@ int	check_valid(char **p)
 
 	if (label_check(p))
 		token_type = label;
-	/*
-	else if (instruction_check())
-		;
-	else if (register_check())
+	else if (instruction_check(p))
+		token_type = instruction;
+	/*else if (register_check())
 		;
 	else if (separator_check())
 		;

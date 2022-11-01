@@ -25,6 +25,13 @@
 
 void	validate_argument(int ac, char **av);
 
+char	instructions[][] =
+{
+	"lfork",
+	"sti",
+	//continue
+}
+
 typedef enum	e_token_type
 {
 	label,	//loop:
@@ -66,3 +73,4 @@ typedef	struct s_parser {
 }	t_parser;
 
 #endif
+
