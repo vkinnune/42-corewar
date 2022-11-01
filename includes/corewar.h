@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 16:20:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:24:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct s_process t_process;
 typedef struct s_op	t_op;
 typedef struct s_game_param	t_game_param;
+typedef struct s_flag t_flag;
 
 struct s_process
 {
@@ -78,6 +79,12 @@ enum registry
 	r16
 };
 
+struct s_flag
+{
+	int8_t id;
+	uint8_t byte;
+};
+
 extern unsigned char	g_arena[MEM_SIZE];
 extern uint8_t			g_p_count;
 extern int64_t			g_dump_nbr;
@@ -85,7 +92,7 @@ extern t_op				op_tab[17];
 extern enum registry	reg;
 
 //parse.c
-void		parse(t_header_t *player, char **argv, int argc);
+void	parse(t_header_t *player, char **argv, int argc, t_flag *flags);
 
 //player_handler.c
 void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num);
@@ -113,15 +120,15 @@ int			get_4byte(unsigned char *size_byte);
 void		initialize(t_header_t *player);
 
 //corewar.c
-void		corewar(t_header_t *player);
+void		corewar(t_header_t *player, t_flag *flags);
 
 //game.c
-void		vm(t_header_t *player, t_process *head);
+void		vm(t_header_t *player, t_process *head, t_flag *flag);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);
 void		print_process(t_process *process);
 void		print_all_process(t_process *head);
-void		print_arena(t_header_t *player);
+void		print_arena(t_header_t *player, t_flag *flags);
 
 #endif

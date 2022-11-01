@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 16:32:36 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:23:39 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	initialize(t_header_t *player)
 	}
 }
 
-void	print_arena(t_header_t *player)
+void	print_arena(t_header_t *player, t_flag *flags)
 {
 	int			i;
 	int			p_area;
@@ -61,7 +61,7 @@ void	print_arena(t_header_t *player)
 			|| i == p_area * 3 + player[3].prog_size)
 			ft_printf("$d");
 		ft_printf("%02x ", g_arena[i++]);
-		if (i % 64 == 0)
+		if (i % flags->byte == 0)
 			ft_printf("\n");
 	}
 	ft_printf("\n");

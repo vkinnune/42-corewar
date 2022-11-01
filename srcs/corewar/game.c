@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:14:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 16:50:09 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:25:32 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	param_init(t_game_param *game, t_process *head)
 	game->check_counter = 0;
 }
 
-void	vm(t_header_t *player, t_process *head)
+void	vm(t_header_t *player, t_process *head, t_flag *flag)
 {
 	t_game_param	game;
 
@@ -49,7 +49,7 @@ void	vm(t_header_t *player, t_process *head)
 		check(&game);
 		if (game.current_cycle == g_dump_nbr)
 		{
-			print_arena(player);
+			print_arena(player, flag);
 			exit (0);
 		}
 		game.current_cycle++;
