@@ -133,22 +133,23 @@ char	*save_header_string(char *p, t_header_type type)
 	{
 		if (*p == '\"')
 		{
-			if (!stay_p)
+			if (stay_p)
 			{
 				if (type == name && (p - stay_p) < NAME_SIZE)
-					ft_memcpy(get_source()->name, stay_p, p - stay_p);
+					ft_memcpy(get_source()->name, &stay_p[1], (p - stay_p) - 1);
 				else if (type == comment && (p - stay_p) < COMMENT_SIZE)
-					ft_memcpy(get_source()->comment, stay_p, p - stay_p);
+					ft_memcpy(get_source()->comment, &stay_p[1], (p - stay_p) - 1);
 				else
 					ft_out(HEADER_TOO_BIG);
 				break ;
 			}
 			stay_p = p;
 		}
-		else if (*p != ' ' || *p != '\t')
+		else if (*p != ' ' && *p != '\t' && !stay_p)
 			ft_out(HEADER_ERROR);
 		p++;
 	}
+	return (p + 1);
 }
 
 char	*handle_header(const char *input)
@@ -156,17 +157,16 @@ char	*handle_header(const char *input)
 	char	*p;
 
 	p = (char *)input;
-	while (!get_source()->name || get_source()->comment)
+	while (!*(get_source()->name) || !*(get_source()->comment))
 	{
-		if (*p == '\t' || *p == ' ')
-		{
+		if (*p == '\t' || *p == ' ' || *p == '\n')
 			p++;
-			continue ;
-		}
-		if (ft_strncmp(".name", p, 5))
+		else if (!ft_strncmp(".name", p, 5))
 			p = save_header_string(&p[5], name);
-		else if (ft_strncmp(".comment", &p[8], 8))
-			p = save_header_string(p, comment);
+		else if (!ft_strncmp(".comment", p, 8))
+			p = save_header_string(&p[8], comment);
+		else
+			ft_out(HEADER_ERROR);
 	}
 	return (p);
 }
