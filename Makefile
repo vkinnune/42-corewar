@@ -6,14 +6,19 @@
 #    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/10/31 17:54:05 by jrummuka         ###   ########.fr        #
+=======
+#    Updated: 2022/11/01 13:29:29 by qnguyen          ###   ########.fr        #
+>>>>>>> origin/quang_branch
 #                                                                              #
 # **************************************************************************** #
 
 COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
-COR_FILE = main player_handler error utilities parse process corewar player_sort
+COR_FILE = main player_handler error utilities parse process corewar player_sort \
+			game op
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 

@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 17:16:23 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:53:31 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int	main(int argc, char **argv)
 	initialize(player);
 	parse(player, argv, argc);
 	corewar(player);
-	ft_printf("%lld\n", g_dump_nbr);
 	return (0);
 }
