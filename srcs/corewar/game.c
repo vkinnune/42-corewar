@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:14:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 14:44:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 16:50:09 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,16 @@ void	vm(t_header_t *player, t_process *head)
 
 	param_init(&game, head);
 	// while (game.live_performed)//one process is living
-	while (game.current_cycle < 10)
+	while (game.current_cycle < 30)
 	{
+		ft_printf("cycle %d: \n", game.current_cycle);
 		processor(&game);
 		check(&game);
-		ft_printf("cycle %d: \n", game.current_cycle);
+		if (game.current_cycle == g_dump_nbr)
+		{
+			print_arena(player);
+			exit (0);
+		}
 		game.current_cycle++;
 	}
 }

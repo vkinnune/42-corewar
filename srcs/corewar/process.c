@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 14:40:08 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:00:26 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	read_instruction(t_process *process)
 			// process->bytes_to_next_instr
 			// process->last_live_cycle
 		}
-		process->wait_cycle--;
+		process->wait_cycle--; //move this to when the instruction is executed (?)
 	}
 	else
 	{
@@ -93,9 +93,10 @@ static void	read_instruction(t_process *process)
 	}
 }
 
-void	execute_le_code(t_process *process)
+void	execute_le_code(t_game_param *game, t_process *process)
 {
-	ft_printf("Me doing %$bs now (ㆁᴗㆁ✿)\n", op_tab[process->instruction - 1].name);
+	ft_printf("Me doing %$bs now @ %$rd (ㆁᴗㆁ✿)\n", op_tab[process->instruction - 1].name, game->current_cycle);
+	//func_table[process->instruction - 1](process);
 }
 
 void	processor(t_game_param *game)
@@ -107,7 +108,7 @@ void	processor(t_game_param *game)
 	{
 		read_instruction(current);
 		if (current->wait_cycle == 0)
-			execute_le_code(current);
+			execute_le_code(game, current);
 		current = current->next;
 	}
 }

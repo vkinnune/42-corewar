@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 14:29:10 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 16:20:48 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "op.h"
 # include <stdint.h> //used for types in linux - remove before submitting the project
 
-# define NOT_SET -1
+# define NOT_SET 42
 
 typedef struct s_process t_process;
 typedef struct s_op	t_op;
@@ -80,7 +80,7 @@ enum registry
 
 extern unsigned char	g_arena[MEM_SIZE];
 extern uint8_t			g_p_count;
-extern uint64_t			g_dump_nbr;
+extern int64_t			g_dump_nbr;
 extern t_op				op_tab[17];
 extern enum registry	reg;
 
