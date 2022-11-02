@@ -53,6 +53,8 @@ int	label_check(char **p)
 		if ((*p)[i] == ':')
 		{
 			*p = &(*p)[i + 1];
+			get_source()->col += i + 1;
+			get_source()->label = true;
 			return (1);
 		}
 		else if ((*p)[i] == '\n' || (*p)[i] == '\0')
@@ -66,11 +68,23 @@ int	instruction_check(char **p)
 	int	i;
 
 	i = 0;
-	while ()
+	while (i != INSTRUCTION_AMOUNT)
 	{
-
+		if (!ft_strncmp(op_tab[i].name, *p, ft_strchr(*p, ' ') - *p))
+		{
+			*p = &(*p)[ft_strlen(op_tab[i].name)];
+			get_source()->col += ft_strlen(op_tab[i].name);
+			get_source()->ins = true;
+			return (1);
+		}
+		i++;
 	}
 	return (0);
+}
+
+int	register_check(char **p)
+{
+
 }
 
 void	save_token(char **p, t_token_type token_type)
@@ -86,12 +100,13 @@ int	check_valid(char **p)
 {
 	t_token_type	token_type;
 
-	if (label_check(p))
+	if (get_source()->label == false && label_check(p))
 		token_type = label;
-	else if (instruction_check(p))
+	else if (get_source()->ins == false && instruction_check(p))
 		token_type = instruction;
-	/*else if (register_check())
-		;
+	else if (register_check(p))
+		token_type = reg;
+	/*
 	else if (separator_check())
 		;
 	else if (direct_label_check())
@@ -112,13 +127,16 @@ int	move_forward(char **p)
 	source = get_source();
 	if (**p == '\n')
 	{
+		source->ins = false;
+		source->label = false;
 		source->row++;
 		source->col = 0;
 	}
 	else if (**p == '\0')
 		return (0);
+	else
+		source->col++;
 	(*p)++;
-	source->col++;
 	return (1);
 }
 
@@ -130,7 +148,7 @@ void	handle_asm(char *p)
 			continue ;
 		else if (!check_valid(&p))
 		{
-			printf("Error in col: %d row: %d", get_source()->col, get_source()->col);
+			printf("Error in col: %d row: %d", get_source()->col, get_source()->row);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -181,6 +199,8 @@ char	*handle_header(const char *input)
 		else
 			ft_out(HEADER_ERROR);
 	}
+	get_source()->row = 2;
+	get_source()->col = 0;
 	return (p);
 }
 
