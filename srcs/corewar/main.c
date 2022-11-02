@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 14:17:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 15:34:12 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 unsigned char	g_arena[MEM_SIZE];
 uint8_t			g_p_count;
-int64_t			g_dump_nbr;
 
 int	main(int argc, char **argv)
 {
@@ -23,7 +22,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		print_man_page();
-	g_dump_nbr = -1;
+	flags.dump_nbr = -1;
 	initialize(player);
 	parse(player, argv, argc, &flags);
 	corewar(player, &flags);

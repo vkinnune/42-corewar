@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:14:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 17:25:32 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 15:36:58 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	param_init(t_game_param *game, t_process *head)
 	game->check_counter = 0;
 }
 
-void	vm(t_header_t *player, t_process *head, t_flag *flag)
+void	vm(t_header_t *player, t_process *head, t_flag *flags)
 {
 	t_game_param	game;
 
@@ -47,9 +47,9 @@ void	vm(t_header_t *player, t_process *head, t_flag *flag)
 		ft_printf("cycle %d: \n", game.current_cycle);
 		processor(&game);
 		check(&game);
-		if (game.current_cycle == g_dump_nbr)
+		if (game.current_cycle == flags->dump_nbr)
 		{
-			print_arena(player, flag);
+			print_arena(player, flags);
 			exit (0);
 		}
 		game.current_cycle++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 14:28:22 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 15:33:37 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ enum registry
 
 struct s_flag
 {
-	int8_t id;
-	uint8_t byte;
+	int8_t	id;
+	uint8_t	byte;
+	int64_t	dump_nbr;
 };
 
 extern unsigned char	g_arena[MEM_SIZE];

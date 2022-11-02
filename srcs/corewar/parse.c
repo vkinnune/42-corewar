@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 17:21:14 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 15:35:11 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 	else if (!ft_strcmp(argv[i], "-dump") || !ft_strcmp(argv[i], "-d"))
 	{
 		check_valid_arg(argv, argc, i);
-		g_dump_nbr = ft_atoi((const char *)argv[i + 1]);
+		flags->dump_nbr = ft_atoi((const char *)argv[i + 1]);
 		//check if number < 0? or just ignore it?
 		if (argv[i][2] == 'u')
 			flags->byte = 32;
