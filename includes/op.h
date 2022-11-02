@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/02 16:23:17 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 17:26:29 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ typedef struct s_op
 	char			name[5];
 	uint8_t			arg_amt :2;
 	uint8_t			arg_type[3];
-	uint8_t			byte_code :5;
+	uint8_t			order_num :5;
 	uint16_t		wait_cycle;
 	char			*description;
 	uint8_t			carry_mod :1;

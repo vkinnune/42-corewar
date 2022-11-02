@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:39:09 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 18:39:05 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_file_type(unsigned char *file)
 {
-	if (get_4byte(file) == COREWAR_EXEC_MAGIC)
+	if (get_n_byte(4, file) == COREWAR_EXEC_MAGIC)
 		return ;
 	ft_printf("What are you putting into me Senpai >///<\n");
 	exit (0);

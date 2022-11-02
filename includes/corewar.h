@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 16:53:01 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 18:58:30 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_process t_process;
 typedef struct s_game_param	t_game_param;
 typedef struct s_flag t_flag;
+typedef struct s_arg t_arg;
 
 struct s_process
 {
@@ -47,6 +48,13 @@ struct s_game_param
 	uint64_t	current_cycle;
 	t_process	*head;
 };
+
+struct s_arg
+{
+	uint8_t		arg_type;
+	uint32_t	value;
+};
+
 
 enum registry
 {
@@ -107,7 +115,7 @@ t_process	*process_init(t_header_t *player);
 void		process_kill(t_game_param *game);
 
 //utilities.c
-int			get_4byte(unsigned char *size_byte);
+int			get_n_byte(uint8_t n, unsigned char *size_byte);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
 void		initialize(t_header_t *player);
 
@@ -118,16 +126,17 @@ void		corewar(t_header_t *player, t_flag *flags);
 void		vm(t_header_t *player, t_process *head, t_flag *flag);
 
 //instruction.c
-void		sti(t_process *process);
-uint8_t		check_matching_arg(t_process *process, uint8_t *arg);
 
 //instruc_util.c
-uint8_t		check_matching_arg(t_process *process, uint8_t *arg);
+uint8_t		check_matching_arg(t_process *process, t_arg *arg);
+int8_t		assign_arg_value(t_arg *arg, t_process *process);
+void		casting(t_arg *arg);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);
 void		print_process(t_process *process);
 void		print_all_process(t_process *head);
 void		print_arena(t_header_t *player, t_flag *flags);
+void		print_arg(t_process *process, t_arg *arg);
 
 #endif

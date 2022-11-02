@@ -4,3 +4,5 @@ does this mean some .cor file might not have prog_size data?
 
 //hypothetical: if a byte is a instruction repalced with the same one -> ignore
 //ask miriam
+
+//fix ./corewar moro.cor 1

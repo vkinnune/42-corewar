@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 18:14:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 15:36:58 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:09:27 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	vm(t_header_t *player, t_process *head, t_flag *flags)
 		ft_printf("cycle %d: \n", game.current_cycle);
 		processor(&game);
 		check(&game);
-		if (game.current_cycle == flags->dump_nbr)
+		if (game.current_cycle >= flags->dump_nbr)
 		{
 			print_arena(player, flags);
 			exit (0);

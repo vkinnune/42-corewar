@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:13:37 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 11:05:10 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 18:38:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	get_size(unsigned int *prog_size, unsigned char *size_byte)
 {
-	*prog_size = get_4byte(size_byte);
+	*prog_size = get_n_byte(4, size_byte);
 	check_file_size(*prog_size);
 	return (4);
 }

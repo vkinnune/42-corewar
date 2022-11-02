@@ -6,20 +6,20 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 19:44:30 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 19:04:59 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-int	get_4byte(unsigned char *size_byte)
+int	get_n_byte(uint8_t n, unsigned char *size_byte)
 {
 	uint8_t		i;
 	uint32_t	value;
 
 	value = 0;
 	i = 0;
-	while (i < 4)
+	while (i < n)
 		value = (value * 0x100) + size_byte[i++];
 	return (value);
 }
@@ -118,5 +118,16 @@ void	print_all_process(t_process *head)
 	{
 		print_process(head);
 		head = head->next;
+	}
+}
+
+void	print_arg(t_process *process, t_arg *arg)
+{
+	int i = 0;
+
+	while (i < op_tab[process->instruction - 1].arg_amt)
+	{
+		ft_printf("arg %d: %u\n", i, arg[i].value);
+		i++;
 	}
 }
