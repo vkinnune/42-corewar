@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 15:33:37 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:53:01 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ struct s_game_param
 
 enum registry
 {
-	r1,
+	r1 = 1,
 	r2,
 	r3,
 	r4,
@@ -105,6 +105,7 @@ void		delete_process(t_process *prev, t_process *delete);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
 t_process	*process_init(t_header_t *player);
 void		process_kill(t_game_param *game);
+
 //utilities.c
 int			get_4byte(unsigned char *size_byte);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
@@ -120,6 +121,8 @@ void		vm(t_header_t *player, t_process *head, t_flag *flag);
 void		sti(t_process *process);
 uint8_t		check_matching_arg(t_process *process, uint8_t *arg);
 
+//instruc_util.c
+uint8_t		check_matching_arg(t_process *process, uint8_t *arg);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);

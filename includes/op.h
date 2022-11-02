@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/02 14:28:28 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 16:23:17 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define IND_SIZE			2
 # define REG_SIZE			4
 # define DIR_SIZE			REG_SIZE
+
+# define REG_NAME_SIZE		1
 
 # define REG_CODE			0b01 //1
 # define DIR_CODE			0b10 //2
@@ -59,6 +61,7 @@ typedef char	t_arg_type;
 # define T_REG				0b001 //1
 # define T_DIR				0b010 //2
 # define T_IND				0b100 //4
+
 # define T_LAB				8
 
 /*
