@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 20:03:34 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 14:11:38 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include "op.h"
 # include <stdint.h> //used for types in linux - remove before submitting the project
 
-# define NOT_SET 42
+# define NOT_SET	42
+# define EI_KIITOS	-1
+# define DAIJOBU	1
 
 typedef struct s_process t_process;
 typedef struct s_op	t_op;
@@ -92,7 +94,7 @@ extern t_op				op_tab[17];
 extern enum registry	reg;
 
 //parse.c
-void	parse(t_header_t *player, char **argv, int argc, t_flag *flags);
+void		parse(t_header_t *player, char **argv, int argc, t_flag *flags);
 
 //player_handler.c
 void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num);
@@ -129,7 +131,7 @@ void		vm(t_header_t *player, t_process *head, t_flag *flag);
 
 //instruction.c
 void		sti(t_process *process);
-void		check_matching_arg(t_process *process);
+uint8_t		check_matching_arg(t_process *process, uint8_t *arg);
 
 
 //test functions

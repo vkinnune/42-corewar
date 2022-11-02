@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 20:03:47 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 13:35:33 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	read_instruction(t_process *process)
 static void	execute_le_code(t_game_param *game, t_process *process)
 {
 	ft_printf("Me doing %$bs now @ %$rd (ㆁᴗㆁ✿)\n", op_tab[process->instruction - 1].name, game->current_cycle);
-	check_matching_arg(process);
+	sti(process);
 	//func_table[process->instruction - 1](process);
 }
 
