@@ -40,6 +40,7 @@ void	init_parser()
 	t_parser	*parse;
 
 	parse = get_parser();
+	init_source();
 	ft_bzero(parse, sizeof(t_parser));
 }
 
@@ -63,7 +64,14 @@ int	label_check(char **p)
 
 int	instruction_check(char **p)
 {
+	int	i;
 
+	i = 0;
+	while ()
+	{
+
+	}
+	return (0);
 }
 
 void	save_token(char **p, t_token_type token_type)
@@ -220,7 +228,7 @@ void	print_tokens()
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		printf("%d ", token_list->tokens[i].type);
+		ft_printf("%d ", token_list->tokens[i].type);
 		i++;
 	}
 }

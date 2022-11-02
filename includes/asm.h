@@ -24,13 +24,22 @@
 # include <stdbool.h>
 
 void	validate_argument(int ac, char **av);
-
-char	instructions[][] =
-{
-	"lfork",
-	"sti",
-	//continue
-}
+ins[0] = "lfork";
+ins[1] = "sti";
+ins[2] = "fork";
+ins[3] = "lld";
+ins[4] = "ld";
+ins[5] = "add";
+ins[6] = "zjmp";
+ins[7] = "sub";
+ins[8] = "ldi";
+ins[9] = "or";
+ins[10] = "st";
+ins[11] = "aff";
+ins[12] = "live";
+ins[13] = "xor";
+ins[14] = "lldi";
+ins[15] = "and";
 
 typedef enum	e_token_type
 {
@@ -65,6 +74,7 @@ typedef struct s_source {
 	int		row;
 	char	name[NAME_SIZE];
 	char	comment[COMMENT_SIZE];
+	char	*ins[16][7];
 }	t_source;
 
 typedef	struct s_parser {
