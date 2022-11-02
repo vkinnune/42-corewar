@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/10/31 09:03:18 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 18:12:43 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@
 
 typedef char	t_arg_type;
 
-# define T_REG				1
-# define T_DIR				2
-# define T_IND				4
+# define T_REG				0b001 //1
+# define T_DIR				0b010 //2
+# define T_IND				0b100 //4
 # define T_LAB				8
 
 /*
@@ -71,7 +71,7 @@ typedef char	t_arg_type;
 
 typedef struct s_header_s
 {
-	int8_t			id;
+	uint8_t			id;
 	unsigned int	magic;
 	unsigned int	prog_size;
 	unsigned char	prog_name[PROG_NAME_LENGTH + 1];

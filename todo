@@ -1,4 +1,6 @@
 "By the way, if the translator program did not attach value to the maximum size of the executable code, then for the virtual machine this parameter has a value and cannot exceed 682 bytes:"
 does this mean some .cor file might not have prog_size data?
+//ask miriam
 
-check if -n value exists "./corewar moro.cor -n"
+//hypothetical: if a byte is a instruction repalced with the same one -> ignore
+//ask miriam

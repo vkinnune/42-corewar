@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 14:08:21 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 14:17:39 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 unsigned char	g_arena[MEM_SIZE];
 uint8_t			g_p_count;
-uint64_t		g_dump_nbr;
+int64_t			g_dump_nbr;
 
 int	main(int argc, char **argv)
 {
 	t_header_t	player[MAX_PLAYERS];
+	t_flag		flags;
 
 	if (argc < 2)
 		print_man_page();
+	g_dump_nbr = -1;
 	initialize(player);
-	parse(player, argv, argc);
-	corewar(player);
-	ft_printf("%lld\n", g_dump_nbr);
+	parse(player, argv, argc, &flags);
+	corewar(player, &flags);
 	return (0);
 }

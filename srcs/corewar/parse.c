@@ -6,25 +6,29 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 14:06:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/01 17:21:14 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-static void	flag_handler(char **argv, int argc, uint8_t i, int8_t *id)
+static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 {
 	if (!ft_strcmp(argv[i], "-n"))
 	{
 		check_valid_arg(argv, argc, i);
-		*id = ft_atoi((const char *)argv[i + 1]);
-		check_num_within_range(*id);
+		flags->id = ft_atoi((const char *)argv[i + 1]);
+		check_num_within_range(flags->id);
 	}
-	else if (!ft_strcmp(argv[i], "-dump"))
+	else if (!ft_strcmp(argv[i], "-dump") || !ft_strcmp(argv[i], "-d"))
 	{
 		check_valid_arg(argv, argc, i);
 		g_dump_nbr = ft_atoi((const char *)argv[i + 1]);
 		//check if number < 0? or just ignore it?
+		if (argv[i][2] == 'u')
+			flags->byte = 32;
+		else
+			flags->byte = 64;
 	}
 	else
 		print_man_page();
@@ -56,24 +60,23 @@ void	introduce_le_champ(t_header_t *player)
 	}
 }
 
-void	parse(t_header_t *player, char **argv, int argc)
+void	parse(t_header_t *player, char **argv, int argc, t_flag *flags)
 {
 	uint8_t			i;
-	int8_t			id;
 	unsigned char	str[MEM_SIZE];
 
 	g_p_count = 0;
-	id = NOT_SET;
+	flags->id = NOT_SET;
 	i = 1;
 	while (i < argc)
 	{
 		if (argv[i][0] == '-')
-			flag_handler(argv, argc, i++, &id);
+			flag_handler(argv, argc, i++, flags);
 		else
 		{
 			get_file_content(str, argv[i]);
-			assign_player(player, str, id);
-			id = NOT_SET;
+			assign_player(player, str, flags->id);
+			flags->id = NOT_SET;
 			g_p_count++;
 		}
 		i++;
