@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 16:19:29 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/05/31 14:04:32 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/10/28 11:49:53 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,3 @@ void	extra_functionality(char **fmt, char default_color[5], int *fd,
 	if (default_color && color)
 		ft_strcpy(default_color, color);
 }
-

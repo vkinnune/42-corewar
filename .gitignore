@@ -3,3 +3,5 @@ corewar
 !srcs/asm/
 !srcs/corewar/
 #resources/*
+result
+valout

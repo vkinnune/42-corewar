@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 14:08:21 by qnguyen          ###   ########.fr       */
+/*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
+/*   Updated: 2022/10/31 13:56:42 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-unsigned char	g_arena[MEM_SIZE];
-uint8_t			g_p_count;
-uint64_t		g_dump_nbr;
-
-int	main(int argc, char **argv)
+void	arena_init(t_header_t *player)
 {
-	t_header_t	player[MAX_PLAYERS];
+	uint8_t		i;
+	uint16_t	p_start;
 
-	if (argc < 2)
-		print_man_page();
-	initialize(player);
-	parse(player, argv, argc);
-	corewar(player);
-	ft_printf("%lld\n", g_dump_nbr);
-	return (0);
+	ft_bzero((void *)g_arena, MEM_SIZE);
+	i = 0;
+	p_start = 0;
+	while (i < g_p_count)
+	{
+		ft_memcpy(g_arena + p_start, player[i].code, player[i].prog_size);
+		p_start += MEM_SIZE / g_p_count;
+		i++;
+	}
+}
+
+void	corewar(t_header_t *player)
+{
+	arena_init(player);
+	// print_mem(MEM_SIZE, arena);
+	process_init(player);
 }

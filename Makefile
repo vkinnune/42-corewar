@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
+#    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/28 21:42:15 by vkinnune         ###   ########.fr        #
+#    Updated: 2022/10/31 16:56:28 by jrummuka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
-COR_FILE = main
+COR_FILE = main player_handler error utilities parse process corewar player_sort
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
@@ -34,12 +34,12 @@ all: $(COR_NAME) $(ASM_NAME)
 
 ################ COREWAR ################
 
-$(COR_NAME): $(COR_OBJS) $(PRINTF)
+$(COR_NAME): $(COR_OBJS) includes/corewar.h $(PRINTF)
 	gcc $(COR_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
-	mkdir -p $(COR_OBJS_DIR)
-	gcc -c $< $(INCLUDES) -o $@
+	@mkdir -p $(COR_OBJS_DIR)
+	gcc -g -c $< $(INCLUDES) -o $@
 
 ################ ASM ################
 
