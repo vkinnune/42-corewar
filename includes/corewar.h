@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 14:11:38 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 14:28:22 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # define DAIJOBU	1
 
 typedef struct s_process t_process;
-typedef struct s_op	t_op;
 typedef struct s_game_param	t_game_param;
 typedef struct s_flag t_flag;
 
@@ -47,18 +46,6 @@ struct s_game_param
 	uint32_t	live_performed;
 	uint64_t	current_cycle;
 	t_process	*head;
-};
-
-struct s_op
-{
-	char			name[5];
-	uint8_t			arg_amt :2;
-	uint8_t			arg_type[3];
-	uint8_t			byte_code :5;
-	uint16_t		wait_cycle;
-	char			*description;
-	uint8_t			carry_mod :1;
-	uint8_t			small_dir :1;
 };
 
 enum registry
@@ -90,7 +77,6 @@ struct s_flag
 extern unsigned char	g_arena[MEM_SIZE];
 extern uint8_t			g_p_count;
 extern int64_t			g_dump_nbr;
-extern t_op				op_tab[17];
 extern enum registry	reg;
 
 //parse.c

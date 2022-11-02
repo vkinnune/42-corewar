@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/01 18:12:43 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/02 14:28:28 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,17 @@ typedef struct s_header_s
 	unsigned char	*code;
 }			t_header_t;
 
+typedef struct s_op
+{
+	char			name[5];
+	uint8_t			arg_amt :2;
+	uint8_t			arg_type[3];
+	uint8_t			byte_code :5;
+	uint16_t		wait_cycle;
+	char			*description;
+	uint8_t			carry_mod :1;
+	uint8_t			small_dir :1;
+}				t_op;
+
+extern t_op				op_tab[17];
 #endif
