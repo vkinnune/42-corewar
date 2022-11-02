@@ -24,22 +24,6 @@
 # include <stdbool.h>
 
 void	validate_argument(int ac, char **av);
-ins[0] = "lfork";
-ins[1] = "sti";
-ins[2] = "fork";
-ins[3] = "lld";
-ins[4] = "ld";
-ins[5] = "add";
-ins[6] = "zjmp";
-ins[7] = "sub";
-ins[8] = "ldi";
-ins[9] = "or";
-ins[10] = "st";
-ins[11] = "aff";
-ins[12] = "live";
-ins[13] = "xor";
-ins[14] = "lldi";
-ins[15] = "and";
 
 typedef enum	e_token_type
 {

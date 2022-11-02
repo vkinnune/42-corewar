@@ -40,7 +40,6 @@ void	init_parser()
 	t_parser	*parse;
 
 	parse = get_parser();
-	init_source();
 	ft_bzero(parse, sizeof(t_parser));
 }
 
