@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 18:58:30 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/03 21:30:33 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdint.h> //used for types in linux - remove before submitting the project
 
 # define NOT_SET	42
-# define EI_KIITOS	-1
-# define DAIJOBU	1
+# define NOT_OKEI	-1
+# define OKEI		1
 
 typedef struct s_process t_process;
 typedef struct s_game_param	t_game_param;
@@ -31,11 +31,11 @@ struct s_process
 	uint8_t		instruction :5; //5-bit for instruction 1-16
 	uint8_t		carry :1; //one-bit var
 	uint16_t	prog_counter; //current position
-	uint16_t	bytes_to_next_instr;
+	// uint16_t	bytes_to_next_instr; dont need this since we move during the check and execution
 	uint16_t	wait_cycle; //amount of waiting until executing $(instruction)
-	// uint32_t	process_id;
+	uint32_t	process_id; //this is used to know which one we're looking at when testing
 	uint32_t	last_live_cycle;
-	uint32_t	reg[REG_NUMBER];
+	uint32_t	reg[REG_NUMBER + 1]; //reg[0] will store nothing, r1 == 1
 	t_process	*next;
 };
 
@@ -109,10 +109,11 @@ void		check_num_within_range(uint8_t num);
 void		processor(t_game_param *game);
 
 //process_util.c
-void		delete_process(t_process *prev, t_process *delete);
+void		free_process(t_process *prev, t_process *delete);
+void		free_all_process(t_process *head);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
 t_process	*process_init(t_header_t *player);
-void		process_kill(t_game_param *game);
+void		kill_process(t_game_param *game);
 
 //utilities.c
 int			get_n_byte(uint8_t n, unsigned char *size_byte);
@@ -122,15 +123,11 @@ void		initialize(t_header_t *player);
 //corewar.c
 void		corewar(t_header_t *player, t_flag *flags);
 
-//game.c
-void		vm(t_header_t *player, t_process *head, t_flag *flag);
-
 //instruction.c
 
 //instruc_util.c
 uint8_t		check_matching_arg(t_process *process, t_arg *arg);
 int8_t		assign_arg_value(t_arg *arg, t_process *process);
-void		casting(t_arg *arg);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);

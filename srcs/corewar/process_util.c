@@ -6,13 +6,13 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/01 20:01:38 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/03 21:43:58 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-void	delete_process(t_process *prev, t_process *delete)
+void	free_process(t_process *prev, t_process *delete)
 {
 	if (prev)
 		prev->next = delete->next;
@@ -20,13 +20,23 @@ void	delete_process(t_process *prev, t_process *delete)
 		ft_memdel((void **)&delete);
 }
 
+void	free_all_process(t_process *head)
+{
+	while (head)
+	{
+		free_process(0, head);
+		head = head->next;
+	}
+}
+
 t_process	*new_process(t_process *head, uint16_t pos, int id)
 {
-	t_process	*process;
+	static uint16_t	process_id;
+	t_process		*process;
 
 	process = (t_process *)ft_memalloc(sizeof(t_process));
 	check_err_malloc((void *)process);
-	// process->process_id = id;
+	process->process_id = process_id++;
 	process->prog_counter = pos;
 	process->next = head;
 	process->reg[r1] = -id;
@@ -45,15 +55,14 @@ t_process	*process_init(t_header_t *player)
 	head = NULL;
 	while (i < g_p_count)
 	{
-		new = new_process(head, p_start, player[i].id);
-		head = new;
+		head = new_process(head, p_start, player[i].id);
 		p_start += MEM_SIZE / g_p_count;
 		i++;
 	}
 	return (head);
 }
 
-void	process_kill(t_game_param *game)
+void	kill_process(t_game_param *game)
 {
 	t_process	*prev;
 	t_process	*process;
@@ -63,7 +72,7 @@ void	process_kill(t_game_param *game)
 	while (process)
 	{
 		if (game->current_cycle - process->last_live_cycle >= game->cycle_to_die)
-			delete_process(prev, process);
+			free_process(prev, process);
 		process = process->next;
 	}
 }

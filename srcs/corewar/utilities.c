@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 19:04:59 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/03 21:30:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ void	print_process(t_process *process)
 	ft_printf("carry: %d\n", process->carry);
 	ft_printf("instruction: %d\n", process->instruction);
 	ft_printf("last_live_cyc: %d\n", process->last_live_cycle);
-	ft_printf("byte_next: %d\n", process->bytes_to_next_instr);
 	ft_printf("wait_cycle: %d\n", process->wait_cycle);
 	while (i < REG_NUMBER)
 		ft_printf("%d - ", process->reg[i++]);

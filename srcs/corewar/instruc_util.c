@@ -6,18 +6,33 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 19:30:46 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/03 21:40:34 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
 void	assign_and_move(t_arg *arg, uint8_t *pos, uint8_t value, uint8_t dir_type)
-{	//try and check dir_type from op_tab with cmd
+{
 	if (value == DIR_SIZE && dir_type == 1)
 		value /= 2;
 	arg->value = get_n_byte(value, &g_arena[*pos]);
-	*pos += value; //move the right ammount
+	*pos += value;
+}
+
+static void	casting(t_arg *arg)
+{
+	uint8_t	i;
+
+	i = 0;
+	while (i < op_tab[10].arg_amt)
+	{
+		if (arg[i].arg_type == IND_CODE)
+			arg[i].value = (uint16_t)(arg[i].value % IDX_MOD); //recheck this - does every intruction do %
+		else if (arg[i].arg_type == DIR_CODE && op_tab[10].small_dir == 1)
+			arg[i].value = (uint16_t)arg[i].value;
+		i++;
+	}
 }
 
 int8_t	assign_arg_value(t_arg *arg, t_process *process)
@@ -32,16 +47,17 @@ int8_t	assign_arg_value(t_arg *arg, t_process *process)
 	while (i < op_tab[cmd].arg_amt)
 	{
 		if (arg[i].arg_type == REG_CODE)
-			assign_and_move(&arg[i], &pos, REG_NAME_SIZE, EI_KIITOS);
+			assign_and_move(&arg[i], &pos, REG_NAME_SIZE, NOT_OKEI);
 		else if (arg[i].arg_type == IND_CODE)
-			assign_and_move(&arg[i], &pos, IND_SIZE, EI_KIITOS);
+			assign_and_move(&arg[i], &pos, IND_SIZE, NOT_OKEI);
 		else if (arg[i].arg_type == DIR_CODE)
 			assign_and_move(&arg[i], &pos, DIR_SIZE, op_tab[cmd].small_dir);
 		i++;
 	}
+	casting(arg);
 	if (g_arena[pos] >= r1 && g_arena[pos] <= r16)
 		return (pos);
-	return (EI_KIITOS);
+	return (NOT_OKEI);
 }
 
 uint8_t	check_matching_arg(t_process *process, t_arg *arg)
@@ -64,23 +80,8 @@ uint8_t	check_matching_arg(t_process *process, t_arg *arg)
 			|| (cur_2bit == IND_CODE && op_tab[cmd].arg_type[i] & T_IND)) //same as before, +100% readability, +50% line consumption, -25% mental health, -1HP
 				arg[i].arg_type = cur_2bit;
 		else
-			return (EI_KIITOS);
+			return (NOT_OKEI);
 		i++;
 	}
-	return (DAIJOBU);
-}
-
-void	casting(t_arg *arg)
-{
-	uint8_t	i;
-
-	i = 0;
-	while (i < op_tab[10].arg_amt)
-	{
-		if (arg[i].arg_type == IND_CODE)
-			arg[i].value = (uint16_t)(arg[i].value % IDX_MOD);
-		else if (arg[i].arg_type == DIR_CODE && op_tab[10].small_dir == 1)
-			arg[i].value = (uint16_t)arg[i].value;
-		i++;
-	}
+	return (OKEI);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 15:35:11 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/03 20:49:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 	{
 		check_valid_arg(argv, argc, i);
 		flags->dump_nbr = ft_atoi((const char *)argv[i + 1]);
-		//check if number < 0? or just ignore it?
 		if (argv[i][2] == 'u')
 			flags->byte = 32;
 		else
@@ -34,7 +33,7 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 		print_man_page();
 }
 
-static void	get_file_content(unsigned char *str, char *file)
+static void	open_read_close(unsigned char *str, char *file)
 {
 	uint16_t	fd;
 
@@ -74,7 +73,7 @@ void	parse(t_header_t *player, char **argv, int argc, t_flag *flags)
 			flag_handler(argv, argc, i++, flags);
 		else
 		{
-			get_file_content(str, argv[i]);
+			open_read_close(str, argv[i]);
 			assign_player(player, str, flags->id);
 			flags->id = NOT_SET;
 			g_p_count++;
