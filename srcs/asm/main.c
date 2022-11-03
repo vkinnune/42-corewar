@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 15:06:38 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/03 15:59:39 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,57 @@ int	instruction_check(char **p)
 
 int	register_check(char **p)
 {
+	int	i;
 
+	if (**p == 'r')
+	{
+		i = 1;
+		while (1)
+		{
+			if (ft_isdigit((*p)[i]))
+				i++;
+			else if ((*p)[i] == ' ' || (*p)[i] == '\t')
+				i++;
+			else if ((*p)[i] == ',')
+			{
+				*p = &(*p)[i - 1];
+				get_source()->col += (i - 1);
+				return (1);
+			}
+			else
+				break ;
+		}
+	}
+	return (0);
+}
+
+int	separator_check(char **p)
+{
+	if (**p == ',')
+		return (1);
+	else
+		return (0);
+}
+
+int	direct_label_check(char **p)
+{
+	int	i;
+
+	i = 2;
+	if ((*p)[0] == '%' && (*p)[1] == ':')
+	{
+		while (ft_isalnum((*p)[i]))
+			i++;
+		while ((*p)[i] == ' ' || (*p)[i] == '\t')
+			i++;
+		if ((*p)[i] == ',')
+		{
+			get_source()->col += (i - 1);
+			*p = &(*p)[i - 1];
+			return (1);
+		}
+	}
+	return (0);
 }
 
 void	save_token(char **p, t_token_type token_type)
@@ -106,11 +156,11 @@ int	check_valid(char **p)
 		token_type = instruction;
 	else if (register_check(p))
 		token_type = reg;
+	else if (separator_check(p))
+		token_type = separator;
+	else if (direct_label_check(p))
+		;
 	/*
-	else if (separator_check())
-		;
-	else if (direct_label_check())
-		;
 	else if (direct_check())
 		;
 		*/
