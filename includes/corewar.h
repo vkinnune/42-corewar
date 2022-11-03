@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/03 21:30:33 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 01:07:22 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdint.h> //used for types in linux - remove before submitting the project
 
 # define NOT_SET	42
-# define NOT_OKEI	-1
+# define NOT_OKEI	0
 # define OKEI		1
 
 typedef struct s_process t_process;
@@ -28,10 +28,10 @@ typedef struct s_arg t_arg;
 
 struct s_process
 {
-	uint8_t		instruction :5; //5-bit for instruction 1-16
+	uint8_t		cmd :5; //5-bit for instruction 1-16
 	uint8_t		carry :1; //one-bit var
 	uint16_t	prog_counter; //current position
-	// uint16_t	bytes_to_next_instr; dont need this since we move during the check and execution
+	uint16_t	bytes_to_next;
 	uint16_t	wait_cycle; //amount of waiting until executing $(instruction)
 	uint32_t	process_id; //this is used to know which one we're looking at when testing
 	uint32_t	last_live_cycle;
@@ -119,6 +119,7 @@ void		kill_process(t_game_param *game);
 int			get_n_byte(uint8_t n, unsigned char *size_byte);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
 void		initialize(t_header_t *player);
+uint16_t	get_position(uint16_t pos);
 
 //corewar.c
 void		corewar(t_header_t *player, t_flag *flags);
@@ -126,8 +127,9 @@ void		corewar(t_header_t *player, t_flag *flags);
 //instruction.c
 
 //instruc_util.c
-uint8_t		check_matching_arg(t_process *process, t_arg *arg);
+int8_t		check_matching_arg(t_process *process, t_arg *arg);
 int8_t		assign_arg_value(t_arg *arg, t_process *process);
+void		casting(t_process *process, t_arg *arg);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);

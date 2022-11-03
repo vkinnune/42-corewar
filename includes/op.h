@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/02 17:26:29 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 00:47:04 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ typedef struct s_op
 	uint8_t			order_num :5;
 	uint16_t		wait_cycle;
 	char			*description;
-	uint8_t			carry_mod :1;
-	uint8_t			small_dir :1;
+	uint8_t			arg_byte :1;
+	uint8_t			dir_size :1;
 }				t_op;
 
 extern t_op				op_tab[17];

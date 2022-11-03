@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/03 20:49:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/03 23:31:02 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	introduce_le_champ(t_header_t *player)
 	while (i < g_p_count)
 	{
 		check_missing_id(player[i].id);
-		ft_printf("* Player %d @%d, weighing %d bytes, \"%s\" (\"%s\")!\n",
-			player[i].id, i, player[i].prog_size,
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\")!\n",
+			player[i].id, player[i].prog_size,
 			player[i].prog_name, player[i].comment);
 		// print_mem(player[i].prog_size, player[i].code);
 		i++;
