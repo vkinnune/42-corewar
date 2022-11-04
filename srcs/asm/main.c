@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 15:06:38 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:47:43 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,97 @@ void	init_parser()
 	ft_bzero(parse, sizeof(t_parser));
 }
 
-int	label_check(char *line, int len)
+int	label_check(char **p)
 {
 	int	i;
 
 	i = 0;
-	while (i != len)
+	while (1)
 	{
-		if (line[i] == ':')
+		if ((*p)[i] == ':')
+		{
+			*p = &(*p)[i + 1];
+			get_source()->col += i + 1;
+			get_source()->label = true;
 			return (1);
+		}
+		else if ((*p)[i] == '\n' || (*p)[i] == '\0' || (*p)[i] == ' ' || (*p)[i] == '\t' || (*p)[i] == '%')
+			return (0);
+		i++;
+	}
+}
+
+int	instruction_check(char **p)
+{
+	int	i;
+
+	i = 0;
+	while (i != INSTRUCTION_AMOUNT)
+	{
+		if (!ft_strncmp(op_tab[i].name, *p, ft_strchr(*p, ' ') - *p))
+		{
+			*p = &(*p)[ft_strlen(op_tab[i].name)];
+			get_source()->col += ft_strlen(op_tab[i].name);
+			get_source()->ins = true;
+			return (1);
+		}
 		i++;
 	}
 	return (0);
 }
 
-void	save_token(char *line, int len, t_token_type token_type)
+int	register_check(char **p)
+{
+	int	i;
+
+	if (**p == 'r')
+	{
+		i = 1;
+		while (1)
+		{
+			if (ft_isdigit((*p)[i]))
+				i++;
+			else if (i > 1)
+			{
+				*p = &(*p)[i - 1];
+				get_source()->col += (i - 1);
+				return (1);
+			}
+			else
+				break ;
+		}
+	}
+	return (0);
+}
+
+int	separator_check(char **p)
+{
+	if (**p == ',')
+		return (1);
+	else
+		return (0);
+}
+
+int	direct_label_check(char **p)
+{
+	int	i;
+
+	i = 2;
+	if ((*p)[0] == '%' && (*p)[1] == ':')
+	{
+		while (ft_isalnum((*p)[i]))
+			i++;
+		if (i > 2)
+		{
+			get_source()->col += (i - 1);
+			*p = &(*p)[i - 1];
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	save_token(char **p, t_token_type token_type)
 {
 	t_token_list	*token_list;
 
@@ -66,58 +142,83 @@ void	save_token(char *line, int len, t_token_type token_type)
 	token_list->token_count++;
 }
 
-int	check_valid(char *line, int len)
+int	direct_check(char **p)
+{
+	int	i;
+
+	i = 1;
+	if (**p == '%')
+	{
+		while (1)
+		{
+			if (ft_isdigit((*p)[i]))
+				i++;
+			else if (i == 1)
+				break ;
+			else
+			{
+				*p = &(*p)[i - 1];
+				get_source()->col += (i - 1);
+				return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int	check_valid(char **p)
 {
 	t_token_type	token_type;
 
-	if (label_check(line, len))
+	if (get_source()->label == false && label_check(p))
 		token_type = label;
-	/*
-	else if (instruction_check())
-		;
-	else if (register_check())
-		;
-	else if (separator_check())
-		;
-	else if (direct_label_check())
-		;
-	else if (direct_check())
-		;
-		*/
+	else if (get_source()->ins == false && instruction_check(p))
+		token_type = instruction;
+	else if (register_check(p))
+		token_type = reg;
+	else if (separator_check(p))
+		token_type = separator;
+	else if (direct_label_check(p))
+		token_type = direct_label;
+	else if (direct_check(p))
+		token_type = direct;
 	else
 		return (0);
-	save_token(line, len, token_type);
+	save_token(p, token_type);
 	return (1);
 }
 
-int	move_forward(char **forward_p)
+int	move_forward(char **p)
 {
 	t_source	*source;
 
 	source = get_source();
-	if (**forward_p == '\n')
+	if (**p == '\n')
 	{
+		source->ins = false;
+		source->label = false;
 		source->row++;
 		source->col = 0;
 	}
-	else if (**forward_p == '\0')
+	else if (**p == '\0')
 		return (0);
-	(*forward_p)++;
-	source->col++;
+	else
+		source->col++;
+	(*p)++;
 	return (1);
 }
 
-void	handle_asm(char *forward_p, char *stay_p)
+void	handle_asm(char *p)
 {
-	while (move_forward(&forward_p))
+	while (move_forward(&p))
 	{
-		if (*forward_p == ' ' || *forward_p == '\t' || *forward_p == '\n')
+		if (*p == ' ' || *p == '\t' || *p == '\n')
 			continue ;
-		if (check_valid(stay_p, forward_p - stay_p))
-			stay_p = forward_p + 1;
-		else
+		else if (*p == '\0')
+			break ;
+		else if (!check_valid(&p))
 		{
-			printf("Error in col: %d row: %d", get_source()->col, get_source()->col);
+			printf("Error in col: %d row: %d", get_source()->col, get_source()->row);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -133,22 +234,23 @@ char	*save_header_string(char *p, t_header_type type)
 	{
 		if (*p == '\"')
 		{
-			if (!stay_p)
+			if (stay_p)
 			{
 				if (type == name && (p - stay_p) < NAME_SIZE)
-					ft_memcpy(get_source()->name, stay_p, p - stay_p);
+					ft_memcpy(get_source()->name, &stay_p[1], (p - stay_p) - 1);
 				else if (type == comment && (p - stay_p) < COMMENT_SIZE)
-					ft_memcpy(get_source()->comment, stay_p, p - stay_p);
+					ft_memcpy(get_source()->comment, &stay_p[1], (p - stay_p) - 1);
 				else
 					ft_out(HEADER_TOO_BIG);
 				break ;
 			}
 			stay_p = p;
 		}
-		else if (*p != ' ' || *p != '\t')
+		else if (*p != ' ' && *p != '\t' && !stay_p)
 			ft_out(HEADER_ERROR);
 		p++;
 	}
+	return (p + 1);
 }
 
 char	*handle_header(const char *input)
@@ -156,18 +258,19 @@ char	*handle_header(const char *input)
 	char	*p;
 
 	p = (char *)input;
-	while (!get_source()->name || get_source()->comment)
+	while (!*(get_source()->name) || !*(get_source()->comment))
 	{
-		if (*p == '\t' || *p == ' ')
-		{
+		if (*p == '\t' || *p == ' ' || *p == '\n')
 			p++;
-			continue ;
-		}
-		if (ft_strncmp(".name", p, 5))
+		else if (!ft_strncmp(".name", p, 5))
 			p = save_header_string(&p[5], name);
-		else if (ft_strncmp(".comment", &p[8], 8))
-			p = save_header_string(p, comment);
+		else if (!ft_strncmp(".comment", p, 8))
+			p = save_header_string(&p[8], comment);
+		else
+			ft_out(HEADER_ERROR);
 	}
+	get_source()->row = 2;
+	get_source()->col = 0;
 	return (p);
 }
 
@@ -178,7 +281,7 @@ void	parser(const char *input)
 	//handle header, handle header goes to the start of the asm
 	p = handle_header(input);
 	//handle asm
-	handle_asm(p, p);
+	handle_asm(p);
 }
 
 char *read_file(char *file_name)
@@ -199,14 +302,16 @@ char *read_file(char *file_name)
 	{
 		ret = read(fd, buf, BUF_SIZE);
 		read_size += ret;
-		str = realloc(str, read_size);
+		str = realloc(str, read_size + 1);
 		ft_memcpy(str, buf, ret);
 	}
+	str[read_size] = 0;
 	return (str);
 }
 
 void	print_tokens()
 {
+	const char* tokenstr[]={"label","instruction", "register", "separator", "direct_label", "direct", "indirect"};
 	int	i;
 	t_token_list	*token_list;
 
@@ -214,7 +319,7 @@ void	print_tokens()
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		printf("%d ", token_list->tokens[i].type);
+		ft_printf("%s \n", tokenstr[token_list->tokens[i].type]);
 		i++;
 	}
 }

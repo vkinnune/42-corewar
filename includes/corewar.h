@@ -139,3 +139,4 @@ void		print_arena(t_header_t *player, t_flag *flags);
 void		print_arg(t_process *process, t_arg *arg);
 
 #endif
+

@@ -16,12 +16,14 @@
 # define BUF_SIZE 100000
 # define NAME_SIZE 64
 # define COMMENT_SIZE 64
+# define INSTRUCTION_AMOUNT 16
 
 # include "libftprintf.h"
 # include <fcntl.h>
 # include "errors.h"
 # include <stdio.h>
 # include <stdbool.h>
+# include "op.h"
 
 void	validate_argument(int ac, char **av);
 
@@ -54,15 +56,18 @@ typedef struct s_token_list {
 }	t_token_list;
 
 typedef struct s_source {
-	int		col;
-	int		row;
+	int	col;
+	int	row;
 	char	name[NAME_SIZE];
 	char	comment[COMMENT_SIZE];
+	bool	label;
+	bool	ins;
 }	t_source;
 
 typedef	struct s_parser {
 	t_token_list	token_list;
-	t_source		source;
+	t_source	source;
 }	t_parser;
 
 #endif
+
