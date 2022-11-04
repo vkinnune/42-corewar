@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/04 00:47:04 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 14:54:11 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ typedef char	t_arg_type;
 
 typedef struct s_header_s
 {
-	uint8_t			id;
+	uint8_t			id :3;
+	uint8_t			alive :1;
 	unsigned int	magic;
 	unsigned int	prog_size;
 	unsigned char	prog_name[PROG_NAME_LENGTH + 1];

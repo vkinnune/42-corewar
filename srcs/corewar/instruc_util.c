@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 01:32:57 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 14:52:52 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ void	casting(t_process *process, t_arg *arg)
 	i = 0;
 	while (i < op_tab[process->cmd].arg_amt)
 	{
-		if (arg[i].arg_type == IND_CODE)
-			arg[i].value = (uint16_t)(arg[i].value % IDX_MOD); //recheck this - does every intruction do %
-		else if (arg[i].arg_type == DIR_CODE
-				&& op_tab[process->cmd].dir_size == 1)
-			arg[i].value = (uint16_t)arg[i].value;
+		if ((arg[i].arg_type == IND_CODE)
+			|| (arg[i].arg_type == DIR_CODE	&& op_tab[process->cmd].dir_size == 1))
+			arg[i].value = (uint16_t)(arg[i].value);  //dont get modulo here
 		i++;
 	}
 }
