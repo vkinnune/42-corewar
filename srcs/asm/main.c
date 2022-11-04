@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 14:16:48 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/04 15:47:43 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	label_check(char **p)
 			get_source()->label = true;
 			return (1);
 		}
-		else if ((*p)[i] == '\n' || (*p)[i] == '\0')
+		else if ((*p)[i] == '\n' || (*p)[i] == '\0' || (*p)[i] == ' ' || (*p)[i] == '\t' || (*p)[i] == '%')
 			return (0);
 		i++;
 	}
@@ -214,6 +214,8 @@ void	handle_asm(char *p)
 	{
 		if (*p == ' ' || *p == '\t' || *p == '\n')
 			continue ;
+		else if (*p == '\0')
+			break ;
 		else if (!check_valid(&p))
 		{
 			printf("Error in col: %d row: %d", get_source()->col, get_source()->row);
@@ -300,14 +302,16 @@ char *read_file(char *file_name)
 	{
 		ret = read(fd, buf, BUF_SIZE);
 		read_size += ret;
-		str = realloc(str, read_size);
+		str = realloc(str, read_size + 1);
 		ft_memcpy(str, buf, ret);
 	}
+	str[read_size] = 0;
 	return (str);
 }
 
 void	print_tokens()
 {
+	const char* tokenstr[]={"label","instruction", "register", "separator", "direct_label", "direct", "indirect"};
 	int	i;
 	t_token_list	*token_list;
 
@@ -315,7 +319,7 @@ void	print_tokens()
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		ft_printf("%d ", token_list->tokens[i].type);
+		ft_printf("%s \n", tokenstr[token_list->tokens[i].type]);
 		i++;
 	}
 }
