@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 14:46:53 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:08:44 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	xor(t_process *process, t_arg *arg)
 	//bitwise XOR of arg1, arg2, then write result to REG in arg3
 	//if arg1/2 is REG, read value from there
 	//if arg1/2 is DIR, read numerical value from argument as given
-	//if arg1/2 is IND, take current position + <ARGUMENT> % IDX_MOD, read 4bytes from there	
+	//if arg1/2 is IND, take current position + <ARGUMENT> % IDX_MOD, read 4bytes from there
 }
 
 void	zjmp(t_process *process, t_arg *arg)
@@ -89,35 +89,35 @@ void	zjmp(t_process *process, t_arg *arg)
 
 void	ldi(t_process *process, t_arg *arg)
 {
-	
+
 }
 
 void	sti(t_process *process, t_arg *arg)
 {
-	
+
 }
 
-void	fork(t_process *process, t_arg *arg)
+void	foork(t_process *process, t_arg *arg)
 {
-	
+
 }
 
 void	lld(t_process *process, t_arg *arg)
 {
-	
+
 }
 
 void	lldi(t_process *process, t_arg *arg)
 {
-	
+
 }
 
 void	lfork(t_process *process, t_arg *arg)
 {
-	
+
 }
 
 void	aff(t_process *process, t_arg *arg)
 {
-	
+
 }

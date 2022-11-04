@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 01:30:43 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 17:58:30 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ static void	execute_le_code(t_game_param *game, t_process *process)
 	t_arg		arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	ft_printf("%d doing %$bs now @ %$rd (ㆁᴗㆁ✿)\n", process->process_id, op_tab[process->cmd].name, game->current_cycle);
-	if (check_matching_arg(process, arg) != OKEI
-		|| assign_arg_value(arg, process) != OKEI)
+	ft_printf("%d is on %$gs @%$bu:\n", process->process_id, op_tab[process->cmd].name, process->prog_counter);
+	if (check_matching_arg(process, arg) != OKEI)
 		return ;
+	ft_printf("\tMe do %$gs now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name, game->current_cycle);
 	casting(process, arg);
 	// print_arg(process, arg);
 	// func_table[process->cmd](process);
-	// live() process->last_live_cycle
 	// process->carry
 }
 
@@ -56,12 +55,12 @@ void	processor(t_game_param *game)
 	while (process)
 	{
 		read_instruction(process);
-		// ft_printf("processly on: %s @%d\n", op_tab[process->cmd].name, process->prog_counter);
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process);
 			process->prog_counter += process->bytes_to_next;
 			process->prog_counter = get_position(process->prog_counter);
+			ft_printf("Me move to @%$bu ╰(⸝⸝⸝´꒳`⸝⸝⸝)╯ \n", process->prog_counter);
 			process->bytes_to_next = 1;
 			process->cmd = 0;
 		}

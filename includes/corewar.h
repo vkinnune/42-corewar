@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 01:07:22 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 15:37:25 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ struct s_game_param
 
 struct s_arg
 {
-	uint8_t		arg_type;
+	uint8_t		type;
 	uint32_t	value;
 };
 
