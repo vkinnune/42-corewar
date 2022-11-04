@@ -6,12 +6,12 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 00:26:38 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 20:47:44 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
-
+//get n byte from the arena
 int	get_n_byte(uint8_t n, unsigned char *size_byte)
 {
 	uint8_t		i;
@@ -23,21 +23,36 @@ int	get_n_byte(uint8_t n, unsigned char *size_byte)
 		value = (value * 0x100) + size_byte[i++];
 	return (value);
 }
-
+//get 2 bits from a byte
 uint8_t	get_2bit(uint8_t byte, uint8_t position)
 {
 	uint8_t	bit;
 
 	if (position == 0)
 		bit = 6;
-	if (position == 1)
+	else if (position == 1)
 		bit = 4;
-	if (position == 2)
+	else if (position == 2)
 		bit = 2;
 	return ((byte >> bit) & 0b11);
 }
+//get 2 hex digit from a value
+uint32_t	get_2hext(uint32_t num, uint8_t position)
+{
+	uint8_t	bit;
 
-void	initialize(t_header_t *player)
+	if (position == 0)
+		bit = 24;
+	else if (position == 1)
+		bit = 16;
+	else if (position == 2)
+		bit = 8;
+	else if (position == 3)
+		bit = 0;
+	return ((num >> bit) & 0b11111111);
+}
+
+void	initialize_players(t_header_t *player)
 {
 	uint8_t	i;
 
@@ -106,7 +121,7 @@ void	print_process(t_process *process)
 
 	i = 0;
 	ft_printf("id: %d\n", process->process_id);
-	ft_printf("prog_count: %d\n", process->prog_counter);
+	ft_printf("prog_count: %d\n", process->pc);
 	ft_printf("carry: %d\n", process->carry);
 	ft_printf("instruction: %d\n", process->cmd + 1);
 	ft_printf("last_live_cyc: %d\n", process->last_live_cycle);

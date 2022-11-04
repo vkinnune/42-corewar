@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 15:37:25 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 20:51:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ typedef struct s_process t_process;
 typedef struct s_game_param	t_game_param;
 typedef struct s_flag t_flag;
 typedef struct s_arg t_arg;
+typedef void	t_instruct_table(t_process *process, t_arg *arg, t_header_t *player);
 
 struct s_process
 {
 	uint8_t		cmd :5; //5-bit for instruction 1-16
 	uint8_t		carry :1; //one-bit var
-	uint16_t	prog_counter; //current position
+	uint16_t	pc; //current position
 	uint16_t	bytes_to_next;
 	uint16_t	wait_cycle; //amount of waiting until executing $(instruction)
 	uint32_t	process_id; //this is used to know which one we're looking at when testing
@@ -106,7 +107,7 @@ void		check_missing_id(int8_t id);
 void		check_num_within_range(uint8_t num);
 
 //process.c
-void		processor(t_game_param *game);
+void		processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t *player);
 
 //process_util.c
 void		free_process(t_process *prev, t_process *delete);
@@ -118,18 +119,35 @@ void		kill_process(t_game_param *game);
 //utilities.c
 int			get_n_byte(uint8_t n, unsigned char *size_byte);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
-void		initialize(t_header_t *player);
+uint32_t	get_2hext(uint32_t num, uint8_t position);
+void		initialize_players(t_header_t *player);
 uint16_t	get_position(uint16_t pos);
 
 //corewar.c
 void		corewar(t_header_t *player, t_flag *flags);
 
 //instruction.c
+void		live(t_process *process, t_arg *arg, t_header_t *player);
+void		ld(t_process *process, t_arg *arg, t_header_t *player);
+void		st(t_process *process, t_arg *arg, t_header_t *player);
+void		add(t_process *process, t_arg *arg, t_header_t *player);
+void		sub(t_process *process, t_arg *arg, t_header_t *player);
+void		and(t_process *process, t_arg *arg, t_header_t *player);
+void		or(t_process *process, t_arg *arg, t_header_t *player);
+void		xor(t_process *process, t_arg *arg, t_header_t *player);
+void		zjmp(t_process *process, t_arg *arg, t_header_t *player);
+void		ldi(t_process *process, t_arg *arg, t_header_t *player);
+void		sti(t_process *process, t_arg *arg, t_header_t *player);
+void		foork(t_process *process, t_arg *arg, t_header_t *player);
+void		lld(t_process *process, t_arg *arg, t_header_t *player);
+void		lldi(t_process *process, t_arg *arg, t_header_t *player);
+void		lfork(t_process *process, t_arg *arg, t_header_t *player);
+void		aff(t_process *process, t_arg *arg, t_header_t *player);
 
 //instruc_util.c
+uint32_t	get_arg_value(t_process *process, t_arg *arg);
 int8_t		check_matching_arg(t_process *process, t_arg *arg);
-int8_t		assign_arg_value(t_arg *arg, t_process *process);
-void		casting(t_process *process, t_arg *arg);
+void		write_4byte(t_process *process, uint32_t value, uint16_t position);
 
 //test functions
 void		print_mem(int size, unsigned char *mem);
@@ -139,4 +157,3 @@ void		print_arena(t_header_t *player, t_flag *flags);
 void		print_arg(t_process *process, t_arg *arg);
 
 #endif
-

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 17:58:55 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 18:48:43 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,41 @@ void	check(t_game_param *game)
 		game->check_counter++;
 }
 
+void	instr_table_init(t_instruct_table **instruct_table)
+{
+	instruct_table[0] = live;
+	instruct_table[1] = ld;
+	instruct_table[2] = st;
+	instruct_table[3] = add;
+	instruct_table[4] = sub;
+	instruct_table[5] = and;
+	instruct_table[6] = or;
+	instruct_table[7] = xor;
+	instruct_table[8] = zjmp;
+	instruct_table[9] = ldi;
+	instruct_table[10] = sti;
+	instruct_table[11] = foork;
+	instruct_table[12] = lld;
+	instruct_table[13] = lldi;
+	instruct_table[14] = lfork;
+	instruct_table[15] = aff;
+}
+
 void	corewar(t_header_t *player, t_flag *flags)
 {
-	t_process		*head;
-	t_game_param	game;
+	t_process			*head;
+	t_game_param		game;
+	t_instruct_table	*instruct_table[16];
 
 	arena_init(player);
 	head = process_init(player);
 	param_init(&game, head);
+	instr_table_init(instruct_table);
 	// while (game.live_performed)//one process is living
 	while (game.current_cycle < 40)
 	{
 		ft_printf("\ncycle %$ru: \n", game.current_cycle);
-		processor(&game);
+		processor(&game, instruct_table, player);
 		check(&game);
 		if (game.current_cycle >= flags->dump_nbr)
 		{

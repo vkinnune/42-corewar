@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 11:05:02 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 13:51:12 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 20:48:47 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	player_sort(t_header_t *player)
 {
 	t_header_t	temp[MAX_PLAYERS];
 
-	initialize(temp);
+	initialize_players(temp);
 	copy_with_id(player, temp);
 	copy_no_id(player, temp);
 	ft_memcpy((void *)player, (void *)temp, sizeof(temp));

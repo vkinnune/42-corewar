@@ -7,8 +7,11 @@ does this mean some .cor file might not have prog_size data?
 
 //fix ./corewar moro.cor 1
 
-//rethink the byte counting:
-	// without arg_byte
-	// with	arg_byte
-	// with 	arg_byte but does not match
+finish the instructions
 
+live() needs *player and *game to update the last_alive count
+	passing those two forces other instructions to take those parameter as well (for the instruct table)
+
+move the (t_header_t *player) and (game_param) global?
+and the *instruct_table too?
+or merge them somehow

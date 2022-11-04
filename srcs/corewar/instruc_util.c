@@ -6,35 +6,29 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 17:55:37 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/04 20:51:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-void	casting(t_process *process, t_arg *arg)
+uint32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with individual value transformer when they are called
 {
-	uint8_t	i;
-
-	i = 0;
-	while (i < op_tab[process->cmd].arg_amt)
-	{
-		if ((arg[i].type == IND_CODE)
-			|| (arg[i].type == DIR_CODE	&& op_tab[process->cmd].dir_size == 1))
-			arg[i].value = (uint16_t)(arg[i].value);
-		i++;
-	}
+	if (arg->type == REG_CODE)
+		return (process->reg[arg->value]);
+	else if (arg->type == IND_CODE)
+		return ((uint16_t)(process->pc + ((arg->value) % IDX_MOD)));
+	else if (op_tab[process->cmd].dir_size == 1)
+		return ((uint16_t)arg->value);
+	return (arg->value);
 }
 
 int8_t	check_reg(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
 {
-	uint8_t	byte_ammount;
-
 	if (cur_2bit != REG_CODE)
 		return (NOT_OKEI);
-	byte_ammount = REG_NAME_SIZE;
-	arg->value = get_n_byte(byte_ammount, &g_arena[process->prog_counter + process->bytes_to_next]);
-	process->bytes_to_next += byte_ammount;
+	arg->value = get_n_byte(REG_NAME_SIZE, &g_arena[process->pc + process->bytes_to_next]);
+	process->bytes_to_next += REG_NAME_SIZE;
 	if (!(arg_type & T_REG))
 		return (NOT_OKEI);
 	if (arg->value < r1 || arg->value > r16)
@@ -51,7 +45,7 @@ int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 	if (cur_2bit != DIR_CODE)
 		return (NOT_OKEI);
 	byte_ammount = DIR_SIZE / (op_tab[process->cmd].dir_size + 1);
-	arg->value = get_n_byte(byte_ammount, &g_arena[process->prog_counter + process->bytes_to_next]);
+	arg->value = get_n_byte(byte_ammount, &g_arena[process->pc + process->bytes_to_next]);
 	process->bytes_to_next += byte_ammount;
 	if (!(arg_type & T_DIR))
 		return (NOT_OKEI);
@@ -61,13 +55,10 @@ int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 
 int8_t	check_ind(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
 {
-	uint8_t	byte_ammount;
-
 	if (cur_2bit != IND_CODE)
 		return (NOT_OKEI);
-	byte_ammount = IND_SIZE;
-	arg->value = get_n_byte(byte_ammount, &g_arena[process->prog_counter + process->bytes_to_next]);
-	process->bytes_to_next += byte_ammount;
+	arg->value = get_n_byte(IND_SIZE, &g_arena[process->pc + process->bytes_to_next]);
+	process->bytes_to_next += IND_SIZE;
 	if (!(arg_type & T_IND))
 		return (NOT_OKEI);
 	arg->type = cur_2bit;
@@ -89,7 +80,7 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 	while (i < op_tab[process->cmd].arg_amt)
 	{
 		op_arg_type = op_tab[process->cmd].arg_type[i];
-		cur_2bit = get_2bit(g_arena[process->prog_counter + 1], i);
+		cur_2bit = get_2bit(g_arena[process->pc + 1], i);
 		if (!check_reg(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_dir(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_ind(process, cur_2bit, op_arg_type, &arg[i])) //same as before, +100% readability, +50% line consumption, -25% mental health, -1HP
@@ -97,4 +88,17 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 		i++;
 	}
 	return (result);
+}
+
+//write value of arg to g_arena[position]
+void	write_4byte(t_process *process, uint32_t value, uint16_t position)
+{
+	uint8_t	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		g_arena[position + i] = get_2hext(value, i);
+		i++;
+	}
 }
