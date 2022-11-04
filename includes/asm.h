@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 15:07:14 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:51:33 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_token_list {
 }	t_token_list;
 
 typedef struct s_source {
-	int	col;
-	int	row;
+	int		col;
+	int		row;
 	char	name[NAME_SIZE];
 	char	comment[COMMENT_SIZE];
 	bool	label;

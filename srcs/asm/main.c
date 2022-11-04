@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 15:47:43 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:24:32 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,15 @@ int	label_check(char **p)
 int	instruction_check(char **p)
 {
 	int	i;
+	int	size;
 
 	i = 0;
+	size = 0;
+	while ((*p)[size] != ' ' && (*p)[size] != '\t')
+		size++;
 	while (i != INSTRUCTION_AMOUNT)
 	{
-		if (!ft_strncmp(op_tab[i].name, *p, ft_strchr(*p, ' ') - *p))
+		if (!ft_strncmp(op_tab[i].name, *p, size))
 		{
 			*p = &(*p)[ft_strlen(op_tab[i].name)];
 			get_source()->col += ft_strlen(op_tab[i].name);
@@ -133,12 +137,16 @@ int	direct_label_check(char **p)
 	return (0);
 }
 
-void	save_token(char **p, t_token_type token_type)
+void	save_token(char **p, char *old_p, t_token_type token_type)
 {
 	t_token_list	*token_list;
+	int				size;
 
+	size = (*p - old_p) + 1;
 	token_list = get_token_list();
 	token_list->tokens[token_list->token_count].type = token_type;
+	token_list->tokens[token_list->token_count].content = ft_memalloc(size);
+	ft_memcpy(token_list->tokens[token_list->token_count].content, old_p, size);
 	token_list->token_count++;
 }
 
@@ -169,7 +177,9 @@ int	direct_check(char **p)
 int	check_valid(char **p)
 {
 	t_token_type	token_type;
+	char			*old_p;
 
+	old_p = *p;
 	if (get_source()->label == false && label_check(p))
 		token_type = label;
 	else if (get_source()->ins == false && instruction_check(p))
@@ -184,7 +194,7 @@ int	check_valid(char **p)
 		token_type = direct;
 	else
 		return (0);
-	save_token(p, token_type);
+	save_token(p, old_p, token_type);
 	return (1);
 }
 
@@ -319,7 +329,7 @@ void	print_tokens()
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		ft_printf("%s \n", tokenstr[token_list->tokens[i].type]);
+		ft_printf("%s %s \n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
 		i++;
 	}
 }
