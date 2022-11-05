@@ -15,3 +15,15 @@ live() needs *player and *game to update the last_alive count
 move the (t_header_t *player) and (game_param) global?
 and the *instruct_table too?
 or merge them somehow
+//either tidy them up into one or two structs or remake them as global, 
+but player need to be remade since its needed to still be in header for assembler?
+
+
+these needs to be tested
+Jyris checklist:
+add, works
+Sub, works
+and,or,xor works
+lldi,
+zjmp,workss
+lld, works atleast on direct, indirect value
