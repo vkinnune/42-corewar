@@ -69,5 +69,10 @@ typedef	struct s_parser {
 	t_source	source;
 }	t_parser;
 
+void	init_parser();
+void	parser(const char *input);
+char *read_file(char *file_name);
+void	print_tokens();
+
 #endif
 

@@ -93,3 +93,4 @@ typedef struct s_op
 
 extern t_op				op_tab[17];
 #endif
+
