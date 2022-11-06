@@ -57,7 +57,8 @@ int	label_check(char **p)
 			get_source()->label = true;
 			return (1);
 		}
-		else if ((*p)[i] == '\n' || (*p)[i] == '\0' || (*p)[i] == ' ' || (*p)[i] == '\t' || (*p)[i] == '%')
+		else if ((*p)[i] == '\n' || (*p)[i] == '\0'
+			|| (*p)[i] == ' ' || (*p)[i] == '\t' || (*p)[i] == '%')
 			return (0);
 		i++;
 	}
@@ -125,7 +126,8 @@ int	direct_label_check(char **p)
 	i = 2;
 	if ((*p)[0] == '%' && (*p)[1] == ':')
 	{
-		while (ft_isalnum((*p)[i]))
+		while (ft_isprint((*p)[i]) && (*p)[i] != ','
+			&& (*p)[i] != ' ' && (*p)[i] != '\t' && (*p)[i] != '\n')
 			i++;
 		if (i > 2)
 		{
@@ -157,6 +159,8 @@ int	direct_check(char **p)
 	i = 1;
 	if (**p == '%')
 	{
+		if ((*p)[1] == '-')
+			i++;
 		while (1)
 		{
 			if (ft_isdigit((*p)[i]))
@@ -172,6 +176,21 @@ int	direct_check(char **p)
 		}
 	}
 	return (0);
+}
+
+int	indirect_check(char **p)
+{
+	int	i;
+
+	i = 0;
+	if (**p == '-')
+		i++;
+	while (ft_isdigit((*p)[i]))
+		i++;
+	if ((i == 1 && **p == '-') || i == 0)
+		return (0);
+	get_source()->col += i - 1;
+	*p = &(*p)[i - 1];
 }
 
 int	check_valid(char **p)
@@ -192,6 +211,8 @@ int	check_valid(char **p)
 		token_type = direct_label;
 	else if (direct_check(p))
 		token_type = direct;
+	else if (indirect_check(p))
+		token_type = indirect;
 	else
 		return (0);
 	save_token(p, old_p, token_type);
@@ -226,6 +247,9 @@ void	handle_asm(char *p)
 			continue ;
 		else if (*p == '\0')
 			break ;
+		if (*p == '#')
+			while (*p != '\n' && *p != '\0')
+				p++;
 		else if (!check_valid(&p))
 		{
 			printf("Error in col: %d row: %d", get_source()->col, get_source()->row);
