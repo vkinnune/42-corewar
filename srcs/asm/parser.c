@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 17:24:32 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:24:26 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ int	indirect_check(char **p)
 		return (0);
 	get_source()->col += i - 1;
 	*p = &(*p)[i - 1];
+	return (1);
 }
 
 int	check_valid(char **p)

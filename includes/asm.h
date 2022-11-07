@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 16:51:33 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:31:21 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef enum	e_header_type
 typedef struct s_token {
 	t_token_type	type;
 	char			*content;
-	long int		 num;
 }	t_token;
 
 typedef struct s_token_list {
@@ -71,7 +70,7 @@ typedef	struct s_parser {
 
 void	init_parser();
 void	parser(const char *input);
-char *read_file(char *file_name);
+char	*read_file(char *file_name);
 void	print_tokens();
 
 #endif
