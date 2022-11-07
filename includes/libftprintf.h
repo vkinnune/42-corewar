@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 10:49:12 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/26 00:57:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/06 21:42:21 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFTPRINTF_H
 # include <stdarg.h>
 # include "libft.h"
+# include <fcntl.h>
 
 typedef struct s_order
 {

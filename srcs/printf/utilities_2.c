@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 16:19:29 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 11:49:53 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/06 21:48:35 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	mfw_prec_assigner(char **fmt, va_list ap)
 		g_order.mfw = ft_atoi(*fmt);
 }
 
-/* void	printf_d(int *fd, va_list ap, char fmt)
+void	print_fd(int *fd, va_list ap, char fmt)
 {
 	char	*s;
 
@@ -67,9 +67,9 @@ void	mfw_prec_assigner(char **fmt, va_list ap)
 		s = va_arg(ap, char *);
 		*fd = open(s, O_WRONLY);
 	}
-		if (*fd == -1)
+	if (*fd == -1)
 		write(2, "error: cannot open file\n", 24);
-} */
+}
 
 void	extra_functionality(char **fmt, char default_color[5], int *fd,
 			va_list ap)
@@ -86,8 +86,8 @@ void	extra_functionality(char **fmt, char default_color[5], int *fd,
 		color = "\x1B[34m";
 	else if (**fmt == 'd')
 		color = "\x1B[0m";
-	else if (**fmt == '0')
-		*fd = va_arg(ap, int);
+	else if (**fmt == '0' || **fmt == '1')
+		print_fd(fd, ap, **fmt);
 	else
 	{
 		write(*fd, "$", 1);

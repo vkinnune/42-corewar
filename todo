@@ -7,15 +7,8 @@ does this mean some .cor file might not have prog_size data?
 
 //fix ./corewar moro.cor 1
 
-finish the instructions
 
-live() needs *player and *game to update the last_alive count
-	passing those two forces other instructions to take those parameter as well (for the instruct table)
-
-move the (t_header_t *player) and (game_param) global?
-and the *instruct_table too?
-or merge them somehow
-//either tidy them up into one or two structs or remake them as global, 
+//either tidy them up into one or two structs or remake them as global,
 but player need to be remade since its needed to still be in header for assembler?
 
 
@@ -27,3 +20,7 @@ and,or,xor works
 lldi,
 zjmp,workss
 lld, works atleast on direct, indirect value
+
+
+check zjmp to see if it still works
+	  fork

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 20:02:44 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/07 15:31:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ t_process	*new_process(t_process *head, uint16_t pos, int id)
 
 	process = (t_process *)ft_memalloc(sizeof(t_process));
 	check_err_malloc((void *)process);
-	process->process_id = process_id++;
+	process->process_id = process_id++; //might still not be needed - currently only used for testing
 	process->pc = pos;
-	process->bytes_to_next = 1; //move 1 up from the instruction byte
+	process->bytes_to_next = 1; //1 up from the instruction byte
 	process->next = head;
 	process->reg[r1] = -id;
 	return (process);
