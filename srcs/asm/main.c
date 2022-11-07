@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 16:00:58 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:19:02 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	find_ins(char *content)
 	while (ins != INSTRUCTION_AMOUNT)
 	{
 		if (!ft_strncmp(op_tab[ins].name, content, ft_strlen(op_tab[ins].name)))
-			return (1);
+			return (ins);
 		ins++;
 	}
-	return (ins);
+	ft_out("ERROR");
 }
 
 int	check_instruction(int *i, t_token_list *token_list)
@@ -36,6 +36,8 @@ int	check_instruction(int *i, t_token_list *token_list)
 	if (token_list->tokens[*i].type != instruction)
 		return (0);
 	ins = find_ins(token_list);
+	op_tab[ins].arg_amt;
+	op_tab[ins].arg_type[0];
 	return (1);
 }
 
