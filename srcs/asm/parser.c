@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 15:24:26 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:22:11 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	separator_check(char **p)
 		return (0);
 }
 
-int	direct_label_check(char **p)
+int direct_label_check(char **p)
 {
 	int	i;
 

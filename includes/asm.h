@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 15:31:21 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/07 16:36:31 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	init_parser();
 void	parser(const char *input);
 char	*read_file(char *file_name);
 void	print_tokens();
-
+t_token_list	*get_token_list();
 #endif
 
