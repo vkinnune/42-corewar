@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/03 23:31:02 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/08 17:43:32 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 		else
 			flags->byte = 64;
 	}
+	else if (!ft_strcmp(argv[i], "-a"))
+		flags->aff = 1;
 	else
 		print_man_page();
 }

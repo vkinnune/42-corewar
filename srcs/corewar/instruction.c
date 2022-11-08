@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/08 14:52:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/08 18:37:05 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	live(t_process *process, t_arg *arg, t_game_param *game)
 {
 	process->last_live_cycle = game->current_cycle;
+	game->live_performed++;
 	return ;
 }
 
@@ -267,5 +268,12 @@ void	lfork(t_process *process, t_arg *arg, t_game_param *game)
 
 void	aff(t_process *process, t_arg *arg, t_game_param *game)
 {
-
+	//this need to get flags (flags aff (-a) has to be turned on to display according to real corewar)
+	char a;
+	
+//	if (flags->aff)
+//	{
+	a = (char)get_arg_value(process, &arg[0]);
+	ft_printf("Aff: %c\n", a);		
+//	}
 }
