@@ -142,9 +142,13 @@ int direct_label_check(char **p)
 void	save_token(char **p, char *old_p, t_token_type token_type)
 {
 	t_token_list	*token_list;
-	int				size;
+	int		size;
+	char		*p_copy;
 
-	size = (*p - old_p) + 1;
+	p_copy = *p;
+	while (*p_copy == ' ' || *p_copy == '\t' || *p_copy == '\n')
+		p_copy--;
+	size = (p_copy - old_p) + 1;
 	token_list = get_token_list();
 	token_list->tokens[token_list->token_count].type = token_type;
 	token_list->tokens[token_list->token_count].content = ft_memalloc(size);
@@ -354,7 +358,7 @@ void	print_tokens()
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		ft_printf("%s %s \n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
+		ft_printf("%s %s\n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
 		i++;
 	}
 }

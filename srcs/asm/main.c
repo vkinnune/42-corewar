@@ -15,11 +15,13 @@
 int	find_ins(char *content)
 {
 	int	ins;
+	int	size;
 
 	ins = 0;
+	size = ft_strlen(content);
 	while (ins != INSTRUCTION_AMOUNT)
 	{
-		if (!ft_strncmp(op_tab[ins].name, content, ft_strlen(op_tab[ins].name)))
+		if (!ft_strncmp(op_tab[ins].name, content, size))
 			return (ins);
 		ins++;
 	}
@@ -34,17 +36,22 @@ int	check_instruction(int *i, t_token_list *token_list)
 
 	ins = 0;
 	arg = 0;
+	if (!token_list->tokens[*i].content)
+		return (0);
 	if (token_list->tokens[*i].type == label)
 		(*i)++;
 	if (token_list->tokens[*i].type != instruction)
-		return (0);
+		ft_out("ERRRORRR");
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
-	while (arg != op_tab[ins].arg_amt)
+	while (1)
 	{
-		token_list->tokens[*i + arg].content; //check that is correct argument
+		token_list->tokens[*i].content; //check that is correct argument
+		(*i)++;
 		arg++;
-		if (token_list->tokens[*i + arg].type == separator)
+		if (arg == op_tab[ins].arg_amt)
+			break ;
+		else if (token_list->tokens[*i].type == separator)
 			(*i)++;
 		else
 			ft_out("ERROR ON SEPERATOR");
