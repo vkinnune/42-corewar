@@ -22,6 +22,18 @@ fork == done
 check zjmp to see if it still works == seems to be working, according to my tests
 
 handle game.live_performed and the actual game looping (in corewar() )
+//trying to handle it with while (game->head) exists, so we know there is still atleast carriage?
 
 jyri:
 AFF works, as simple way as possible. we have to figure out how to make it work with the flags (needs to be passed as argument now...)
+
+NEXT:
+-game looping;
+	1. game has to check carriages every time current cycle is > CYCLE_TO_DIE
+	2. game should loop only until game->head is deleted. (try to implement)
+	3. fix the process deletions, now segfault when trying to free last process? (should we also pass the game as argument?)
+	4. new variable needs to be implemented to process to delete dead process when live was called more than CYCLE_TO_DIE cycles back? (this might already be fixed)
+-Test the instructions;
+	1. better testing on zjmp (but it seems like working)
+	2. test with all provided files that actual instructions does what needed
+
