@@ -39,6 +39,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 	if (token_list->tokens[*i].type != instruction)
 		return (0);
 	ins = find_ins(token_list->tokens[*i].content);
+	(*i)++;
 	while (arg != op_tab[ins].arg_amt)
 	{
 		token_list->tokens[*i + arg].content; //check that is correct argument
@@ -55,7 +56,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 void	token_check()
 {
 	t_token_list	*token_list;
-	int				i;
+	int		i;
 
 	i = 0;
 	token_list = get_token_list();
@@ -68,7 +69,7 @@ int	main(int ac, char **av)
 	validate_argument(ac, av);
 	parser(read_file(av[1]));
 	print_tokens();
-	//token_check();
+	token_check();
 	return (0);
 }
 
