@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 15:40:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/08 14:59:20 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ static void	read_instruction(t_process *process)
 	process->wait_cycle--;
 }
 
-void	external_live(t_game_param *game, t_process *process
+void	update_live_player(t_game_param *game, t_process *process
 					, t_arg *arg, t_header_t *player)
 {
 	uint16_t	i;
 
 	i = 0;
-	process->last_live_cycle = game->current_cycle;
 	while (i < g_p_count)
 	{
 		if (arg[0].value == player[i].id)
@@ -50,19 +49,19 @@ void	external_live(t_game_param *game, t_process *process
 	}
 }
 
-static void	execute_le_code(t_game_param *game, t_process **process, t_instruct_table **instruct_table, t_header_t *player)
+static void	execute_le_code(t_game_param *game, t_process *process, t_instruct_table **instruct_table, t_header_t *player)
 {
 	t_arg	arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	ft_printf("%d is on %$gs @%$bu:\n", (*process)->process_id, op_tab[(*process)->cmd].name, (*process)->pc);
-	if (check_matching_arg(*process, arg) != OKEI)
+	ft_printf("%d is on %$gs @%$bu:\n", process->process_id, op_tab[process->cmd].name, process->pc);
+	if (check_matching_arg(process, arg) != OKEI)
 		return ;
-	ft_printf("\tMe do %$gs now (ㆁᴗㆁ✿)\n", op_tab[(*process)->cmd].name, game->current_cycle);
+	ft_printf("\tMe do %$gs now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
 	//print_arg(process, arg);
-	instruct_table[(*process)->cmd](process, arg);
-	if ((*process)->cmd == 0)
-		external_live(game, *process, arg, player);
+	instruct_table[process->cmd](process, arg, game);
+	if (process->cmd == 0)
+		update_live_player(game, process, arg, player);
 }
 
 void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t *player)
@@ -72,14 +71,19 @@ void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t
 	process = game->head;
 	while (process)
 	{
+		// ft_printf("process %u:\n", process->process_id);
+		// if (game->current_cycle >= 800)
+			// ft_printf("\tpos: %u \n\twait: %u\n\tcmd %d\n", process->pc, process->wait_cycle, process->cmd);
 		read_instruction(process);
 		if (process->wait_cycle == 0)
 		{
-			execute_le_code(game, &process, instruct_table, player);
+			execute_le_code(game, process, instruct_table, player);
+			// if (game->current_cycle >= 800)
+				// ft_printf("b2n %u\n", process->bytes_to_next);
 			process->pc = get_position(process->pc + process->bytes_to_next);
 			ft_printf("Me move to @%$bu ╰(⸝⸝⸝´꒳`⸝⸝⸝)╯ \n", process->pc);
 			process->bytes_to_next = 1;
-			process->cmd = 0;
+			process->cmd = -1;
 		}
 		process = process->next;
 	}

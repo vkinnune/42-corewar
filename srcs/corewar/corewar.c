@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/05 12:56:47 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/08 15:00:46 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ void	corewar(t_header_t *player, t_flag *flags)
 	param_init(&game, head);
 	instr_table_init(instruct_table);
 	// while (game.live_performed)//one process is living
-	while (game.current_cycle < 100)
+	while (game.current_cycle < 1000)
 	{
+		if (game.current_cycle >= 800)
 		ft_printf("\ncycle %$ru: \n", game.current_cycle);
 		processor(&game, instruct_table, player);
 		check(&game);

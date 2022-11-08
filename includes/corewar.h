@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 15:41:18 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/08 14:51:30 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_process t_process;
 typedef struct s_game_param	t_game_param;
 typedef struct s_flag t_flag;
 typedef struct s_arg t_arg;
-typedef void	t_instruct_table(t_process **process, t_arg *arg);
+typedef void	t_instruct_table(t_process *process, t_arg *arg, t_game_param *game);
 
 struct s_process
 {
@@ -127,22 +127,22 @@ uint16_t	get_position(uint16_t pos);
 void		corewar(t_header_t *player, t_flag *flags);
 
 //instruction.c
-void		live(t_process **process, t_arg *arg);
-void		ld(t_process **process, t_arg *arg);
-void		st(t_process **process, t_arg *arg);
-void		add(t_process **process, t_arg *arg);
-void		sub(t_process **process, t_arg *arg);
-void		and(t_process **process, t_arg *arg);
-void		or(t_process **process, t_arg *arg);
-void		xor(t_process **process, t_arg *arg);
-void		zjmp(t_process **process, t_arg *arg);
-void		ldi(t_process **process, t_arg *arg);
-void		sti(t_process **process, t_arg *arg);
-void		foork(t_process **process, t_arg *arg);
-void		lld(t_process **process, t_arg *arg);
-void		lldi(t_process **process, t_arg *arg);
-void		lfork(t_process **process, t_arg *arg);
-void		aff(t_process **process, t_arg *arg);
+void		live(t_process *process, t_arg *arg, t_game_param *game);
+void		ld(t_process *process, t_arg *arg, t_game_param *game);
+void		st(t_process *process, t_arg *arg, t_game_param *game);
+void		add(t_process *process, t_arg *arg, t_game_param *game);
+void		sub(t_process *process, t_arg *arg, t_game_param *game);
+void		and(t_process *process, t_arg *arg, t_game_param *game);
+void		or(t_process *process, t_arg *arg, t_game_param *game);
+void		xor(t_process *process, t_arg *arg, t_game_param *game);
+void		zjmp(t_process *process, t_arg *arg, t_game_param *game);
+void		ldi(t_process *process, t_arg *arg, t_game_param *game);
+void		sti(t_process *process, t_arg *arg, t_game_param *game);
+void		foork(t_process *process, t_arg *arg, t_game_param *game);
+void		lld(t_process *process, t_arg *arg, t_game_param *game);
+void		lldi(t_process *process, t_arg *arg, t_game_param *game);
+void		lfork(t_process *process, t_arg *arg, t_game_param *game);
+void		aff(t_process *process, t_arg *arg, t_game_param *game);
 
 //instruc_util.c
 uint32_t	get_arg_value(t_process *process, t_arg *arg);

@@ -2,11 +2,7 @@
 does this mean some .cor file might not have prog_size data?
 //ask miriam
 
-//hypothetical: if a byte is a instruction repalced with the same one -> ignore
-//ask miriam
-
 //fix ./corewar moro.cor 1
-
 
 //either tidy them up into one or two structs or remake them as global,
 but player need to be remade since its needed to still be in header for assembler?
@@ -22,5 +18,7 @@ zjmp,workss
 lld, works atleast on direct, indirect value
 
 
+fork == done
 check zjmp to see if it still works
-	  fork
+
+handle game.live_performed and the actual game looping (in corewar() )
