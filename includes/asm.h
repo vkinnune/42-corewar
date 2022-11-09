@@ -6,13 +6,14 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 16:36:31 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:06:56 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # define MAX_TOKENS 100000
+# define MAX_LABELS 100000
 # define BUF_SIZE 100000
 # define NAME_SIZE 64
 # define COMMENT_SIZE 64
@@ -63,9 +64,20 @@ typedef struct s_source {
 	bool	ins;
 }	t_source;
 
+typedef struct s_label {
+	unsigned int		id;
+	bool	is_init;
+}	t_label;
+
+typedef struct s_label_list {
+	int		label_count;
+	t_label	labels[MAX_LABELS];
+}	t_label_list;
+
 typedef	struct s_parser {
 	t_token_list	token_list;
-	t_source	source;
+	t_source		source;
+	t_label			label_list;
 }	t_parser;
 
 void	init_parser();
@@ -73,5 +85,6 @@ void	parser(const char *input);
 char	*read_file(char *file_name);
 void	print_tokens();
 t_token_list	*get_token_list();
+t_label_list	*get_label_list();
 #endif
 
