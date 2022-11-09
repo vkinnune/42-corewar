@@ -76,8 +76,8 @@ typedef struct s_label_list {
 
 typedef	struct s_parser {
 	t_token_list	token_list;
-	t_source		source;
-	t_label			label_list;
+	t_source	source;
+	t_label_list	label_list;
 }	t_parser;
 
 void	init_parser();
