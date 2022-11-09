@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 17:41:23 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 19:12:06 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_instruct_t
 	if (check_matching_arg(process, arg) != OKEI)
 		return ;
 	// ft_printf("\tMe do %$gs now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
-	//print_arg(process, arg);
+	// print_arg(process, arg);
 	instruct_table[process->cmd](process, arg, game);
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);

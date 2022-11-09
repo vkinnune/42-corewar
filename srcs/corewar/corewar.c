@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 18:22:12 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 19:11:58 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,25 @@ static void	param_init(t_game_param *game, t_process *head)
 	game->current_cycle = 1;
 	game->cycle_to_die = CYCLE_TO_DIE;
 	game->live_performed = 1;
-	game->check_counter = 0;
+	game->check_counter = 1;
 }
 
 void	check(t_game_param *game)
 {
-	// ft_printf("\tc2d: %d --- res: %d\n",game->cycle_to_die, game->current_cycle % game->cycle_to_die );
-	if (game->current_cycle % game->cycle_to_die > 0 && game->cycle_to_die > 0)
+	static int	cycle_count;
+
+	if (cycle_count++ < game->cycle_to_die - 1)
 		return ;
-	ft_printf("\tc2d: %d --- res: %d\n",game->cycle_to_die, game->current_cycle % game->cycle_to_die );
-	if (game->current_cycle >= 57900)
-		sleep(2);
 	kill_process(game);
 	if (game->live_performed >= NBR_LIVE || game->check_counter == MAX_CHECKS)
 	{
 		game->cycle_to_die -= CYCLE_DELTA;
-		ft_printf("\treduce in cycle %u%\n", game->current_cycle);
-		ft_printf("\tcycle to die is now %u%\n", game->cycle_to_die);
-		sleep(2);
-		// if (game->cycle_to_die < 50)
-			// sleep(1);
-		game->check_counter = 0;
+		game->check_counter = 1;
 	}
 	else
 		game->check_counter++;
 	game->live_performed = 0;
+	cycle_count = 0;
 }
 
 void	corewar(t_header_t *player, t_flag *flags)
@@ -94,18 +88,18 @@ void	corewar(t_header_t *player, t_flag *flags)
 	instr_table_init(instruct_table);
 	while (game.head)//one process is living
 	{
-		if (game.current_cycle >= 57900)
-			ft_printf("\ncycle %$ru: \n", game.current_cycle);
+		ft_printf("\ncycle %$ru: \n", game.current_cycle);
 		processor(&game, instruct_table, player);
 		check(&game);
 		if (game.current_cycle >= flags->dump_nbr)
 		{
 			print_arena(player, flags);
-			free_all_process(head);
+			free_all_process(game.head);
 			exit (0);
-		} //probably will move this into a util function for a cleaner code
+		}
 		game.current_cycle++;
 	}
+	ft_printf("@%$bd, ", game.current_cycle - 1);
 	ft_printf("#%d won\n", game.last_alive);
-	// free_all_process(head);
+	free_all_process(game.head);
 }

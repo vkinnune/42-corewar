@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 16:42:25 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 18:44:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 	position = process->pc + ((int16_t)arg[0].value % IDX_MOD); //removed get_arg_value because we cast it here anyway
 	if (process->carry == 1)
 		process->pc = position;
-	ft_printf("Jump to: %d\n", (int16_t)position);
+	// ft_printf("Jump to: %d\n", (int16_t)position);
 }
 
 void	ldi(t_process *process, t_arg *arg, t_game_param *game)

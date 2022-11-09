@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 18:09:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 19:01:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_all_process(t_process *head) //for the end of the program
 
 void	kill_process(t_game_param *game)
 {
+	int64_t		cycle_since_last_live;
 	t_process	*prev;
 	t_process	*process;
 	t_process	*next;
@@ -40,20 +41,15 @@ void	kill_process(t_game_param *game)
 	while (process)
 	{
 		next = process->next;
-		// if (game->current_cycle >= 57900)
-			// ft_printf("%u - %u (%u) >= %d\n", game->current_cycle, process->last_live_cycle, game->current_cycle - process->last_live_cycle,game->cycle_to_die );
-		if ((int64_t)(game->current_cycle - process->last_live_cycle) >= game->cycle_to_die)
+		cycle_since_last_live = game->current_cycle - process->last_live_cycle;
+		if (cycle_since_last_live >= game->cycle_to_die)
 		{
-			ft_printf("\t killing nao\n");
-			sleep(1);
 			free_process(prev, process);
-			if (prev == 0)
+			if (prev == NULL)
 				game->head = next;
 		}
 		else
 			prev = process;
-		// if (game->current_cycle >= 57900)
-		// 	sleep(1);
 		process = next;
 	}
 }
