@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/03 21:45:14 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/09 15:29:56 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,10 +41,10 @@ all: $(COR_NAME) $(ASM_NAME)
 
 ################ COREWAR ################
 
-$(COR_NAME): $(COR_OBJS) $(SHARED_OBJS) includes/corewar.h $(PRINTF)
+$(COR_NAME): $(COR_OBJS) $(SHARED_OBJS) $(PRINTF)
 	gcc $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
-$(COR_OBJS_DIR)%.o: $(COR_DIR)%.c
+$(COR_OBJS_DIR)%.o: $(COR_DIR)%.c includes/corewar.h
 	@mkdir -p $(COR_OBJS_DIR)
 	gcc -g -c $< $(INCLUDES) -o $@
 

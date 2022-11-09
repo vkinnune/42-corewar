@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/08 21:35:21 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:42:25 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	live(t_process *process, t_arg *arg, t_game_param *game)
 {
+	arg[0].value = get_n_byte(DIR_SIZE, &g_arena[process->pc + 1]);
+	process->bytes_to_next += DIR_SIZE;
 	process->last_live_cycle = game->current_cycle;
 	game->live_performed++;
 	return ;
@@ -28,12 +30,12 @@ void	ld(t_process *process, t_arg *arg, t_game_param *game)
 	uint32_t	value;
 
 	value = get_arg_value(process, &arg[0]);
-	ft_printf("value is in ld: %u\n", value);
+	// ft_printf("value is in ld: %u\n", value);
 	if (arg[0].type == IND_CODE)
 		value = get_n_byte(4, &g_arena[value]);
 	process->reg[arg[1].value] = value;
 	process->carry = (process->reg[arg[1].value] == 0);
-	ft_printf("in ld reg: %u\n", process->reg[arg[1].value]);
+	// ft_printf("in ld reg: %u\n", process->reg[arg[1].value]);
 }
 
 void	st(t_process *process, t_arg *arg, t_game_param *game)
@@ -144,11 +146,12 @@ void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 	uint16_t	position;
 
 	arg[0].value = get_n_byte(DIR_SIZE / 2, &g_arena[process->pc + 1]);
+	process->bytes_to_next = 0;
 	//ft_printf("Jump from: %u\n", process->pc);
 	position = process->pc + ((int16_t)arg[0].value % IDX_MOD); //removed get_arg_value because we cast it here anyway
 	if (process->carry == 1)
 		process->pc = position;
-	//ft_printf("Jump to: %d\n", (int16_t)position);
+	ft_printf("Jump to: %d\n", (int16_t)position);
 }
 
 void	ldi(t_process *process, t_arg *arg, t_game_param *game)
@@ -194,7 +197,7 @@ void	foork(t_process *process, t_arg *arg, t_game_param *game)
 	}
 	new->carry = process->carry;
 	new->last_live_cycle = process->last_live_cycle;
-	process->bytes_to_next += 2;
+	process->bytes_to_next += DIR_SIZE / 2;
 	game->head = new;
 }
 
@@ -262,7 +265,7 @@ void	lfork(t_process *process, t_arg *arg, t_game_param *game)
 	}
 	new->carry = process->carry;
 	new->last_live_cycle = process->last_live_cycle;
-	process->bytes_to_next += 2;
+	process->bytes_to_next += DIR_SIZE / 2;
 	game->head = new;
 }
 
@@ -270,10 +273,10 @@ void	aff(t_process *process, t_arg *arg, t_game_param *game)
 {
 	//this need to get flags (flags aff (-a) has to be turned on to display according to real corewar)
 	char a;
-	
-//	if (flags->aff)
+
+//	if (flags->aff == SET)
 //	{
 	a = (char)get_arg_value(process, &arg[0]);
-	ft_printf("Aff: %c\n", a);		
+	ft_printf("Aff: %c\n", a);
 //	}
 }

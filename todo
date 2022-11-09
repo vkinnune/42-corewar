@@ -37,3 +37,7 @@ NEXT:
 	1. better testing on zjmp (but it seems like working)
 	2. test with all provided files that actual instructions does what needed
 
+
+
+
+57945 == terminating check

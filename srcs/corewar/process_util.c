@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/08 21:35:15 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:09:42 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,44 @@ void	free_process(t_process *prev, t_process *delete)
 	if (prev)
 		prev->next = delete->next;
 	if (delete)
-		ft_memdel((void **)&delete);
+		free(delete);
 }
 
-void	free_all_process(t_process *head)
+void	free_all_process(t_process *head) //for the end of the program
 {
 	while (head)
 	{
 		free_process(0, head);
 		head = head->next;
+	}
+}
+
+void	kill_process(t_game_param *game)
+{
+	t_process	*prev;
+	t_process	*process;
+	t_process	*next;
+
+	prev = NULL;
+	process = game->head;
+	while (process)
+	{
+		next = process->next;
+		// if (game->current_cycle >= 57900)
+			// ft_printf("%u - %u (%u) >= %d\n", game->current_cycle, process->last_live_cycle, game->current_cycle - process->last_live_cycle,game->cycle_to_die );
+		if ((int64_t)(game->current_cycle - process->last_live_cycle) >= game->cycle_to_die)
+		{
+			ft_printf("\t killing nao\n");
+			sleep(1);
+			free_process(prev, process);
+			if (prev == 0)
+				game->head = next;
+		}
+		else
+			prev = process;
+		// if (game->current_cycle >= 57900)
+		// 	sleep(1);
+		process = next;
 	}
 }
 
@@ -61,19 +90,4 @@ t_process	*process_init(t_header_t *player)
 		i++;
 	}
 	return (head);
-}
-
-void	kill_process(t_game_param *game)
-{
-	t_process	*prev;
-	t_process	*process;
-
-	prev = NULL;
-	process = game->head;
-	while (process)
-	{
-		if (game->current_cycle - process->last_live_cycle >= game->cycle_to_die)
-			free_process(prev, process);
-		process = process->next;
-	}
 }
