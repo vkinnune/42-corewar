@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 16:37:04 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:06:44 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,56 @@ void	token_check()
 	while (check_instruction(&i, token_list));
 }
 
+unsigned int	generate_id(char *content)
+{
+	unsigned int	res;
+	int	size;
+	int	i;
+
+	size = ft_strlen(content);
+	i = 0;
+	while (i != size)
+	{
+		res = res * 42 + content[i];
+		i++;
+	}
+	return (res);
+}
+
+void	add_label_list(char *content, t_token_type token_type)
+{
+	t_label_list	*label_list;
+	int			i;
+	unsigned int			id;
+
+	id = generate_id(content);
+	label_list = get_label_list();
+	i = 0;
+	while (i != label_list->label_count)
+	{
+		if (label_list->labels[i].id == id)
+			break;
+		i++;
+	}
+	if (i == label_list->label_count)
+		label_list->labels[label_list->label_count++].id = id;
+}
+
+void	label_list_check()
+{
+	t_token_list	*token_list;
+	int				i;
+
+	token_list = get_token_list();
+	i = 0;
+	while (i != token_list->token_count)
+	{
+		if (token_list->tokens[i].type == label || token_list->tokens[i].type == direct_label)
+			add_label_list(token_list->tokens[i].content, token_list->tokens[i].type);
+		i++;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	init_parser();
@@ -77,6 +127,7 @@ int	main(int ac, char **av)
 	parser(read_file(av[1]));
 	print_tokens();
 	token_check();
+	label_list_check();
 	return (0);
 }
 

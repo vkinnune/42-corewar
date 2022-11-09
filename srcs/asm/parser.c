@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/07 16:22:11 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/09 15:20:52 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ t_token_list	*get_token_list()
 
 	parse = get_parser();
 	return (&parse->token_list);
+}
+
+t_label_list	*get_label_list()
+{
+	t_parser	*parse;
+
+	parse = get_parser();
+	return (&parse->label_list);
 }
 
 t_source	*get_source()
