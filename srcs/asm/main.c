@@ -85,7 +85,7 @@ void	add_label_list(char *content, t_token_type token_type)
 	int			i;
 	unsigned int			id;
 
-	id = generate_id(content); 
+	id = generate_id(content);
 	label_list = get_label_list();
 	i = 0;
 	while (i != label_list->label_count)
