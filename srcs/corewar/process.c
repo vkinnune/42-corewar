@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 19:12:06 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 21:33:40 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_instruct_t
 	t_arg	arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	// ft_printf("%d is on %$gs @%$bu:\n", process->process_id, op_tab[process->cmd].name, process->pc);
+	// ft_printf("%d is on %s @%u:\n", process->process_id, op_tab[process->cmd].name, process->pc);
 	if (check_matching_arg(process, arg) != OKEI)
 		return ;
-	// ft_printf("\tMe do %$gs now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
+	// ft_printf("\tMe do \"%s\" now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
 	// print_arg(process, arg);
 	instruct_table[process->cmd](process, arg, game);
 	if (process->cmd == 0)
@@ -71,18 +71,14 @@ void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t
 	process = game->head;
 	while (process)
 	{
-		// ft_printf("process %u:\n", process->process_id);
-		// if (game->current_cycle >= 800)
-			// ft_printf("\tpos: %u \n\twait: %u\n\tcmd %d\n", process->pc, process->wait_cycle, process->cmd);
 		read_instruction(process);
+		// ft_printf("process %u:\n", process->process_id);
+			// ft_printf("\tpos: %u \n\twait: %u\n\tcmd %d\n", process->pc, process->wait_cycle, process->cmd);
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, instruct_table, player);
-			// if (game->current_cycle >= 800)
-				// ft_printf("b2n %u\n", process->bytes_to_next);
 			process->pc = get_position(process->pc + process->bytes_to_next);
-		// if (game->current_cycle >= 57900)
-			// ft_printf("Me move to @%$bu ╰(⸝⸝⸝´꒳`⸝⸝⸝)╯ \n", process->pc);
+			// ft_printf("Me move to @%u ╰(⸝⸝⸝´꒳`⸝⸝⸝)╯ \n", process->pc);
 			process->bytes_to_next = 1;
 			process->cmd = -1;
 		}

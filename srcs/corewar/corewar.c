@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 19:11:58 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 21:34:07 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	corewar(t_header_t *player, t_flag *flags)
 	instr_table_init(instruct_table);
 	while (game.head)//one process is living
 	{
-		ft_printf("\ncycle %$ru: \n", game.current_cycle);
+		// ft_printf("\ncycle %u: \n", game.current_cycle);
 		processor(&game, instruct_table, player);
 		check(&game);
 		if (game.current_cycle >= flags->dump_nbr)

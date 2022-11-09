@@ -2,11 +2,7 @@
 does this mean some .cor file might not have prog_size data?
 //ask miriam
 
-//fix ./corewar moro.cor 1
-
-//either tidy them up into one or two structs or remake them as global,
-but player need to be remade since its needed to still be in header for assembler?
-
+fix ./corewar moro.cor 1
 
 these needs to be tested
 Jyris checklist:
@@ -18,26 +14,16 @@ zjmp,workss
 lld, works atleast on direct, indirect value
 
 
-fork == done
-check zjmp to see if it still works == seems to be working, according to my tests
-
-handle game.live_performed and the actual game looping (in corewar() )
-//trying to handle it with while (game->head) exists, so we know there is still atleast carriage?
-
 jyri:
 AFF works, as simple way as possible. we have to figure out how to make it work with the flags (needs to be passed as argument now...)
 
 NEXT:
 -game looping;
-	1. game has to check carriages every time current cycle is > CYCLE_TO_DIE
-	2. game should loop only until game->head is deleted. (try to implement)
-	3. fix the process deletions, now segfault when trying to free last process? (should we also pass the game as argument?)
 	4. new variable needs to be implemented to process to delete dead process when live was called more than CYCLE_TO_DIE cycles back? (this might already be fixed)
 -Test the instructions;
 	1. better testing on zjmp (but it seems like working)
 	2. test with all provided files that actual instructions does what needed
 
 
-
-
-57945 == terminating check
+make sure every instruction loops within the arena
+check what the bus error is

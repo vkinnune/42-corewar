@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 18:44:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 21:15:06 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	st(t_process *process, t_arg *arg, t_game_param *game)
 	if (arg[1].type == IND_CODE)
 		write_4byte(process, value, get_arg_value(process, &arg[1]));
 	else
-		g_arena[arg[1].value] = value;
+		process->reg[arg[1].value] = value;
 }
 
 void	add(t_process *process, t_arg *arg, t_game_param *game)
@@ -187,7 +187,10 @@ void	foork(t_process *process, t_arg *arg, t_game_param *game)
 	uint8_t		i;
 
 	arg[0].value = get_n_byte(DIR_SIZE / 2, &g_arena[process->pc + 1]);
-	position = arg[0].value % IDX_MOD;
+	position = process->pc + arg[0].value % IDX_MOD;
+	//cookbook is wrong, add is need current position added to it as well
+	//only problem now is: (pc + arg0) % IDX or pc + (arg0 % IDX)
+	position = get_position(position);
 	new = new_process(game->head, position, -process->reg[r1]);
 	i = r1;
 	while (i <= r16)
@@ -197,6 +200,7 @@ void	foork(t_process *process, t_arg *arg, t_game_param *game)
 	}
 	new->carry = process->carry;
 	new->last_live_cycle = process->last_live_cycle;
+	new->cmd = -1;
 	process->bytes_to_next += DIR_SIZE / 2;
 	game->head = new;
 }
@@ -255,7 +259,8 @@ void	lfork(t_process *process, t_arg *arg, t_game_param *game)
 	uint8_t		i;
 
 	arg[0].value = get_n_byte(DIR_SIZE / 2, &g_arena[process->pc + 1]);
-	position = arg[0].value;
+	position = process->pc + arg[0].value;
+	position = get_position(position);
 	new = new_process(game->head, position, -process->reg[r1]);
 	i = r1;
 	while (i <= r16)
@@ -265,6 +270,7 @@ void	lfork(t_process *process, t_arg *arg, t_game_param *game)
 	}
 	new->carry = process->carry;
 	new->last_live_cycle = process->last_live_cycle;
+	new->cmd = -1;
 	process->bytes_to_next += DIR_SIZE / 2;
 	game->head = new;
 }

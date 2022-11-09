@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/05 15:12:27 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/09 21:32:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with i
 	if (arg->type == REG_CODE)
 		return (process->reg[arg->value]);
 	else if (arg->type == IND_CODE)
-		return ((uint16_t)(process->pc + ((arg->value) % IDX_MOD)));
+		return ((uint16_t)(process->pc + ((int16_t)arg->value % IDX_MOD)));
 	else if (op_tab[process->cmd].dir_size == 1)
 		return ((uint16_t)arg->value);
 	return (arg->value);
