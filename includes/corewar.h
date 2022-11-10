@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 18:09:51 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 20:02:25 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ enum registry
 
 struct s_flag
 {
-	int8_t	id;
-	int8_t	aff;
-	uint8_t	byte;
-	int64_t	dump_nbr;
+	int8_t		id;
+	int8_t		aff;
+	uint8_t		byte;
+	uint64_t	dump_nbr;
 };
 
 extern unsigned char	g_arena[MEM_SIZE];
@@ -100,7 +100,7 @@ void		player_sort(t_header_t *player);
 
 //error.c
 void		check_file_size(uint32_t size);
-void		check_file_type(unsigned char *file);
+void		check_file_type(unsigned char *file, int16_t fd);
 void		check_err_malloc(void *ptr);
 void		print_man_page(void);
 void		check_valid_arg(char **argv, int argc, uint8_t i);

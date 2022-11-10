@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 19:47:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 20:09:36 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,6 @@ void	print_arena(t_header_t *player, t_flag *flags)
 	ft_printf("\n");
 }
 
-uint16_t	get_position(uint16_t pos)
-{
-	return (pos % MEM_SIZE);
-}
-
 //test functions
 void	print_mem(int size, unsigned char *mem)
 {
@@ -120,12 +115,12 @@ void	print_process(t_process *process)
 	int	i;
 
 	i = 0;
-	ft_printf("id: %d\n", process->process_id);
-	ft_printf("prog_count: %d\n", process->pc);
-	ft_printf("carry: %d\n", process->carry);
-	ft_printf("instruction: %d\n", process->cmd + 1);
-	ft_printf("last_live_cyc: %d\n", process->last_live_cycle);
-	ft_printf("wait_cycle: %d\n", process->wait_cycle);
+	ft_printf("\tid: %d\n", process->process_id);
+	ft_printf("\tprog_count: %d\n", process->pc);
+	ft_printf("\tcarry: %d\n", process->carry);
+	ft_printf("\tinstruction: %s\n", op_tab[process->cmd].name);
+	ft_printf("\tlast_live_cyc: %d\n", process->last_live_cycle);
+	ft_printf("\twait_cycle: %d\n\t", process->wait_cycle);
 	while (i < REG_NUMBER)
 		ft_printf("%d - ", process->reg[i++]);
 	ft_printf("\n\n");

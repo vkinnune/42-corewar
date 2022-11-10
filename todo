@@ -2,8 +2,6 @@
 does this mean some .cor file might not have prog_size data?
 //ask miriam
 
-fix ./corewar moro.cor 1
-
 these needs to be tested
 Jyris checklist:
 add, works

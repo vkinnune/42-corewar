@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 21:34:07 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 20:14:22 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ void	corewar(t_header_t *player, t_flag *flags)
 		if (game.current_cycle >= flags->dump_nbr)
 		{
 			print_arena(player, flags);
+			ft_printf("cycle to die %u\n", game.cycle_to_die);
 			free_all_process(game.head);
 			exit (0);
 		}
 		game.current_cycle++;
 	}
-	ft_printf("@%$bd, ", game.current_cycle - 1);
-	ft_printf("#%d won\n", game.last_alive);
+	ft_printf("@%$bd, #%d won\n", game.current_cycle - 1, game.last_alive);
 	free_all_process(game.head);
 }

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 15:31:14 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 20:00:25 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 
 static void	open_read_close(unsigned char *str, char *file)
 {
-	uint16_t	fd;
+	int16_t	fd;
 
 	fd = open(file, O_RDONLY);
 	read(fd, str, MEM_SIZE);
+	check_file_type(str, fd);
 	close(fd);
-	check_file_type(str);
 }
 
 void	introduce_le_champ(t_header_t *player)

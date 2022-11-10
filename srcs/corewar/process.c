@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 21:33:40 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 20:14:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_instruct_t
 	t_arg	arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	// ft_printf("%d is on %s @%u:\n", process->process_id, op_tab[process->cmd].name, process->pc);
 	if (check_matching_arg(process, arg) != OKEI)
 		return ;
 	// ft_printf("\tMe do \"%s\" now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
@@ -72,8 +71,7 @@ void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t
 	while (process)
 	{
 		read_instruction(process);
-		// ft_printf("process %u:\n", process->process_id);
-			// ft_printf("\tpos: %u \n\twait: %u\n\tcmd %d\n", process->pc, process->wait_cycle, process->cmd);
+		// print_process(process);
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, instruct_table, player);
