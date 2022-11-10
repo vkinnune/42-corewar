@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 18:39:05 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 15:28:02 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	check_valid_arg(char **argv, int argc, uint8_t i)
 
 void	check_existing_id(int8_t id)
 {
+	ft_printf("%d\n", id);
 	if (id != NOT_SET)
 	{
 		ft_printf("Pwayers can has no same id (っ´ω｀c)\n");

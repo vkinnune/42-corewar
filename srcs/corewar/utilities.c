@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/04 20:47:44 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/09 19:47:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_arena(t_header_t *player, t_flag *flags)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i == p_area * 0)
+/* 		if (i == p_area * 0)
 			ft_printf("$g");
 		else if (i == p_area * 1 )
 			ft_printf("$b");
@@ -87,7 +87,7 @@ void	print_arena(t_header_t *player, t_flag *flags)
 			|| i == p_area * 1 + player[1].prog_size
 			|| i == p_area * 2 + player[2].prog_size
 			|| i == p_area * 3 + player[3].prog_size)
-			ft_printf("$d");
+			ft_printf("$d"); */
 		ft_printf("%02x ", g_arena[i++]);
 		if (i % flags->byte == 0)
 			ft_printf("\n");

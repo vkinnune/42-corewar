@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/08 17:43:32 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/09 15:31:14 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 			flags->byte = 64;
 	}
 	else if (!ft_strcmp(argv[i], "-a"))
-		flags->aff = 1;
+		flags->aff = SET;
 	else
 		print_man_page();
 }
@@ -68,6 +68,7 @@ void	parse(t_header_t *player, char **argv, int argc, t_flag *flags)
 
 	g_p_count = 0;
 	flags->id = NOT_SET;
+	flags->aff = NOT_SET;
 	i = 1;
 	while (i < argc)
 	{

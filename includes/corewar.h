@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/08 21:36:00 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/09 18:09:51 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 # include "op.h"
 # include <stdint.h> //used for types in linux - remove before submitting the project
 
-# define NOT_SET	42
+# define NOT_SET	0
+# define SET		1
 # define NOT_OKEI	0
 # define OKEI		1
 
@@ -44,7 +45,7 @@ struct s_game_param
 {
 	uint8_t		check_counter;
 	uint8_t		last_alive;
-	uint16_t	cycle_to_die;
+	int16_t		cycle_to_die;
 	uint32_t	live_performed;
 	uint64_t	current_cycle;
 	t_process	*head;
