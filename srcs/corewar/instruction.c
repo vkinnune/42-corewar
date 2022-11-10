@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:07:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 22:02:14 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	ldi(t_process *process, t_arg *arg, t_game_param *game)
 
 	arg0 = get_arg_value(process, &arg[0]);
 	arg1 = get_arg_value(process, &arg[1]);
-	position = process->pc + ((arg0 + arg1) % IDX_MOD);
+	position = process->pc + ((int16_t)(arg0 + arg1) % IDX_MOD);
 	position = get_position(position);
 	process->reg[arg[2].value] = get_n_byte(4, &g_arena[position]);
 	// ft_printf("pos: %u\n", position);
@@ -174,7 +174,7 @@ void	sti(t_process *process, t_arg *arg, t_game_param *game)
 
 	arg1 = get_arg_value(process, &arg[1]);
 	arg2 = get_arg_value(process, &arg[2]);
-	position = process->pc + ((arg1 + arg2) % IDX_MOD);
+	position = process->pc + ((int16_t)(arg1 + arg2) % IDX_MOD);
 	position = get_position(position);
 	write_4byte(process, get_arg_value(process, &arg[0]), position);
 }
@@ -186,9 +186,8 @@ void	foork(t_process *process, t_arg *arg, t_game_param *game)
 	uint8_t		i;
 
 	arg[0].value = get_n_byte(DIR_SIZE / 2, &g_arena[process->pc + 1]);
-	position = process->pc + arg[0].value % IDX_MOD;
+	position = process->pc + (int16_t)arg[0].value % IDX_MOD;
 	//cookbook is wrong, add needs the current position added to it as well
-	//only problem now is: (pc + arg0) % IDX or pc + (arg0 % IDX)
 	position = get_position(position);
 	new = new_process(game->head, position, -process->reg[r1]);
 	i = r1;

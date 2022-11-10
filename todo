@@ -20,8 +20,10 @@ NEXT:
 	4. new variable needs to be implemented to process to delete dead process when live was called more than CYCLE_TO_DIE cycles back? (this might already be fixed)
 -Test the instructions;
 	1. better testing on zjmp (but it seems like working)
-	2. test with all provided files that actual instructions does what needed
 
 
-make sure every instruction loops within the arena
-check what the bus error is
+
+------->	 test with all provided files that actual instructions does what needed
+
+NOTE:
+27439 helltrain ends

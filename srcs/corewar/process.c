@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:14:13 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 21:55:47 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	read_instruction(t_process *process)
 	uint8_t	instruction_code;
 
 	instruction_code = g_arena[process->pc];
-	// ft_printf("instruc: %s\n", op_tab[instruction_code - 1].name);
 	if (instruction_code < 0x01 || instruction_code > 0x10)
 	{
 		process->pc++;
@@ -42,7 +41,7 @@ void	update_live_player(t_game_param *game, t_process *process
 	{
 		if (arg[0].value == -player[i].id)
 		{
-			player->alive = 1; // reset as 0 in the next period
+			player->alive = 1; // reset as 0 in the next period // do we need to keep this?
 			game->last_alive = player[i].id;
 		}
 		i++;
@@ -71,7 +70,8 @@ void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t
 	while (process)
 	{
 		read_instruction(process);
-		// print_process(process);
+		// if (game->current_cycle == flag->dump_nbr)
+		// 	print_process(process);
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, instruct_table, player);

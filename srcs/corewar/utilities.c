@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:09:36 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 21:02:48 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,23 @@ void	initialize_players(t_header_t *player)
 	}
 }
 
+static void	colored_arena(t_header_t *player, int i, int p_area)
+{
+	if (i == p_area * 0)
+		ft_printf("$g");
+	else if (i == p_area * 1 )
+		ft_printf("$b");
+	else if (i == p_area * 2)
+		ft_printf("$r");
+	else if (i == p_area * 3 && g_p_count > 3)
+		ft_printf("$b");
+	else if (i == p_area * 0 + player[0].prog_size
+		|| i == p_area * 1 + player[1].prog_size
+		|| i == p_area * 2 + player[2].prog_size
+		|| i == p_area * 3 + player[3].prog_size)
+		ft_printf("$d");
+}
+
 void	print_arena(t_header_t *player, t_flag *flags)
 {
 	int			i;
@@ -75,22 +92,15 @@ void	print_arena(t_header_t *player, t_flag *flags)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-/* 		if (i == p_area * 0)
-			ft_printf("$g");
-		else if (i == p_area * 1 )
-			ft_printf("$b");
-		else if (i == p_area * 2)
-			ft_printf("$r");
-		else if (i == p_area * 3 && g_p_count > 3)
-			ft_printf("$b");
-		else if (i == p_area * 0 + player[0].prog_size
-			|| i == p_area * 1 + player[1].prog_size
-			|| i == p_area * 2 + player[2].prog_size
-			|| i == p_area * 3 + player[3].prog_size)
-			ft_printf("$d"); */
-		ft_printf("%02x ", g_arena[i++]);
+		// colored_arena(player, i, p_area);
 		if (i % flags->byte == 0)
-			ft_printf("\n");
+		{
+			if (i != 0)
+				ft_printf("\n%#06x : ", i);
+			else
+				ft_printf("0x0000 : "); // quick fix until i fix my printf
+		}
+		ft_printf("%02x ", g_arena[i++]);
 	}
 	ft_printf("\n");
 }
@@ -118,11 +128,15 @@ void	print_process(t_process *process)
 	ft_printf("\tid: %d\n", process->process_id);
 	ft_printf("\tprog_count: %d\n", process->pc);
 	ft_printf("\tcarry: %d\n", process->carry);
-	ft_printf("\tinstruction: %s\n", op_tab[process->cmd].name);
+	if (process->cmd >= 0 && process->cmd <= 15)
+		ft_printf("\tinstruction: %s\n", op_tab[process->cmd].name);
+	else
+		ft_printf("\tinstruction: NONE\n");
+	ft_printf("\tbyte to next: %d\n", process->bytes_to_next);
 	ft_printf("\tlast_live_cyc: %d\n", process->last_live_cycle);
 	ft_printf("\twait_cycle: %d\n\t", process->wait_cycle);
 	while (i < REG_NUMBER)
-		ft_printf("%d - ", process->reg[i++]);
+		ft_printf("%hd - ", process->reg[i++]);
 	ft_printf("\n\n");
 }
 

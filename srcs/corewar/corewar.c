@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:14:22 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 21:56:19 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,9 @@ void	check(t_game_param *game)
 	if (game->live_performed >= NBR_LIVE || game->check_counter == MAX_CHECKS)
 	{
 		game->cycle_to_die -= CYCLE_DELTA;
-		game->check_counter = 1;
+		game->check_counter = 0;
 	}
-	else
-		game->check_counter++;
+	game->check_counter++;
 	game->live_performed = 0;
 	cycle_count = 0;
 }
@@ -86,7 +85,7 @@ void	corewar(t_header_t *player, t_flag *flags)
 	head = process_init(player);
 	param_init(&game, head);
 	instr_table_init(instruct_table);
-	while (game.head)//one process is living
+	while (game.head)
 	{
 		// ft_printf("\ncycle %u: \n", game.current_cycle);
 		processor(&game, instruct_table, player);
@@ -94,12 +93,15 @@ void	corewar(t_header_t *player, t_flag *flags)
 		if (game.current_cycle >= flags->dump_nbr)
 		{
 			print_arena(player, flags);
-			ft_printf("cycle to die %u\n", game.cycle_to_die);
+			// ft_printf("cycle to die %u\n", game.cycle_to_die);
+			// ft_printf("check counter: %d\n", game.check_counter);
+			// ft_printf("live during period: %d\n", game.live_performed);
 			free_all_process(game.head);
 			exit (0);
 		}
 		game.current_cycle++;
 	}
-	ft_printf("@%$bd, #%d won\n", game.current_cycle - 1, game.last_alive);
+	ft_printf("Contestant %d, \"%s\", has won !\n", game.last_alive, player[game.last_alive - 1].prog_name);
+	// ft_printf("@%d\n", game.current_cycle - 1);
 	free_all_process(game.head);
 }
