@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:38:12 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 18:07:44 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,16 @@ static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
 		print_man_page();
 }
 
-static void	open_read_close(unsigned char *str, char *file)
+static uint16_t	open_read_close(unsigned char *str, char *file)
 {
-	int16_t	fd;
+	int16_t		fd;
+	uint16_t	ret;
 
 	fd = open(file, O_RDONLY);
-	read(fd, str, MEM_SIZE);
+	ret = read(fd, str, MEM_SIZE);
 	check_file_type(str, fd);
 	close(fd);
+	return (ret);
 }
 
 void	introduce_le_champ(t_header_t *player)
@@ -65,6 +67,7 @@ void	introduce_le_champ(t_header_t *player)
 void	parse(t_header_t *player, char **argv, int argc, t_flag *flags)
 {
 	uint8_t			i;
+	uint16_t		ret;
 	unsigned char	str[MEM_SIZE];
 
 	g_p_count = 0;
@@ -77,8 +80,8 @@ void	parse(t_header_t *player, char **argv, int argc, t_flag *flags)
 			flag_handler(argv, argc, i++, flags);
 		else
 		{
-			open_read_close(str, argv[i]);
-			assign_player(player, str, flags->id);
+			ret = open_read_close(str, argv[i]);
+			assign_player(player, str, flags->id, ret);
 			flags->id = NOT_SET;
 			g_p_count++;
 		}

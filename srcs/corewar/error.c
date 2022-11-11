@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 19:33:31 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 18:10:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ void	check_file_size(uint32_t size)
 	if (size > CHAMP_MAX_SIZE)
 	{
 		ft_printf("Your size is too big for me~ (⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)\n");
+		exit(0);
+	}
+}
+
+void	check_matching_champ_size(uint32_t byte_size, uint32_t actual)
+{
+	if (byte_size != actual)
+	{
+		ft_printf("U trying ta gaslight me, punk??\n");
 		exit(0);
 	}
 }

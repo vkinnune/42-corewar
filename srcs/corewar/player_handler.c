@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:13:37 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/02 18:38:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 18:13:19 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,18 @@ static int	get_data(unsigned char *player_data, unsigned char *data, int size)
 	return (size + 4);
 }
 
-void	assign_player(t_header_t *player, unsigned char *file, int8_t id)
+void	assign_player(t_header_t *player, unsigned char *file, int8_t id, uint16_t ret)
 {
 	static uint8_t	p_num;
-	unsigned char	*idx;
+	uint16_t		idx;
 
 	player[p_num].id = id;
-	idx = file + 4;
-	idx += get_data(player[p_num].prog_name, idx, PROG_NAME_LENGTH);
-	idx += get_size(&player[p_num].prog_size, idx);
-	idx += get_data(player[p_num].comment, idx, COMMENT_LENGTH);
-	player[p_num].code = ft_memalloc(player[p_num].prog_size);
-	get_data(player[p_num].code, idx, player[p_num].prog_size);
+	idx = 4;
+	idx += get_data(player[p_num].prog_name, &file[idx], PROG_NAME_LENGTH);
+	idx += get_size(&player[p_num].prog_size, &file[idx]);
+	idx += get_data(player[p_num].comment, &file[idx], COMMENT_LENGTH);
+	check_matching_champ_size(player[p_num].prog_size, ret - idx);
+	player[p_num].code = ft_memalloc(ret - idx);
+	get_data(player[p_num].code, &file[idx], player[p_num].prog_size);
 	p_num++;
 }

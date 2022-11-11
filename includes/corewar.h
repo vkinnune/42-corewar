@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:02:25 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 18:11:23 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,13 @@ extern enum registry	reg;
 void		parse(t_header_t *player, char **argv, int argc, t_flag *flags);
 
 //player_handler.c
-void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num);
+void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num, uint16_t ret);
 void		player_sort(t_header_t *player);
 
 //error.c
-void		check_file_size(uint32_t size);
 void		check_file_type(unsigned char *file, int16_t fd);
+void		check_file_size(uint32_t size);
+void		check_matching_champ_size(uint32_t byte_size, uint32_t actual);
 void		check_err_malloc(void *ptr);
 void		print_man_page(void);
 void		check_valid_arg(char **argv, int argc, uint8_t i);
