@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/08 21:35:15 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:01:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,40 @@ void	free_process(t_process *prev, t_process *delete)
 	if (prev)
 		prev->next = delete->next;
 	if (delete)
-		ft_memdel((void **)&delete);
+		free(delete);
 }
 
-void	free_all_process(t_process *head)
+void	free_all_process(t_process *head) //for the end of the program
 {
 	while (head)
 	{
 		free_process(0, head);
 		head = head->next;
+	}
+}
+
+void	kill_process(t_game_param *game)
+{
+	int64_t		cycle_since_last_live;
+	t_process	*prev;
+	t_process	*process;
+	t_process	*next;
+
+	prev = NULL;
+	process = game->head;
+	while (process)
+	{
+		next = process->next;
+		cycle_since_last_live = game->current_cycle - process->last_live_cycle;
+		if (cycle_since_last_live >= game->cycle_to_die)
+		{
+			free_process(prev, process);
+			if (prev == NULL)
+				game->head = next;
+		}
+		else
+			prev = process;
+		process = next;
 	}
 }
 
@@ -61,19 +86,4 @@ t_process	*process_init(t_header_t *player)
 		i++;
 	}
 	return (head);
-}
-
-void	kill_process(t_game_param *game)
-{
-	t_process	*prev;
-	t_process	*process;
-
-	prev = NULL;
-	process = game->head;
-	while (process)
-	{
-		if (game->current_cycle - process->last_live_cycle >= game->cycle_to_die)
-			free_process(prev, process);
-		process = process->next;
-	}
 }
