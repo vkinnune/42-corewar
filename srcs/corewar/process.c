@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 21:55:47 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 19:26:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	update_live_player(t_game_param *game, t_process *process
 		{
 			player->alive = 1; // reset as 0 in the next period // do we need to keep this?
 			game->last_alive = player[i].id;
+			if (g_flags.verbose == 1)
+				ft_printf("Player %d (%s) is said to be alive\n", player->id, player->prog_name);
 		}
 		i++;
 	}
@@ -56,7 +58,8 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_instruct_t
 	if (check_matching_arg(process, arg) != OKEI)
 		return ;
 	// ft_printf("\tMe do \"%s\" now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
-	// print_arg(process, arg);
+	if (g_flags.verbose == 4)
+		print_process(process, arg);
 	instruct_table[process->cmd](process, arg, game);
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);
@@ -71,7 +74,6 @@ void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t
 	{
 		read_instruction(process);
 		// if (game->current_cycle == flag->dump_nbr)
-		// 	print_process(process);
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, instruct_table, player);

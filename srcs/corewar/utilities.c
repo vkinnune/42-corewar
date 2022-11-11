@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 21:02:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 19:38:35 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@ uint32_t	get_2hext(uint32_t num, uint8_t position)
 	return ((num >> bit) & 0b11111111);
 }
 
-void	initialize_players(t_header_t *player)
-{
-	uint8_t	i;
-
-	i = 0;
-	while (i < MAX_PLAYERS)
-	{
-		player[i].code = NULL;
-		player[i].prog_size = 0;
-		player[i].id = NOT_SET;
-		i++;
-	}
-}
-
 static void	colored_arena(t_header_t *player, int i, int p_area)
 {
 	if (i == p_area * 0)
@@ -83,7 +69,7 @@ static void	colored_arena(t_header_t *player, int i, int p_area)
 		ft_printf("$d");
 }
 
-void	print_arena(t_header_t *player, t_flag *flags)
+void	print_arena(t_header_t *player)
 {
 	int			i;
 	int			p_area;
@@ -93,7 +79,7 @@ void	print_arena(t_header_t *player, t_flag *flags)
 	while (i < MEM_SIZE)
 	{
 		// colored_arena(player, i, p_area);
-		if (i % flags->byte == 0)
+		if (i % g_flags.byte == 0)
 		{
 			if (i != 0)
 				ft_printf("\n%#06x : ", i);
@@ -120,33 +106,16 @@ void	print_mem(int size, unsigned char *mem)
 	ft_printf("\n");
 }
 
-void	print_process(t_process *process)
+void	print_process(t_process *process, t_arg *arg)
 {
 	int	i;
 
 	i = 0;
-	ft_printf("\tid: %d\n", process->process_id);
-	ft_printf("\tprog_count: %d\n", process->pc);
-	ft_printf("\tcarry: %d\n", process->carry);
-	if (process->cmd >= 0 && process->cmd <= 15)
-		ft_printf("\tinstruction: %s\n", op_tab[process->cmd].name);
-	else
-		ft_printf("\tinstruction: NONE\n");
-	ft_printf("\tbyte to next: %d\n", process->bytes_to_next);
-	ft_printf("\tlast_live_cyc: %d\n", process->last_live_cycle);
-	ft_printf("\twait_cycle: %d\n\t", process->wait_cycle);
-	while (i < REG_NUMBER)
-		ft_printf("%hd - ", process->reg[i++]);
-	ft_printf("\n\n");
-}
-
-void	print_all_process(t_process *head)
-{
-	while (head)
-	{
-		print_process(head);
-		head = head->next;
-	}
+	ft_printf("P    %d | ", process->id + 1);
+	ft_printf("%s ", op_tab[process->cmd].name);
+	print_arg(process, arg);
+	ft_printf("\n");
+	// ft_printf("\tprog_count: %d\n", process->pc);
 }
 
 void	print_arg(t_process *process, t_arg *arg)
@@ -155,7 +124,7 @@ void	print_arg(t_process *process, t_arg *arg)
 
 	while (i < op_tab[process->cmd].arg_amt)
 	{
-		ft_printf("arg %d: %u\n", i, arg[i].value);
+		ft_printf("%u ", arg[i].value);
 		i++;
 	}
 }

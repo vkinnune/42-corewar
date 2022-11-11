@@ -6,31 +6,36 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/11 18:07:44 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 19:07:03 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-static void	flag_handler(char **argv, int argc, uint8_t i, t_flag *flags)
+static void	flag_handler(char **argv, int argc, uint8_t i)
 {
 	if (!ft_strcmp(argv[i], "-n"))
 	{
 		check_valid_arg(argv, argc, i);
-		flags->id = ft_atoi((const char *)argv[i + 1]);
-		check_num_within_range(flags->id);
+		g_flags.id = ft_atoi((const char *)argv[i + 1]);
+		check_num_within_range(g_flags.id);
 	}
 	else if (!ft_strcmp(argv[i], "-dump") || !ft_strcmp(argv[i], "-d"))
 	{
 		check_valid_arg(argv, argc, i);
-		flags->dump_nbr = ft_atoi((const char *)argv[i + 1]);
+		g_flags.dump_nbr = ft_atoi((const char *)argv[i + 1]);
 		if (argv[i][2] == 'u')
-			flags->byte = 32;
+			g_flags.byte = 32;
 		else
-			flags->byte = 64;
+			g_flags.byte = 64;
 	}
 	else if (!ft_strcmp(argv[i], "-a"))
-		flags->aff = SET;
+		g_flags.aff = SET;
+	else if (!ft_strcmp(argv[i], "-v"))
+	{
+		//check if next arg exists
+		g_flags.verbose = ft_atoi(argv[i + 1]);
+	}
 	else
 		print_man_page();
 }
@@ -64,25 +69,23 @@ void	introduce_le_champ(t_header_t *player)
 	}
 }
 
-void	parse(t_header_t *player, char **argv, int argc, t_flag *flags)
+void	parse(t_header_t *player, char **argv, int argc)
 {
 	uint8_t			i;
 	uint16_t		ret;
 	unsigned char	str[MEM_SIZE];
 
 	g_p_count = 0;
-	flags->id = NOT_SET;
-	flags->aff = NOT_SET;
 	i = 1;
 	while (i < argc)
 	{
 		if (argv[i][0] == '-')
-			flag_handler(argv, argc, i++, flags);
+			flag_handler(argv, argc, i++);
 		else
 		{
 			ret = open_read_close(str, argv[i]);
-			assign_player(player, str, flags->id, ret);
-			flags->id = NOT_SET;
+			assign_player(player, str, g_flags.id, ret);
+			g_flags.id = NOT_SET;
 			g_p_count++;
 		}
 		i++;
