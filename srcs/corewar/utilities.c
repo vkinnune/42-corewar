@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 19:47:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 19:38:35 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,24 @@ uint32_t	get_2hext(uint32_t num, uint8_t position)
 	return ((num >> bit) & 0b11111111);
 }
 
-void	initialize_players(t_header_t *player)
+static void	colored_arena(t_header_t *player, int i, int p_area)
 {
-	uint8_t	i;
-
-	i = 0;
-	while (i < MAX_PLAYERS)
-	{
-		player[i].code = NULL;
-		player[i].prog_size = 0;
-		player[i].id = NOT_SET;
-		i++;
-	}
+	if (i == p_area * 0)
+		ft_printf("$g");
+	else if (i == p_area * 1 )
+		ft_printf("$b");
+	else if (i == p_area * 2)
+		ft_printf("$r");
+	else if (i == p_area * 3 && g_p_count > 3)
+		ft_printf("$b");
+	else if (i == p_area * 0 + player[0].prog_size
+		|| i == p_area * 1 + player[1].prog_size
+		|| i == p_area * 2 + player[2].prog_size
+		|| i == p_area * 3 + player[3].prog_size)
+		ft_printf("$d");
 }
 
-void	print_arena(t_header_t *player, t_flag *flags)
+void	print_arena(t_header_t *player)
 {
 	int			i;
 	int			p_area;
@@ -75,29 +78,17 @@ void	print_arena(t_header_t *player, t_flag *flags)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-/* 		if (i == p_area * 0)
-			ft_printf("$g");
-		else if (i == p_area * 1 )
-			ft_printf("$b");
-		else if (i == p_area * 2)
-			ft_printf("$r");
-		else if (i == p_area * 3 && g_p_count > 3)
-			ft_printf("$b");
-		else if (i == p_area * 0 + player[0].prog_size
-			|| i == p_area * 1 + player[1].prog_size
-			|| i == p_area * 2 + player[2].prog_size
-			|| i == p_area * 3 + player[3].prog_size)
-			ft_printf("$d"); */
+		// colored_arena(player, i, p_area);
+		if (i % g_flags.byte == 0)
+		{
+			if (i != 0)
+				ft_printf("\n%#06x : ", i);
+			else
+				ft_printf("0x0000 : "); // quick fix until i fix my printf
+		}
 		ft_printf("%02x ", g_arena[i++]);
-		if (i % flags->byte == 0)
-			ft_printf("\n");
 	}
 	ft_printf("\n");
-}
-
-uint16_t	get_position(uint16_t pos)
-{
-	return (pos % MEM_SIZE);
 }
 
 //test functions
@@ -115,29 +106,16 @@ void	print_mem(int size, unsigned char *mem)
 	ft_printf("\n");
 }
 
-void	print_process(t_process *process)
+void	print_process(t_process *process, t_arg *arg)
 {
 	int	i;
 
 	i = 0;
-	ft_printf("id: %d\n", process->process_id);
-	ft_printf("prog_count: %d\n", process->pc);
-	ft_printf("carry: %d\n", process->carry);
-	ft_printf("instruction: %d\n", process->cmd + 1);
-	ft_printf("last_live_cyc: %d\n", process->last_live_cycle);
-	ft_printf("wait_cycle: %d\n", process->wait_cycle);
-	while (i < REG_NUMBER)
-		ft_printf("%d - ", process->reg[i++]);
-	ft_printf("\n\n");
-}
-
-void	print_all_process(t_process *head)
-{
-	while (head)
-	{
-		print_process(head);
-		head = head->next;
-	}
+	ft_printf("P    %d | ", process->id + 1);
+	ft_printf("%s ", op_tab[process->cmd].name);
+	print_arg(process, arg);
+	ft_printf("\n");
+	// ft_printf("\tprog_count: %d\n", process->pc);
 }
 
 void	print_arg(t_process *process, t_arg *arg)
@@ -146,7 +124,7 @@ void	print_arg(t_process *process, t_arg *arg)
 
 	while (i < op_tab[process->cmd].arg_amt)
 	{
-		ft_printf("arg %d: %u\n", i, arg[i].value);
+		ft_printf("%u ", arg[i].value);
 		i++;
 	}
 }

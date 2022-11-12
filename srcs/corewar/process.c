@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 21:33:40 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 19:26:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	read_instruction(t_process *process)
 	uint8_t	instruction_code;
 
 	instruction_code = g_arena[process->pc];
-	// ft_printf("instruc: %s\n", op_tab[instruction_code - 1].name);
 	if (instruction_code < 0x01 || instruction_code > 0x10)
 	{
 		process->pc++;
@@ -42,8 +41,10 @@ void	update_live_player(t_game_param *game, t_process *process
 	{
 		if (arg[0].value == -player[i].id)
 		{
-			player->alive = 1; // reset as 0 in the next period
+			player->alive = 1; // reset as 0 in the next period // do we need to keep this?
 			game->last_alive = player[i].id;
+			if (g_flags.verbose == 1)
+				ft_printf("Player %d (%s) is said to be alive\n", player->id, player->prog_name);
 		}
 		i++;
 	}
@@ -54,11 +55,11 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_instruct_t
 	t_arg	arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	// ft_printf("%d is on %s @%u:\n", process->process_id, op_tab[process->cmd].name, process->pc);
 	if (check_matching_arg(process, arg) != OKEI)
 		return ;
 	// ft_printf("\tMe do \"%s\" now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
-	// print_arg(process, arg);
+	if (g_flags.verbose == 4)
+		print_process(process, arg);
 	instruct_table[process->cmd](process, arg, game);
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);
@@ -72,8 +73,7 @@ void	processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t
 	while (process)
 	{
 		read_instruction(process);
-		// ft_printf("process %u:\n", process->process_id);
-			// ft_printf("\tpos: %u \n\twait: %u\n\tcmd %d\n", process->pc, process->wait_cycle, process->cmd);
+		// if (game->current_cycle == flag->dump_nbr)
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, instruct_table, player);

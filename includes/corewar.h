@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 18:09:51 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/11 19:34:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ struct s_process
 	uint16_t	pc; //current position
 	uint16_t	bytes_to_next;
 	uint16_t	wait_cycle; //amount of waiting until executing $(instruction)
-	uint32_t	process_id; //this is used to know which one we're looking at when testing
+	uint32_t	id; //this is used to know which one we're looking at when testing
 	uint32_t	last_live_cycle;
 	uint32_t	reg[REG_NUMBER + 1]; //reg[0] will store nothing, r1 == 1
 	t_process	*next;
@@ -80,27 +80,29 @@ enum registry
 
 struct s_flag
 {
-	int8_t	id;
-	int8_t	aff;
-	uint8_t	byte;
-	int64_t	dump_nbr;
+	int8_t		id;
+	int8_t		aff;
+	uint8_t		byte;
+	uint8_t		verbose;
+	uint64_t	dump_nbr;
 };
 
 extern unsigned char	g_arena[MEM_SIZE];
 extern uint8_t			g_p_count;
 extern int64_t			g_dump_nbr;
 extern enum registry	reg;
-
+extern t_flag			g_flags;
 //parse.c
-void		parse(t_header_t *player, char **argv, int argc, t_flag *flags);
+void		parse(t_header_t *player, char **argv, int argc);
 
 //player_handler.c
-void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num);
+void		assign_player(t_header_t *player, unsigned char *file, int8_t p_num, uint16_t ret);
 void		player_sort(t_header_t *player);
 
 //error.c
+void		check_file_type(unsigned char *file, int16_t fd);
 void		check_file_size(uint32_t size);
-void		check_file_type(unsigned char *file);
+void		check_matching_champ_size(uint32_t byte_size, uint32_t actual);
 void		check_err_malloc(void *ptr);
 void		print_man_page(void);
 void		check_valid_arg(char **argv, int argc, uint8_t i);
@@ -122,11 +124,12 @@ void		kill_process(t_game_param *game);
 int			get_n_byte(uint8_t n, unsigned char *size_byte);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
 uint32_t	get_2hext(uint32_t num, uint8_t position);
-void		initialize_players(t_header_t *player);
 uint16_t	get_position(uint16_t pos);
+void		print_process(t_process *process, t_arg *arg);
+void		print_arg(t_process *process, t_arg *arg);
 
 //corewar.c
-void		corewar(t_header_t *player, t_flag *flags);
+void		corewar(t_header_t *player);
 
 //instruction.c
 void		live(t_process *process, t_arg *arg, t_game_param *game);
@@ -151,11 +154,15 @@ uint32_t	get_arg_value(t_process *process, t_arg *arg);
 int8_t		check_matching_arg(t_process *process, t_arg *arg);
 void		write_4byte(t_process *process, uint32_t value, uint16_t position);
 
+//init.c
+void		initialize_players(t_header_t *player);
+void		arena_init(t_header_t *player);
+void		game_init(t_game_param *game, t_process *head);
+void		flag_init();
+
 //test functions
 void		print_mem(int size, unsigned char *mem);
-void		print_process(t_process *process);
 void		print_all_process(t_process *head);
-void		print_arena(t_header_t *player, t_flag *flags);
-void		print_arg(t_process *process, t_arg *arg);
+void		print_arena(t_header_t *player);
 
 #endif

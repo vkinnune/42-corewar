@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 21:32:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/10 20:13:54 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,12 @@ void	write_4byte(t_process *process, uint32_t value, uint16_t position)
 	i = 0;
 	while (i < 4)
 	{
-		g_arena[position + i] = get_2hext(value, i);
+		g_arena[get_position(position + i)] = get_2hext(value, i);
 		i++;
 	}
+}
+
+uint16_t	get_position(uint16_t pos)
+{
+	return (pos % MEM_SIZE);
 }

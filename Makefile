@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/09 15:29:56 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/11 18:51:47 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
 COR_FILE = main player_handler error utilities parse process process_util \
-			 corewar player_sort instruction instruc_util
+			 corewar player_sort instruction instruc_util init
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
