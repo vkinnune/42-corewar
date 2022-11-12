@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:13:54 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/13 01:19:08 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ void	write_4byte(t_process *process, uint32_t value, uint16_t position)
 
 uint16_t	get_position(uint16_t pos)
 {
+	if (pos < 4096)
+		return (pos);
 	return (pos % MEM_SIZE);
 }

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/11 19:48:16 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/12 18:35:47 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_process	*new_process(t_process *head, uint16_t pos, int id)
 	process = (t_process *)ft_memalloc(sizeof(t_process));
 	check_err_malloc((void *)process);
 	process->id = process_id++; //might still not be needed - currently only used for testing
+	process->cmd = -1;
 	process->pc = pos;
 	process->bytes_to_next = 1; //1 up from the instruction byte
 	process->next = head;
@@ -88,4 +89,14 @@ t_process	*process_init(t_header_t *player)
 		i++;
 	}
 	return (head);
+}
+
+void	get_arg_without_arg_byte(t_process *process, t_arg *arg)
+{
+	uint8_t	dir_size;
+
+	dir_size = DIR_SIZE;
+	if (op_tab[process->cmd].dir_size)
+		dir_size = 2;
+	arg->value = get_n_byte(dir_size, &g_arena[process->pc + 1]);
 }
