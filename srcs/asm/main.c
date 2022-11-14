@@ -78,6 +78,7 @@ unsigned int	generate_id(char *content)
 
 	size = ft_strlen(content);
 	i = 0;
+	res = 0;
 	while (i != size)
 	{
 		res = res * 42 + content[i];
@@ -92,6 +93,10 @@ void	add_label_list(char *content, t_token_type token_type)
 	int			i;
 	unsigned int			id;
 
+	if (token_type == label)
+		content[ft_strlen(content) - 1] = '\0';
+	else
+		ft_strcpy(content, &content[2]);
 	id = generate_id(content);
 	label_list = get_label_list();
 	i = 0;
@@ -103,6 +108,23 @@ void	add_label_list(char *content, t_token_type token_type)
 	}
 	if (i == label_list->label_count)
 		label_list->labels[label_list->label_count++].id = id;
+	if (token_type == label)
+		label_list->labels[i].is_init = true;
+}
+
+void	label_list_error()
+{
+	int	i;
+	t_label_list	*label_list;
+
+	i = 0;
+	label_list = get_label_list();
+	while (i != label_list->label_count)
+	{
+		if (label_list->labels[i].is_init == false)
+			ft_out("ERROR ON LABELS");
+		i++;
+	}
 }
 
 void	label_list_check()
@@ -118,6 +140,7 @@ void	label_list_check()
 			add_label_list(token_list->tokens[i].content, token_list->tokens[i].type);
 		i++;
 	}
+	label_list_error();
 }
 
 int	main(int ac, char **av)
@@ -125,9 +148,9 @@ int	main(int ac, char **av)
 	init_parser();
 	validate_argument(ac, av);
 	parser(read_file(av[1]));
-	print_tokens();
 	token_check();
 	label_list_check();
+	print_tokens();
 	return (0);
 }
 
