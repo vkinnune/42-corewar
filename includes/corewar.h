@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/12 23:54:26 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/15 19:35:26 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct	s_table t_table;
 
 struct s_process
 {
-	uint8_t		cmd :5; //5-bit for instruction 1-16
+	int8_t		cmd :5; //5-bit for instruction 1-16
 	uint8_t		carry :1; //one-bit var
 	uint16_t	pc; //current position
 	uint16_t	bytes_to_next;
@@ -131,7 +131,8 @@ void		kill_process(t_game_param *game);
 void		get_arg_without_arg_byte(t_process *process, t_arg *arg);
 
 //utilities.c
-int			get_n_byte(uint8_t n, unsigned char *location);
+int		get_n_byte(uint8_t n, unsigned char *data, uint32_t idx);
+// int			get_n_byte(uint8_t n, unsigned char *location);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
 uint32_t	get_2hext(uint32_t num, uint8_t position);
 

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/12 18:35:47 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/15 19:40:59 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ void	free_process(t_process *prev, t_process *delete)
 		free(delete);
 }
 
-void	free_all_process(t_process *head) //for the end of the program
+void	free_all_process(t_process *head)
 {
+	t_process	*next;
+
 	while (head)
 	{
+		next = head->next;
 		free_process(0, head);
-		head = head->next;
+		head = next;
 	}
 }
 
@@ -93,10 +96,10 @@ t_process	*process_init(t_header_t *player)
 
 void	get_arg_without_arg_byte(t_process *process, t_arg *arg)
 {
-	uint8_t	dir_size;
+	uint8_t		dir_size;
 
 	dir_size = DIR_SIZE;
 	if (op_tab[process->cmd].dir_size)
 		dir_size = 2;
-	arg->value = get_n_byte(dir_size, &g_arena[process->pc + 1]);
+	arg->value = get_n_byte(dir_size, 0, process->pc + 1);
 }

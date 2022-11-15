@@ -42,11 +42,11 @@ all: $(COR_NAME) $(ASM_NAME)
 ################ COREWAR ################
 
 $(COR_NAME): $(COR_OBJS) $(SHARED_OBJS) $(PRINTF)
-	gcc $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
+	gcc $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -g -fsanitize=address -o $@
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c includes/corewar.h
 	@mkdir -p $(COR_OBJS_DIR)
-	gcc -g -c $< $(INCLUDES) -o $@
+	gcc -g -c $< $(INCLUDES) -fsanitize=address -o $@
 
 ################ ASM ################
 

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/13 01:34:23 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/15 20:47:48 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	read_instruction(t_process *process)
 {
 	uint8_t	instruction_code;
 
-	instruction_code = g_arena[process->pc];
-	if (instruction_code < 0x01 || instruction_code > 0x10)
+	if (process->cmd == -1) //no cmd
 	{
-		process->pc = get_position(process->pc + 1);
-		process->wait_cycle = -1;
-		return ;
-	}
-	if (process->cmd != instruction_code - 1)
-	{
+		instruction_code = g_arena[process->pc];
+		if (instruction_code < 0x01 || instruction_code > 0x10)
+		{
+			process->pc = get_position(process->pc + 1);
+			process->wait_cycle = -1;
+			return ;
+		}
 		process->cmd = instruction_code - 1;
 		process->wait_cycle = op_tab[process->cmd].wait_cycle;
 	}
@@ -59,17 +59,13 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	if (op_tab[process->cmd].arg_byte == 0)
 		get_arg_without_arg_byte(process, &arg[0]);
 	tab->instruct_table[process->cmd](process, arg, game);
-	if (g_flags.verbose == 4)
+	if ((g_flags.verbose == 4 || g_flags.verbose == 6) && process->cmd != 15)
 	{
-		ft_printf("P%5d | %s", process->id + 1, op_tab[process->cmd].name);
-		tab->verbose_table[process->cmd](process, arg, game);
-	}
-	if (process->id + 1 == 13)
-	{
-		ft_printf("\tMe do \"%s\" now (ㆁᴗㆁ✿)\n", op_tab[process->cmd].name);
-		if (process->cmd == 2)
-			ft_printf("\tr%d %d\n", arg[0].value, (int16_t)arg[1].value);
-		ft_printf("\twrite to pos: %d\n", get_position(get_arg_value(process, &arg[1])));
+		// if (game->current_cycle == 6330)
+		// {
+			ft_printf("P%5d | %s", process->id + 1, op_tab[process->cmd].name);
+			tab->verbose_table[process->cmd](process, arg, game);
+		// }
 	}
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);
@@ -82,11 +78,6 @@ void	processor(t_game_param *game, t_table *tab, t_header_t *player)
 	process = game->head;
 	while (process)
 	{
-		if (process->id + 1 == 13)
-		{
-			ft_printf("cycle: %d\n", game->current_cycle);
-			ft_printf("\tP%d is at %d (%#04x)\n", process->id + 1, process->pc, g_arena[process->pc]);
-		}
 		read_instruction(process);
 		if (process->wait_cycle == 0)
 		{

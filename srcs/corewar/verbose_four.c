@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:18:53 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/13 01:31:07 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/15 20:47:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	verbose_l_ld(t_process *process, t_arg *arg, t_game_param *game)
 void	verbose_st(t_process *process, t_arg *arg, t_game_param *game)
 {
 	ft_printf(" r%d %d\n", arg[0].value, (int16_t)arg[1].value);
+	// ft_printf("\t\targ %d\n", get_arg_value(process, &arg[1]));
+	// ft_printf("\t\tpos :%d\n", get_position(arg[1].value));
 }
 
 void	verbose_add_sub(t_process *process, t_arg *arg, t_game_param *game)
@@ -66,7 +68,7 @@ void	verbose_l_ldi(t_process *process, t_arg *arg, t_game_param *game)
 void	verbose_sti(t_process *process, t_arg *arg, t_game_param *game)
 {
 	ft_printf(" r%d", arg[0].value);
-	ft_printf(" %d", arg[1].value);
+	ft_printf(" %hd", arg[1].value);
 	ft_printf(" %d\n", arg[2].value);
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg[1].value, arg[2].value, arg[1].value + arg[2].value, process->pc + (int32_t)(arg[1].value + arg[2].value) % IDX_MOD);
 }
