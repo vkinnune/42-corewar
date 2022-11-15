@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/10 20:13:54 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/15 19:42:18 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int8_t	check_reg(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 {
 	if (cur_2bit != REG_CODE)
 		return (NOT_OKEI);
-	arg->value = get_n_byte(REG_NAME_SIZE, &g_arena[process->pc + process->bytes_to_next]);
+	arg->value = get_n_byte(REG_NAME_SIZE, 0, process->pc + process->bytes_to_next);
 	process->bytes_to_next += REG_NAME_SIZE;
 	if (!(arg_type & T_REG))
 		return (NOT_OKEI);
@@ -45,7 +45,7 @@ int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 	if (cur_2bit != DIR_CODE)
 		return (NOT_OKEI);
 	byte_ammount = DIR_SIZE / (op_tab[process->cmd].dir_size + 1);
-	arg->value = get_n_byte(byte_ammount, &g_arena[process->pc + process->bytes_to_next]);
+	arg->value = get_n_byte(byte_ammount, 0, process->pc + process->bytes_to_next);
 	process->bytes_to_next += byte_ammount;
 	if (!(arg_type & T_DIR))
 		return (NOT_OKEI);
@@ -57,7 +57,7 @@ int8_t	check_ind(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 {
 	if (cur_2bit != IND_CODE)
 		return (NOT_OKEI);
-	arg->value = get_n_byte(IND_SIZE, &g_arena[process->pc + process->bytes_to_next]);
+	arg->value = get_n_byte(IND_SIZE, 0, process->pc + process->bytes_to_next);
 	process->bytes_to_next += IND_SIZE;
 	if (!(arg_type & T_IND))
 		return (NOT_OKEI);
@@ -105,5 +105,7 @@ void	write_4byte(t_process *process, uint32_t value, uint16_t position)
 
 uint16_t	get_position(uint16_t pos)
 {
+	if (pos < 4096)
+		return (pos);
 	return (pos % MEM_SIZE);
 }

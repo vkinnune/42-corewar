@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/11 19:34:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/15 19:35:26 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@
 # define NOT_OKEI	0
 # define OKEI		1
 
-typedef struct s_process t_process;
-typedef struct s_game_param	t_game_param;
-typedef struct s_flag t_flag;
-typedef struct s_arg t_arg;
+typedef struct	s_process t_process;
+typedef struct 	s_game_param	t_game_param;
+typedef struct	s_flag t_flag;
+typedef struct 	s_arg t_arg;
 typedef void	t_instruct_table(t_process *process, t_arg *arg, t_game_param *game);
+typedef void	t_verbose_table(t_process *process, t_arg *arg, t_game_param *game);
+typedef struct	s_table t_table;
 
 struct s_process
 {
-	uint8_t		cmd :5; //5-bit for instruction 1-16
+	int8_t		cmd :5; //5-bit for instruction 1-16
 	uint8_t		carry :1; //one-bit var
 	uint16_t	pc; //current position
 	uint16_t	bytes_to_next;
@@ -57,6 +59,21 @@ struct s_arg
 	uint32_t	value;
 };
 
+struct s_flag
+{
+	int8_t		id;
+	int8_t		aff;
+	uint8_t		byte;
+	uint8_t		verbose;
+	uint64_t	dump_nbr;
+};
+
+struct s_table
+{
+	t_instruct_table	*instruct_table[16];
+	t_verbose_table		*verbose_table[16];
+};
+
 
 enum registry
 {
@@ -78,20 +95,12 @@ enum registry
 	r16
 };
 
-struct s_flag
-{
-	int8_t		id;
-	int8_t		aff;
-	uint8_t		byte;
-	uint8_t		verbose;
-	uint64_t	dump_nbr;
-};
-
 extern unsigned char	g_arena[MEM_SIZE];
 extern uint8_t			g_p_count;
 extern int64_t			g_dump_nbr;
 extern enum registry	reg;
 extern t_flag			g_flags;
+
 //parse.c
 void		parse(t_header_t *player, char **argv, int argc);
 
@@ -111,7 +120,7 @@ void		check_missing_id(int8_t id);
 void		check_num_within_range(uint8_t num);
 
 //process.c
-void		processor(t_game_param *game, t_instruct_table **instruct_table, t_header_t *player);
+void		processor(t_game_param *game, t_table *tab, t_header_t *player);
 
 //process_util.c
 void		free_process(t_process *prev, t_process *delete);
@@ -119,40 +128,46 @@ void		free_all_process(t_process *head);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
 t_process	*process_init(t_header_t *player);
 void		kill_process(t_game_param *game);
+void		get_arg_without_arg_byte(t_process *process, t_arg *arg);
 
 //utilities.c
-int			get_n_byte(uint8_t n, unsigned char *size_byte);
+int		get_n_byte(uint8_t n, unsigned char *data, uint32_t idx);
+// int			get_n_byte(uint8_t n, unsigned char *location);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
 uint32_t	get_2hext(uint32_t num, uint8_t position);
-uint16_t	get_position(uint16_t pos);
-void		print_process(t_process *process, t_arg *arg);
-void		print_arg(t_process *process, t_arg *arg);
 
 //corewar.c
 void		corewar(t_header_t *player);
 
 //instruction.c
 void		live(t_process *process, t_arg *arg, t_game_param *game);
-void		ld(t_process *process, t_arg *arg, t_game_param *game);
+void		l_ld(t_process *process, t_arg *arg, t_game_param *game);
 void		st(t_process *process, t_arg *arg, t_game_param *game);
-void		add(t_process *process, t_arg *arg, t_game_param *game);
-void		sub(t_process *process, t_arg *arg, t_game_param *game);
-void		and(t_process *process, t_arg *arg, t_game_param *game);
-void		or(t_process *process, t_arg *arg, t_game_param *game);
-void		xor(t_process *process, t_arg *arg, t_game_param *game);
+void		add_sub(t_process *process, t_arg *arg, t_game_param *game);
+void		and_or_xor(t_process *process, t_arg *arg, t_game_param *game);
 void		zjmp(t_process *process, t_arg *arg, t_game_param *game);
-void		ldi(t_process *process, t_arg *arg, t_game_param *game);
+void		l_ldi(t_process *process, t_arg *arg, t_game_param *game);
 void		sti(t_process *process, t_arg *arg, t_game_param *game);
-void		foork(t_process *process, t_arg *arg, t_game_param *game);
-void		lld(t_process *process, t_arg *arg, t_game_param *game);
-void		lldi(t_process *process, t_arg *arg, t_game_param *game);
-void		lfork(t_process *process, t_arg *arg, t_game_param *game);
+void		l_foork(t_process *process, t_arg *arg, t_game_param *game);
 void		aff(t_process *process, t_arg *arg, t_game_param *game);
+
+//verbose_two.c
+void		verbose_live(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_l_ld(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_st(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_add_sub(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_and_or_xor(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_zjmp(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_l_ldi(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_sti(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_l_foork(t_process *process, t_arg *arg, t_game_param *game);
+void		verbose_aff(t_process *process, t_arg *arg, t_game_param *game);
 
 //instruc_util.c
 uint32_t	get_arg_value(t_process *process, t_arg *arg);
 int8_t		check_matching_arg(t_process *process, t_arg *arg);
 void		write_4byte(t_process *process, uint32_t value, uint16_t position);
+uint16_t	get_position(uint16_t pos);
 
 //init.c
 void		initialize_players(t_header_t *player);
@@ -160,9 +175,7 @@ void		arena_init(t_header_t *player);
 void		game_init(t_game_param *game, t_process *head);
 void		flag_init();
 
-//test functions
-void		print_mem(int size, unsigned char *mem);
-void		print_all_process(t_process *head);
+//print.c
 void		print_arena(t_header_t *player);
-
+void		print_arg(t_process *process, t_arg *arg);
 #endif

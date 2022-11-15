@@ -8,20 +8,9 @@ zjmp,workss
 lld, works atleast on direct, indirect value
 
 
-jyri:
-AFF works, as simple way as possible. we have to figure out how to make it work with the flags (needs to be passed as argument now...)
+test with all provided files that actual instructions does what needed
+change arg.value to int32
 
-NEXT:
--game looping;
-	4. new variable needs to be implemented to process to delete dead process when live was called more than CYCLE_TO_DIE cycles back? (this might already be fixed)
--Test the instructions;
-	1. better testing on zjmp (but it seems like working)
-
-
-
-------->	 test with all provided files that actual instructions does what needed
-
-NOTE:
-27439 helltrain ends
-
-24367 helltrain Gagnant load
+helltrain.cor:
+	live isnt called on line 21972 when running diff.sh -v 4
+	(was overwritten by a 00 during the waiting)
