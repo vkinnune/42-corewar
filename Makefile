@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
+#    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/12 19:33:57 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/16 00:37:17 by jrummuka         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,11 +42,11 @@ all: $(COR_NAME) $(ASM_NAME)
 ################ COREWAR ################
 
 $(COR_NAME): $(COR_OBJS) $(SHARED_OBJS) $(PRINTF)
-	gcc $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -g -fsanitize=address -o $@
+	gcc $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c includes/corewar.h
 	@mkdir -p $(COR_OBJS_DIR)
-	gcc -g -c $< $(INCLUDES) -fsanitize=address -o $@
+	gcc -g -c $< $(INCLUDES) -o $@
 
 ################ ASM ################
 

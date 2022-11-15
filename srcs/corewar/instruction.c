@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/15 20:08:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/16 01:21:29 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	and_or_xor(t_process *process, t_arg *arg, t_game_param *game)
 		process->reg[arg[2].value] = arg[0].value | arg[1].value;
 	else
 		process->reg[arg[2].value] = arg[0].value ^ arg[1].value;
-	process->carry = (arg[2].value == 0);
+	process->carry = (process->reg[arg[2].value] == 0);
 }
 
 void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
