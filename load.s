@@ -1,9 +1,9 @@
 .name "load"
 .comment "hehe"
 
-add r2, r3, r4
+#add r2, r3, r4
 live: live %-1
-zjmp %-5
+zjmp %-1
 #ld 1, r2
 #lld 1, r2
 #ldi 2, %2, r3

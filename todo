@@ -11,6 +11,4 @@ lld, works atleast on direct, indirect value
 test with all provided files that actual instructions does what needed
 change arg.value to int32
 
-helltrain.cor:
-	live isnt called on line 21972 when running diff.sh -v 4
-	(was overwritten by a 00 during the waiting)
+354087

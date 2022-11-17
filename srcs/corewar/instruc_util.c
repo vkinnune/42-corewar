@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/15 19:42:18 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 17:18:26 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ uint32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with i
 
 int8_t	check_reg(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
 {
+	uint16_t	pos;
+
 	if (cur_2bit != REG_CODE)
 		return (NOT_OKEI);
-	arg->value = get_n_byte(REG_NAME_SIZE, 0, process->pc + process->bytes_to_next);
+	pos = get_position(process->pc + process->bytes_to_next);
+	arg->value = get_n_byte(REG_NAME_SIZE, 0, pos);
 	process->bytes_to_next += REG_NAME_SIZE;
 	if (!(arg_type & T_REG))
 		return (NOT_OKEI);
@@ -40,12 +43,14 @@ int8_t	check_reg(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 
 int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
 {
-	uint8_t	byte_ammount;
+	uint8_t		byte_ammount;
+	uint16_t	pos;
 
 	if (cur_2bit != DIR_CODE)
 		return (NOT_OKEI);
 	byte_ammount = DIR_SIZE / (op_tab[process->cmd].dir_size + 1);
-	arg->value = get_n_byte(byte_ammount, 0, process->pc + process->bytes_to_next);
+	pos = get_position(process->pc + process->bytes_to_next);
+	arg->value = get_n_byte(byte_ammount, 0, pos);
 	process->bytes_to_next += byte_ammount;
 	if (!(arg_type & T_DIR))
 		return (NOT_OKEI);
@@ -55,17 +60,21 @@ int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 
 int8_t	check_ind(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
 {
+	uint16_t	pos;
+
 	if (cur_2bit != IND_CODE)
 		return (NOT_OKEI);
-	arg->value = get_n_byte(IND_SIZE, 0, process->pc + process->bytes_to_next);
+	pos = get_position(process->pc + process->bytes_to_next);
+	arg->value = get_n_byte(IND_SIZE, 0, pos);
 	process->bytes_to_next += IND_SIZE;
 	if (!(arg_type & T_IND))
 		return (NOT_OKEI);
 	arg->type = cur_2bit;
 	return (OKEI);
 }
+
 //how do we clean the 3 check_arg function above
-int8_t	check_matching_arg(t_process *process, t_arg *arg)
+int8_t	check_matching_arg(t_process *process, t_arg *arg, t_game_param *game)
 {
 	uint8_t		cur_2bit;
 	uint8_t		i;
@@ -80,11 +89,18 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 	while (i < op_tab[process->cmd].arg_amt)
 	{
 		op_arg_type = op_tab[process->cmd].arg_type[i];
-		cur_2bit = get_2bit(g_arena[process->pc + 1], i);
+		cur_2bit = get_2bit(g_arena[get_position(process->pc + 1)], i);
+/* 		if (game->current_cycle == 13856 && process->id + 1 == 1026 && process->cmd == 2)
+		{
+			ft_printf("\tpos: %d\n", get_position(process->pc + 1));
+			ft_printf("\t\tc2b: %02b\n", cur_2bit);
+		} */
 		if (!check_reg(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_dir(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_ind(process, cur_2bit, op_arg_type, &arg[i])) //same as before, +100% readability, +50% line consumption, -25% mental health, -1HP
 			result = NOT_OKEI;
+/* 		if (game->current_cycle == 13856 && process->id + 1 == 1026 && process->cmd == 2)
+			ft_printf("\t\targ: %d\n", arg[i].value); */
 		i++;
 	}
 	return (result);

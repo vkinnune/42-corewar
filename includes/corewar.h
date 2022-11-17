@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/15 19:35:26 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 16:53:27 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,8 @@ void		verbose_aff(t_process *process, t_arg *arg, t_game_param *game);
 
 //instruc_util.c
 uint32_t	get_arg_value(t_process *process, t_arg *arg);
-int8_t		check_matching_arg(t_process *process, t_arg *arg);
+int8_t		check_matching_arg(t_process *process, t_arg *arg, t_game_param *game);
+// int8_t		check_matching_arg(t_process *process, t_arg *arg);
 void		write_4byte(t_process *process, uint32_t value, uint16_t position);
 uint16_t	get_position(uint16_t pos);
 

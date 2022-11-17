@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/16 01:21:29 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/17 16:23:14 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ void	l_ld(t_process *process, t_arg *arg, t_game_param *game)
 	if (arg[0].type == IND_CODE)
 	{
 		arg[0].value = get_position(arg[0].value);
-		if (process->cmd == 12)
-			arg[0].value = (int16_t)get_n_byte(2, 0, arg[0].value); //??????? WHY IS TESTCORE SHOWING ONLY 2 BYTE
-		else
-			arg[0].value = get_n_byte(4, 0, arg[0].value);
+		arg[0].value = get_n_byte(4, 0, arg[0].value);
 	}
 	process->reg[arg[1].value] = arg[0].value;
 	process->carry = (process->reg[arg[1].value] == 0);
@@ -96,6 +93,7 @@ void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 	//ft_printf("Jump from: %u\n", process->pc);
 	position = process->pc + ((int16_t)arg[0].value % IDX_MOD);
 	position = get_position(position);
+	process->bytes_to_next += 2;
 	if (process->carry == 1)
 	{
 		process->bytes_to_next = 0;

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/15 20:47:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 17:23:03 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	t_arg	arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	if (check_matching_arg(process, arg) != OKEI)
+	if (check_matching_arg(process, arg, game) != OKEI)
 		return ;
 	if (op_tab[process->cmd].arg_byte == 0)
 		get_arg_without_arg_byte(process, &arg[0]);
@@ -63,7 +63,7 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	{
 		// if (game->current_cycle == 6330)
 		// {
-			ft_printf("P%5d | %s", process->id + 1, op_tab[process->cmd].name);
+			ft_printf("P %4d | %s", process->id + 1, op_tab[process->cmd].name);
 			tab->verbose_table[process->cmd](process, arg, game);
 		// }
 	}
@@ -79,6 +79,12 @@ void	processor(t_game_param *game, t_table *tab, t_header_t *player)
 	while (process)
 	{
 		read_instruction(process);
+/* 		if (game->current_cycle == 13856 && process->id + 1 == 1026)
+		{
+			ft_printf("\tcycle: %d\n", game->current_cycle);
+			ft_printf("\tpc: %d: %02x\n", process->pc, g_arena[process->pc]);
+			ft_printf("\twait: %d\n", process->wait_cycle);
+		} */
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, tab, player);
