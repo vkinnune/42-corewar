@@ -6,20 +6,20 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 17:18:26 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 22:21:51 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-uint32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with individual value transformer when they are called
+int32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with individual value transformer when they are called
 {
 	if (arg->type == REG_CODE)
 		return (process->reg[arg->value]);
 	else if (arg->type == IND_CODE)
-		return ((uint16_t)(process->pc + ((int16_t)arg->value % IDX_MOD)));
+		return ((int16_t)(process->pc + ((int16_t)arg->value % IDX_MOD)));
 	else if (op_tab[process->cmd].dir_size == 1)
-		return ((uint16_t)arg->value);
+		return ((int16_t)arg->value);
 	return (arg->value);
 }
 
@@ -90,23 +90,15 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg, t_game_param *game)
 	{
 		op_arg_type = op_tab[process->cmd].arg_type[i];
 		cur_2bit = get_2bit(g_arena[get_position(process->pc + 1)], i);
-/* 		if (game->current_cycle == 13856 && process->id + 1 == 1026 && process->cmd == 2)
-		{
-			ft_printf("\tpos: %d\n", get_position(process->pc + 1));
-			ft_printf("\t\tc2b: %02b\n", cur_2bit);
-		} */
 		if (!check_reg(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_dir(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_ind(process, cur_2bit, op_arg_type, &arg[i])) //same as before, +100% readability, +50% line consumption, -25% mental health, -1HP
 			result = NOT_OKEI;
-/* 		if (game->current_cycle == 13856 && process->id + 1 == 1026 && process->cmd == 2)
-			ft_printf("\t\targ: %d\n", arg[i].value); */
 		i++;
 	}
 	return (result);
 }
 
-//write value of arg to g_arena[position]
 void	write_4byte(t_process *process, uint32_t value, uint16_t position)
 {
 	uint8_t	i;

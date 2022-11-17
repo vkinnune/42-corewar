@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 16:53:27 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 20:00:25 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ struct s_game_param
 struct s_arg
 {
 	uint8_t		type;
-	uint32_t	value;
+	int32_t		value;
 };
 
 struct s_flag
@@ -131,8 +131,7 @@ void		kill_process(t_game_param *game);
 void		get_arg_without_arg_byte(t_process *process, t_arg *arg);
 
 //utilities.c
-int		get_n_byte(uint8_t n, unsigned char *data, uint32_t idx);
-// int			get_n_byte(uint8_t n, unsigned char *location);
+int			get_n_byte(uint8_t n, unsigned char *data, uint32_t idx);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
 uint32_t	get_2hext(uint32_t num, uint8_t position);
 
@@ -164,7 +163,7 @@ void		verbose_l_foork(t_process *process, t_arg *arg, t_game_param *game);
 void		verbose_aff(t_process *process, t_arg *arg, t_game_param *game);
 
 //instruc_util.c
-uint32_t	get_arg_value(t_process *process, t_arg *arg);
+int32_t	get_arg_value(t_process *process, t_arg *arg);
 int8_t		check_matching_arg(t_process *process, t_arg *arg, t_game_param *game);
 // int8_t		check_matching_arg(t_process *process, t_arg *arg);
 void		write_4byte(t_process *process, uint32_t value, uint16_t position);

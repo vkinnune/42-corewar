@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/15 19:40:59 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 23:09:37 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	kill_process(t_game_param *game)
 		cycle_since_last_live = game->current_cycle - process->last_live_cycle;
 		if (cycle_since_last_live >= game->cycle_to_die)
 		{
-			if (g_flags.verbose == 8)
+			if (g_flags.verbose & 8)
 				ft_printf("Process %u hasn't lived for %u cycles (CTD %d)\n", process->id + 1, game->current_cycle - process->last_live_cycle, game->cycle_to_die);
 			free_process(prev, process);
 			if (prev == NULL)
@@ -61,7 +61,7 @@ void	kill_process(t_game_param *game)
 
 t_process	*new_process(t_process *head, uint16_t pos, int id)
 {
-	static uint16_t	process_id;
+	static uint64_t	process_id;
 	t_process		*process;
 
 	process = (t_process *)ft_memalloc(sizeof(t_process));

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 17:23:03 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 21:50:29 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ void	update_live_player(t_game_param *game, t_process *process
 	i = 0;
 	while (i < g_p_count)
 	{
+		// ft_printf("%u -- %u: %s\n", arg[i].value  -player[i].id, player[i].prog_name);
 		if (arg[0].value == -player[i].id)
 		{
 			game->last_alive = player[i].id;
-			if (g_flags.verbose == 1)
-				ft_printf("Player %d (%s) is said to be alive\n", player->id, player->prog_name);
+			if (g_flags.verbose & 1)
+				ft_printf("Player %d (%s) is said to be alive\n", player[i].id, player[i].prog_name);
 		}
 		i++;
 	}
@@ -59,14 +60,18 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	if (op_tab[process->cmd].arg_byte == 0)
 		get_arg_without_arg_byte(process, &arg[0]);
 	tab->instruct_table[process->cmd](process, arg, game);
-	if ((g_flags.verbose == 4 || g_flags.verbose == 6) && process->cmd != 15)
+	if ((g_flags.verbose & 4) && process->cmd != 15)
 	{
-		// if (game->current_cycle == 6330)
-		// {
-			ft_printf("P %4d | %s", process->id + 1, op_tab[process->cmd].name);
-			tab->verbose_table[process->cmd](process, arg, game);
-		// }
+		ft_printf("P %4d | %s", process->id + 1, op_tab[process->cmd].name);
+		tab->verbose_table[process->cmd](process, arg, game);
 	}
+/* 	if (process->id + 1 == 3)
+	{
+		ft_printf("\tpc pos: %d\n", process->pc);
+		ft_printf("\tcmd: %s\n", op_tab[process->cmd].name);
+		// ft_printf("arg :%d\n", get_arg_value(process, &arg[0]));
+		ft_printf("\tcarry %d\n", process->carry);
+	} */
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);
 }

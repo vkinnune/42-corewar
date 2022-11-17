@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 16:23:14 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 22:26:17 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	live(t_process *process, t_arg *arg, t_game_param *game)
 void	l_ld(t_process *process, t_arg *arg, t_game_param *game)
 {
 	if (arg[0].type == IND_CODE && process->cmd == 12)
-		arg[0].value = process->pc + (uint16_t)(arg[0].value);
+		arg[0].value = process->pc + (int16_t)(arg[0].value);
 	else
 		arg[0].value = get_arg_value(process, &arg[0]);
 	if (arg[0].type == IND_CODE)
@@ -38,8 +38,8 @@ void	l_ld(t_process *process, t_arg *arg, t_game_param *game)
 
 void	st(t_process *process, t_arg *arg, t_game_param *game)
 {
-	uint32_t	arg0;
-	uint32_t	arg1;
+	int32_t	arg0;
+	int32_t	arg1;
 
 	arg0 = get_arg_value(process, &arg[0]);
 	if (arg[1].type == IND_CODE)
@@ -53,8 +53,8 @@ void	st(t_process *process, t_arg *arg, t_game_param *game)
 
 void	add_sub(t_process *process, t_arg *arg, t_game_param *game)
 {
-	uint32_t	arg0;
-	uint32_t	arg1;
+	int32_t	arg0;
+	int32_t	arg1;
 
 	arg0 = get_arg_value(process, &arg[0]);
 	arg1 = get_arg_value(process, &arg[1]);
@@ -88,7 +88,7 @@ void	and_or_xor(t_process *process, t_arg *arg, t_game_param *game)
 
 void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 {
-	uint16_t	position;
+	int32_t	position;
 
 	//ft_printf("Jump from: %u\n", process->pc);
 	position = process->pc + ((int16_t)arg[0].value % IDX_MOD);
@@ -104,30 +104,38 @@ void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 
 void	l_ldi(t_process *process, t_arg *arg, t_game_param *game)
 {
-	uint16_t	position;
+	int32_t	position;
 
 	if (arg[0].type == IND_CODE && process->cmd == 13)
-		arg[0].value = process->pc + (uint16_t)(arg[0].value);
+		arg[0].value = process->pc + (int16_t)(arg[0].value);
 	else
 		arg[0].value = get_arg_value(process, &arg[0]);
 	if (arg[0].type == IND_CODE)
 	{
 		arg[0].value = get_position(arg[0].value);
-		arg[0].value = get_n_byte(4, 0,arg[0].value);
+		arg[0].value = get_n_byte(4, 0, arg[0].value);
 	}
 	arg[1].value = get_arg_value(process, &arg[1]);
 	position = arg[0].value + arg[1].value;
 	if (process->cmd == 9)
-		position = (int16_t)position % IDX_MOD;
+		position = position % IDX_MOD;
 	position = get_position(process->pc + position);
 	process->reg[arg[2].value] = get_n_byte(4, 0, position);
+	if (process->cmd ==  13)
+		process->carry = (process->reg[arg[2].value] == 0);
+/* 	if (game->current_cycle == 2725)
+	{
+		ft_printf("befoer getpos :%d\n", process->pc + (arg[0].value + arg[1].value) % IDX_MOD);
+		ft_printf("after getpos: %d\n", get_position(process->pc + (arg[0].value + arg[1].value) % IDX_MOD));
+		ft_printf("\tvalue: %d\n", process->reg[arg[2].value]);
+	} */
 	// ft_printf("pos: %u\n", position);
 	// ft_printf("reg ldi value: %d\n", process->reg[arg[2].value]);
 }
 
 void	sti(t_process *process, t_arg *arg, t_game_param *game)
 {
-	uint16_t	position;
+	int32_t	position;
 
 	arg[1].value = get_arg_value(process, &arg[1]);
 	if (arg[1].type == IND_CODE)
@@ -136,16 +144,21 @@ void	sti(t_process *process, t_arg *arg, t_game_param *game)
 		arg[1].value = get_n_byte(4, 0, arg[1].value);
 	}
 	arg[2].value = get_arg_value(process, &arg[2]);
-	position = process->pc + ((int16_t)(arg[1].value + arg[2].value) % IDX_MOD);
+	position = process->pc + ((arg[1].value + arg[2].value) % IDX_MOD);
 	position = get_position(position);
 	write_4byte(process, get_arg_value(process, &arg[0]), position);
+/* 	if (game->current_cycle == 2810)
+	{
+		ft_printf("\tvalue: %d\n", get_arg_value(process, &arg[0]));
+		ft_printf("\twriting pos: %d\n", position);
+	} */
 }
 
 void	l_foork(t_process *process, t_arg *arg, t_game_param *game)
 {
-	t_process	*new;
-	uint32_t	position;
 	uint8_t		i;
+	t_process	*new;
+	int32_t		position;
 
 	if (process->cmd == 11)
 		position = process->pc + (int16_t)arg[0].value % IDX_MOD;

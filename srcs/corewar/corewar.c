@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/16 00:36:00 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/17 18:48:57 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	check(t_game_param *game)
 	{
 		game->cycle_to_die -= CYCLE_DELTA;
 		game->check_counter = 0;
-		if (g_flags.verbose == 2 || g_flags.verbose == 6)
+		if (g_flags.verbose & 2)
 			ft_printf("Cycle to die is now %d\n", game->cycle_to_die);
 	}
 	game->check_counter++;
@@ -84,7 +84,7 @@ void	corewar(t_header_t *player)
 	set_verb_table(&tab);
 	while (game.head)
 	{
-		if (g_flags.verbose == 2  || g_flags.verbose == 6)
+		if (g_flags.verbose & 2)
 			ft_printf("It is now cycle %u\n", game.current_cycle);
 		processor(&game, &tab, player);
 		check(&game);
