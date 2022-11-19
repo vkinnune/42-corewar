@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 21:50:29 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/19 06:05:16 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	t_arg	arg[3];
 
 	ft_bzero((void *)arg, sizeof(arg));
-	if (check_matching_arg(process, arg, game) != OKEI)
+	if (check_matching_arg(process, arg) != OKEI)
 		return ;
 	if (op_tab[process->cmd].arg_byte == 0)
 		get_arg_without_arg_byte(process, &arg[0]);
@@ -63,8 +63,10 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	if ((g_flags.verbose & 4) && process->cmd != 15)
 	{
 		ft_printf("P %4d | %s", process->id + 1, op_tab[process->cmd].name);
-		tab->verbose_table[process->cmd](process, arg, game);
+		tab->verbose_table[process->cmd](process, arg);
 	}
+	if (process->cmd == 0)
+		update_live_player(game, process, arg, player);
 /* 	if (process->id + 1 == 3)
 	{
 		ft_printf("\tpc pos: %d\n", process->pc);
@@ -72,8 +74,6 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 		// ft_printf("arg :%d\n", get_arg_value(process, &arg[0]));
 		ft_printf("\tcarry %d\n", process->carry);
 	} */
-	if (process->cmd == 0)
-		update_live_player(game, process, arg, player);
 }
 
 void	processor(t_game_param *game, t_table *tab, t_header_t *player)

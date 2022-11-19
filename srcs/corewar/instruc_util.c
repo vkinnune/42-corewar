@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 22:21:51 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/18 04:51:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int8_t	check_ind(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 }
 
 //how do we clean the 3 check_arg function above
-int8_t	check_matching_arg(t_process *process, t_arg *arg, t_game_param *game)
+int8_t	check_matching_arg(t_process *process, t_arg *arg)
 {
 	uint8_t		cur_2bit;
 	uint8_t		i;

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 22:26:17 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/19 05:42:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	position;
 
-	//ft_printf("Jump from: %u\n", process->pc);
 	position = process->pc + ((int16_t)arg[0].value % IDX_MOD);
 	position = get_position(position);
 	process->bytes_to_next += 2;
@@ -99,30 +98,23 @@ void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 		process->bytes_to_next = 0;
 		process->pc = position;
 	}
-	// ft_printf("Jump to: %d\n", (int16_t)position);
 }
 
-void	l_ldi(t_process *process, t_arg *arg, t_game_param *game)
+void	ldi(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	position;
 
-	if (arg[0].type == IND_CODE && process->cmd == 13)
-		arg[0].value = process->pc + (int16_t)(arg[0].value);
-	else
-		arg[0].value = get_arg_value(process, &arg[0]);
+	arg[0].value = get_arg_value(process, &arg[0]);
 	if (arg[0].type == IND_CODE)
 	{
 		arg[0].value = get_position(arg[0].value);
 		arg[0].value = get_n_byte(4, 0, arg[0].value);
 	}
 	arg[1].value = get_arg_value(process, &arg[1]);
-	position = arg[0].value + arg[1].value;
-	if (process->cmd == 9)
-		position = position % IDX_MOD;
+	position = (arg[0].value + arg[1].value) % IDX_MOD;
 	position = get_position(process->pc + position);
 	process->reg[arg[2].value] = get_n_byte(4, 0, position);
-	if (process->cmd ==  13)
-		process->carry = (process->reg[arg[2].value] == 0);
+}
 /* 	if (game->current_cycle == 2725)
 	{
 		ft_printf("befoer getpos :%d\n", process->pc + (arg[0].value + arg[1].value) % IDX_MOD);
@@ -131,6 +123,24 @@ void	l_ldi(t_process *process, t_arg *arg, t_game_param *game)
 	} */
 	// ft_printf("pos: %u\n", position);
 	// ft_printf("reg ldi value: %d\n", process->reg[arg[2].value]);
+
+void	lldi(t_process *process, t_arg *arg, t_game_param *game)
+{
+	int32_t	position;
+
+	if (arg[0].type == IND_CODE)
+	{
+		arg[0].value = process->pc + (int16_t)(arg[0].value);
+		arg[0].value = get_position(arg[0].value);
+		arg[0].value = get_n_byte(4, 0, arg[0].value);
+	}
+	else
+		arg[0].value = get_arg_value(process, &arg[0]);
+	arg[1].value = get_arg_value(process, &arg[1]);
+	position = arg[0].value + arg[1].value;
+	position = get_position(process->pc + position);
+	process->reg[arg[2].value] = get_n_byte(4, 0, position);
+	process->carry = (process->reg[arg[2].value] == 0);
 }
 
 void	sti(t_process *process, t_arg *arg, t_game_param *game)
@@ -147,12 +157,12 @@ void	sti(t_process *process, t_arg *arg, t_game_param *game)
 	position = process->pc + ((arg[1].value + arg[2].value) % IDX_MOD);
 	position = get_position(position);
 	write_4byte(process, get_arg_value(process, &arg[0]), position);
+}
 /* 	if (game->current_cycle == 2810)
 	{
 		ft_printf("\tvalue: %d\n", get_arg_value(process, &arg[0]));
 		ft_printf("\twriting pos: %d\n", position);
 	} */
-}
 
 void	l_foork(t_process *process, t_arg *arg, t_game_param *game)
 {
@@ -166,12 +176,9 @@ void	l_foork(t_process *process, t_arg *arg, t_game_param *game)
 		position = process->pc + (int16_t)arg[0].value;
 	position = get_position(position);
 	new = new_process(game->head, position, -process->reg[r1]);
-	i = r1;
-	while (i <= r16)
-	{
+	i = 0;
+	while (++i <= r16)
 		new->reg[i] = process->reg[i];
-		i++;
-	}
 	new->carry = process->carry;
 	new->last_live_cycle = process->last_live_cycle;
 	new->cmd = -1;

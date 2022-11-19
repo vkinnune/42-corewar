@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 18:48:57 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/18 22:28:53 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ static void	set_instr_table(t_table *tab)
 	tab->instruct_table[6] = and_or_xor;
 	tab->instruct_table[7] = and_or_xor;
 	tab->instruct_table[8] = zjmp;
-	tab->instruct_table[9] = l_ldi;
+	tab->instruct_table[9] = ldi;
 	tab->instruct_table[10] = sti;
 	tab->instruct_table[11] = l_foork;
 	tab->instruct_table[12] = l_ld;
-	tab->instruct_table[13] = l_ldi;
+	tab->instruct_table[13] = lldi;
 	tab->instruct_table[14] = l_foork;
 	tab->instruct_table[15] = aff;
 }
@@ -49,7 +49,7 @@ static void	set_verb_table(t_table *tab)
 	tab->verbose_table[12] = verbose_l_ld;
 	tab->verbose_table[13] = verbose_l_ldi;
 	tab->verbose_table[14] = verbose_l_foork;
-	tab->verbose_table[15] = verbose_aff;
+	tab->verbose_table[15] = 0;
 }
 
 void	check(t_game_param *game)
