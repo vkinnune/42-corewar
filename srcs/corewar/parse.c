@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/12 23:38:20 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/20 18:54:42 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	flag_handler(char **argv, int argc, uint8_t i)
 		g_flags.aff = SET;
 	else if (!ft_strcmp(argv[i], "-v"))
 	{
-		//check if next arg exists
+		check_valid_arg(argv, argc, i);
 		g_flags.verbose = ft_atoi(argv[i + 1]);
 	}
 	else

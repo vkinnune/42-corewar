@@ -1,14 +1,1 @@
-these needs to be tested
-Jyris checklist:
-add, works
-Sub, works
-and,or,xor works
-lldi,
-zjmp,workss
-lld, works atleast on direct, indirect value
-
-
-test with all provided files that actual instructions does what needed
-change arg.value to int32
-
-354087
+man page
