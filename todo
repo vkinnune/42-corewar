@@ -12,3 +12,10 @@ test with all provided files that actual instructions does what needed
 change arg.value to int32
 
 354087
+
+
+problem text in test file is because their dumb test are using -d flag on given vm and -dump flags on own. remember to modify the script.
+	1. Make sure the flag 8 is functional? there might be something. (and make flags until 25?)
+	2. make new script that instead of just rewriting the results, it writes error messages and error dumps in separate files.
+	3. moulinette ofc.
+	4. keep on testing with random combination of champions (but at the time of testing no error in -v4)

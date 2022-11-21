@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 21:50:29 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/21 06:25:50 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	update_live_player(t_game_param *game, t_process *process
 static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab, t_header_t *player)
 {
 	t_arg	arg[3];
+	int		i;
 
 	ft_bzero((void *)arg, sizeof(arg));
 	if (check_matching_arg(process, arg, game) != OKEI)
@@ -74,6 +75,22 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	} */
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);
+	if ((g_flags.verbose & 16) && process->cmd != 8)
+	{
+		i = -1;
+		ft_printf("ADV %d ", process->bytes_to_next);
+		ft_printf("(0x%0.4x -> 0x%0.4x) ", process->pc, process->pc + process->bytes_to_next);
+		while (i++ < process->bytes_to_next - 1)
+		{
+			if (g_arena[process->pc + i] < 16)
+			{
+				ft_printf("0%x ", g_arena[process->pc + i]);
+			}
+			else
+				ft_printf("%x ", g_arena[process->pc + i]);
+		}
+		ft_printf("\n");
+	}
 }
 
 void	processor(t_game_param *game, t_table *tab, t_header_t *player)
