@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 06:04:55 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/22 01:21:11 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ extern unsigned char	g_arena[MEM_SIZE];
 extern uint8_t			g_p_count;
 extern t_flag			g_flags;
 
+//main.c
+void		print_man_page(void);
+
 //parse.c
 void		parse(t_header_t *player, char **argv, int argc);
 
@@ -111,7 +114,6 @@ void		check_file_type(unsigned char *file, int16_t fd);
 void		check_file_size(uint32_t size);
 void		check_matching_champ_size(uint32_t byte_size, uint32_t actual);
 void		check_err_malloc(void *ptr);
-void		print_man_page(void);
 void		check_valid_arg(char **argv, int argc, uint8_t i);
 void		check_existing_id(int8_t id);
 void		check_missing_id(int8_t id);

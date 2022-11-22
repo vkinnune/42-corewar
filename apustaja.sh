@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/20 21:20:55 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/21 05:16:27 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,15 +92,15 @@ apu()
 	done
 	printf "\n$NORMAL"
 
-	answer=4
+	flag=4
 	test_v_flag
 	check_run_type
 }
 
 test_v_flag()
 {
-	(time $OUR_CORE -v $answer $string > result) 2>>time_result
-	(time $TEST_CORE -v $answer $string > test_result) 2>>test_timeresult
+	(time $OUR_CORE -v $flag $string > result) 2>>time_result
+	(time $TEST_CORE -v $flag $string > test_result) 2>>test_timeresult
 
 	diff=$(cmp result test_result)
 	if [[ $diff != "" ]]
@@ -113,7 +113,7 @@ test_v_flag()
 		exit
 	fi
 
-	if [[ $answer == "4" ]]
+	if [[ $flag == "4" ]]
 	then
 		printf "${GREEN}All of your instructions executed perfectly (and the printing too), me proud very (￣︶￣;)\n$NORMAL"
 	fi
@@ -143,20 +143,20 @@ more_test()
 	printf "\t$YELLOW[num]$NORMAL: run a certain -v flag\n"
 	printf "\t$YELLOW\"rerun\"$NORMAL: compare different champs\n"
 	printf "\t$YELLOW\"no\"$NORMAL: No :(\n"
-	read answer
-	if [[ $answer == "rerun" ]]
+	read flag
+	if [[ $flag == "rerun" ]]
 	then
 		apu
-	elif [[ $answer == "no" ]]
+	elif [[ $flag == "no" ]]
 	then
 		rm -f result test_result time_result test_timeresult
 		exit
-	elif [[ $answer == "yes" ]]
+	elif [[ $flag == "yes" ]]
 	then
 		flag_num=( "3" "7" "15" )
 		for i in "${flag_num[@]}"
 		do
-			answer=$i
+			flag=$i
 			printf "Now testing -v $i\n"
 			test_v_flag
 		done

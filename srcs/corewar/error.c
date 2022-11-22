@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/15 19:40:11 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/22 01:11:02 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,4 @@ void	check_missing_id(int8_t id)
 		ft_printf("There's empty space in my heart Senpai (⁄ ⁄•⁄ω⁄•⁄ ⁄)\n");
 		exit(0);
 	}
-}
-
-void	print_man_page(void)
-{
-	ft_printf("man page goes here\n");
-	exit(0);
 }
