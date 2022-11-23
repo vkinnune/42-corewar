@@ -34,6 +34,7 @@ void	validate_argument(int ac, char **av)
 {
 	if (ac == 2 && is_dot_s(av[1]))
 	{
+		get_source()->argc = av[1];
 		return ;
 	}
 	else if (ac == 2)

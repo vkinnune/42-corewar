@@ -58,6 +58,7 @@ typedef struct s_token_list {
 typedef struct s_source {
 	int		col;
 	int		row;
+	char	*argc;
 	char	name[NAME_SIZE];
 	char	comment[COMMENT_SIZE];
 	bool	label;
@@ -86,5 +87,8 @@ char	*read_file(char *file_name);
 void	print_tokens();
 t_token_list	*get_token_list();
 t_label_list	*get_label_list();
+void	token_check();
+void	label_list_check();
+t_source	*get_source();
 #endif
 
