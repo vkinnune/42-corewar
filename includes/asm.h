@@ -6,13 +6,14 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/31 15:07:14 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:06:56 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # define MAX_TOKENS 100000
+# define MAX_LABELS 100000
 # define BUF_SIZE 100000
 # define NAME_SIZE 64
 # define COMMENT_SIZE 64
@@ -47,7 +48,6 @@ typedef enum	e_header_type
 typedef struct s_token {
 	t_token_type	type;
 	char			*content;
-	long int		 num;
 }	t_token;
 
 typedef struct s_token_list {
@@ -56,18 +56,39 @@ typedef struct s_token_list {
 }	t_token_list;
 
 typedef struct s_source {
-	int	col;
-	int	row;
+	int		col;
+	int		row;
+	char	*argc;
 	char	name[NAME_SIZE];
 	char	comment[COMMENT_SIZE];
 	bool	label;
 	bool	ins;
 }	t_source;
 
+typedef struct s_label {
+	unsigned int		id;
+	bool	is_init;
+}	t_label;
+
+typedef struct s_label_list {
+	int		label_count;
+	t_label	labels[MAX_LABELS];
+}	t_label_list;
+
 typedef	struct s_parser {
 	t_token_list	token_list;
 	t_source	source;
+	t_label_list	label_list;
 }	t_parser;
 
+void	init_parser();
+void	parser(const char *input);
+char	*read_file(char *file_name);
+void	print_tokens();
+t_token_list	*get_token_list();
+t_label_list	*get_label_list();
+void	token_check();
+void	label_list_check();
+t_source	*get_source();
 #endif
 
