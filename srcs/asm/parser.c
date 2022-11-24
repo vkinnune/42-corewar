@@ -366,7 +366,8 @@ void	print_tokens()
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		ft_printf("%s %s\n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
+		if (token_list->tokens[i].type != separator && token_list->tokens[i].type != label )
+			ft_printf("%s %s\n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
 		i++;
 	}
 }
