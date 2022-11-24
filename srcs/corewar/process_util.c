@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 19:01:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/17 23:09:37 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ void	free_process(t_process *prev, t_process *delete)
 		free(delete);
 }
 
-void	free_all_process(t_process *head) //for the end of the program
+void	free_all_process(t_process *head)
 {
+	t_process	*next;
+
 	while (head)
 	{
+		next = head->next;
 		free_process(0, head);
-		head = head->next;
+		head = next;
 	}
 }
 
@@ -44,6 +47,8 @@ void	kill_process(t_game_param *game)
 		cycle_since_last_live = game->current_cycle - process->last_live_cycle;
 		if (cycle_since_last_live >= game->cycle_to_die)
 		{
+			if (g_flags.verbose & 8)
+				ft_printf("Process %u hasn't lived for %u cycles (CTD %d)\n", process->id + 1, game->current_cycle - process->last_live_cycle, game->cycle_to_die);
 			free_process(prev, process);
 			if (prev == NULL)
 				game->head = next;
@@ -56,12 +61,13 @@ void	kill_process(t_game_param *game)
 
 t_process	*new_process(t_process *head, uint16_t pos, int id)
 {
-	static uint16_t	process_id;
+	static uint64_t	process_id;
 	t_process		*process;
 
 	process = (t_process *)ft_memalloc(sizeof(t_process));
 	check_err_malloc((void *)process);
-	process->process_id = process_id++; //might still not be needed - currently only used for testing
+	process->id = process_id++; //might still not be needed - currently only used for testing
+	process->cmd = -1;
 	process->pc = pos;
 	process->bytes_to_next = 1; //1 up from the instruction byte
 	process->next = head;
@@ -86,4 +92,14 @@ t_process	*process_init(t_header_t *player)
 		i++;
 	}
 	return (head);
+}
+
+void	get_arg_without_arg_byte(t_process *process, t_arg *arg)
+{
+	uint8_t		dir_size;
+
+	dir_size = DIR_SIZE;
+	if (op_tab[process->cmd].dir_size)
+		dir_size = 2;
+	arg->value = get_n_byte(dir_size, 0, process->pc + 1);
 }

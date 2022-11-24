@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/04 15:33:09 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/13 00:05:02 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef char	t_arg_type;
 typedef struct s_header_s
 {
 	uint8_t			id;
-	uint8_t			alive :1;
 	unsigned int	magic;
 	unsigned int	prog_size;
 	unsigned char	prog_name[PROG_NAME_LENGTH + 1];
@@ -85,7 +84,7 @@ typedef struct s_header_s
 
 typedef struct s_op
 {
-	char			name[5];
+	char			name[6];
 	uint8_t			arg_amt :2;
 	uint8_t			arg_type[3];
 	uint8_t			order_num :5;

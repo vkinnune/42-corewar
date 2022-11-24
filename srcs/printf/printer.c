@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 05:42:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/06/14 17:32:35 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/19 02:28:47 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	put_c(va_list ap)
 		c = '%';
 		bundling_bundler(&length, &hash_pos_spc);
 	}
-	write(g_order.fd, &c, 1);
+	g_p_str.s[g_p_str.i++] = c;
 	return (length);
 }
 
@@ -53,11 +53,11 @@ int	put_s(va_list ap)
 	if (g_order.mfw == 0 && g_order.prec == -1)
 		return (0);
 	else if (g_order.mfw != 0 && g_order.prec == -1)
-		put_flag(g_order.mfw - g_order.num_of_padding, ' ', g_order.fd);
+		put_flag(g_order.mfw - g_order.num_of_padding, ' ');
 	else if (g_order.prec > 0)
-		write(g_order.fd, s, ft_smallernum(g_order.prec, str_len));
+		cpy_to_g_str(s, ft_smallernum(g_order.prec, str_len));
 	else
-		write(g_order.fd, s, str_len);
+		cpy_to_g_str(s, str_len);
 	return (length);
 }
 
@@ -75,18 +75,18 @@ int	put_d(va_list ap)
 	bundling_bundler(&length, &hash_pos_spc);
 	if (n == (long long int)-9223372036854775808u)
 	{
-		write(g_order.fd, "9223372036854775808", 19);
+		cpy_to_g_str("9223372036854775808", 19);
 		return (length);
 	}
 	if (g_order.prec == -1 && n == 0)
 	{
 		if (g_order.mfw > 1)
-			write(g_order.fd, " ", 1);
+			g_p_str.s[g_p_str.i++] = ' ';
 		else
 			return (length - 1);
 	}
 	else
-		ft_putnbr_fd(n, g_order.fd);
+		cpy_to_g_str(ft_itoa(n), ft_diglen(n));
 	return (length);
 }
 
@@ -107,7 +107,7 @@ int	put_f(va_list ap)
 	bundling_bundler(&length, &hash_pos_spc);
 	length += ft_putfloat_fd(f, g_order.prec, g_order.fd);
 	if (!g_order.prec && g_order.hash)
-		write(g_order.fd, ".", 1);
+		g_p_str.s[g_p_str.i++] = '.';
 	return (length);
 }
 
@@ -131,11 +131,11 @@ int	put_pbouxx(va_list ap)
 			|| (g_order.conv == 'o' && g_order.hash == 0)))
 	{
 		if (g_order.mfw)
-			write(g_order.fd, " ", 1);
+			g_p_str.s[g_p_str.i++] = ' ';
 		else
 			return (length - 1);
 	}
 	else if (!(g_order.conv == 'p' && g_order.prec == -1))
-		ft_d2base_fd(u, g_order.base, g_order.conv, g_order.fd);
+		printf_d2base(u, g_order.base, g_order.conv, 0);
 	return (length - (g_order.conv == 'p' && g_order.prec == -1));
 }
