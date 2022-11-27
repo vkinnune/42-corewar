@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/25 15:59:56 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/27 17:56:49 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 ASM_NAME = asm
 ASM_DIR = srcs/asm/
 # add new .c files here
-ASM_FILE = main validate parser checks error write instruction_handler
+ASM_FILE = main validate parser checks error write instruction_handler utilities\
+			label
 ASM_OBJS_DIR = objs/asm/
 ASM_OBJS = $(addprefix $(ASM_OBJS_DIR), $(addsuffix .o, $(ASM_FILE)))
 
@@ -53,7 +54,7 @@ $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c includes/corewar.h
 $(ASM_NAME): $(SHARED_OBJS) $(ASM_OBJS)
 	gcc $(ASM_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
-$(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c
+$(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c includes/asm.h
 	@mkdir -p $(ASM_OBJS_DIR)
 	gcc -g -c $< $(INCLUDES) -o $@
 

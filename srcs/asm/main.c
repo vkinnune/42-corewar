@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/27 15:22:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/27 19:46:00 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@ uint8_t	*get_name(uint8_t*argc)
 	return (name);
 }
 
-void	cor_init(t_file *cor, uint8_t **name, int *fd)
-{
-	cor->str = (unsigned char *)ft_memalloc(COR_FILE_SIZE);
-	cor->idx = 0;
-	*name = get_name(get_source()->argc);
-	*fd = open(*name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
-	check_open_error(*fd);
-}
-
 void	things_into_bits()
 {
 	int		fd;
@@ -48,7 +39,7 @@ void	things_into_bits()
 	t_file	cor;
 
 	cor_init(&cor, &name, &fd);
-	write_n_byte(&cor, 0x00ea83f3, 0, 4); // magic header
+	write_header(&cor);
 	write_intro(&cor);
 	write_token(&cor);
 	ft_printf("Writing output program to %s\n", name);
@@ -64,7 +55,7 @@ int	main(int ac, char**av)
 	token_check();
 	label_list_check();
 	things_into_bits();
-	print_tokens();
+	// print_tokens();
 	return (0);
 }
 

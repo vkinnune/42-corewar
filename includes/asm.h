@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/27 14:45:47 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/27 19:46:55 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 # define BUF_SIZE 100000
 # define COR_FILE_SIZE 1000000
 # define INSTRUCTION_AMOUNT 16
-
+# define HASH_SIZE 500
 # include "libftprintf.h"
 # include <fcntl.h>
 # include "errors.h"
 # include <stdio.h>
 # include <stdbool.h>
 # include "op.h"
+
+// typedef uint8_t	t_arg_func(t_file *cor, int arg_i, int op_size, uint8_t *data);
 
 typedef enum	e_token_type
 {
@@ -63,8 +65,9 @@ typedef struct s_source {
 }	t_source;
 
 typedef struct s_label {
-	unsigned int		id;
-	bool	is_init;
+	unsigned int	id;
+	// unsigned int	idx;
+	bool			is_init;
 }	t_label;
 
 typedef struct s_label_list {
@@ -78,6 +81,8 @@ typedef	struct s_parser {
 	t_label_list	label_list;
 }	t_parser;
 
+
+uint8_t	*get_name(uint8_t*argc);
 void	validate_argument(int ac, char **av);
 
 void	init_parser();
@@ -92,12 +97,23 @@ t_source	*get_source();
 
 //instruction_handler.c
 void	handle_instruction(t_file *cor, int *tok_idx);
-void	handle_label(int *tok_idx);
+uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
+uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
+uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
+uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
+
+//label.c
+void	handle_label(t_file *cor, int *tok_idx);
 
 //error.c
 void	check_open_error(int fd);
 
 //write.c
+void	write_header(t_file *cor);
 void	write_intro(t_file *cor);
 void	write_token(t_file *cor);
+
+//utilities.c
+void	cor_init(t_file *cor, uint8_t **name, int *fd);
+// void	arg_func_init(t_arg_func **arg_funcs);
 #endif

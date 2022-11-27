@@ -1,3 +1,28 @@
 man page
 
 -d > last cycle ?
+
+
+//asm
+handle indirect lable
+handle double label:
+	"moro1:
+	 moro:
+		live %1"
+
+fix label at EOF
+
+change the old lable list to a hash table
+
+
+// to calculate lable position
+go through the tokens
+	if (instruction)
+		if (label arg)
+			save current token token, dir_size, instruc_idx, arg_idx to an label_args array
+	if (label)
+		save current cor.idx to hash table
+
+go through the array of label_args
+	get hash in label_list, get idx
+	write  label_idx - instruc_idx --> cor->str[arg_idx]

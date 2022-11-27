@@ -6,11 +6,11 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/27 15:22:19 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/27 21:39:17 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 int	find_ins(char *content)
 {
@@ -21,7 +21,7 @@ int	find_ins(char *content)
 	size = ft_strlen(content);
 	while (ins != INSTRUCTION_AMOUNT)
 	{
-		if (!ft_strncmp(op_tab[ins].name, content, size))
+		if (!ft_strncmp(op_tab[ins].name, content, size)) //why not strcmp
 			return (ins);
 		ins++;
 	}
@@ -29,7 +29,7 @@ int	find_ins(char *content)
 	return (-1);
 }
 
-int	check_instruction(int *i, t_token_list *token_list)
+int	check_instruction(int *i, t_token_list *token_list) // in need of some mad refactoring
 {
 	int	ins;
 	int	arg;
@@ -39,7 +39,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 	if (!token_list->tokens[*i].content)
 		return (0);
 	if (token_list->tokens[*i].type == label)
-		(*i)++;
+		(*i)++; // why not add_label_list() here?
 	if (token_list->tokens[*i].type != instruction)
 		ft_out("ERRRORRR");
 	ins = find_ins(token_list->tokens[*i].content);
@@ -73,17 +73,15 @@ void	token_check()
 unsigned int	generate_id(char *content)
 {
 	unsigned int	res;
-	int	size;
 	int	i;
 
-	size = ft_strlen(content);
 	i = 0;
 	res = 0;
-	while (i != size)
+	while (content[i])
 	{
 		res = res * 42 + content[i];
 		i++;
-	}
+	} // add modulo if change to hash
 	return (res);
 }
 
@@ -97,13 +95,14 @@ void	add_label_list(char *content, t_token_type token_type)
 		content[ft_strlen(content) - 1] = '\0';
 	else
 		ft_strcpy(content, &content[2]);
-	id = generate_id(content);
-	label_list = get_label_list();
+	id = generate_id(content); //isn't this a hash_key_gen
+	label_list = get_label_list(); // why is this not a hash table?
 	i = 0;
-	while (i != label_list->label_count)
+	while (i != label_list->label_count) //O(n)2
 	{
-		if (label_list->labels[i].id == id)
-			break;
+		if (label_list->labels[i].id == id) //looping through an array to check for a hash key
+			break;							//instead of using the hash key
+											//isn't checking for duplicate key gen("ad") == gen("bc")
 		i++;
 	}
 	if (i == label_list->label_count)
