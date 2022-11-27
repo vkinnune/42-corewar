@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/22 01:21:11 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:56:34 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,6 @@ void		get_arg_without_arg_byte(t_process *process, t_arg *arg);
 //utilities.c
 int			get_n_byte(uint8_t n, unsigned char *data, uint32_t idx);
 uint8_t		get_2bit(uint8_t byte, uint8_t position);
-uint32_t	get_2hext(uint32_t num, uint8_t position);
 
 //corewar.c
 void		corewar(t_header_t *player);
@@ -153,7 +152,8 @@ void		aff(t_process *process, t_arg *arg, t_game_param *game);
 
 //verbose_four.c
 void		verbose_live(t_process *process, t_arg *arg);
-void		verbose_l_ld(t_process *process, t_arg *arg);
+void		verbose_ld(t_process *process, t_arg *arg);
+void		verbose_lld(t_process *process, t_arg *arg);
 void		verbose_st(t_process *process, t_arg *arg);
 void		verbose_add_sub(t_process *process, t_arg *arg);
 void		verbose_and_or_xor(t_process *process, t_arg *arg);
@@ -165,7 +165,6 @@ void		verbose_l_foork(t_process *process, t_arg *arg);
 //instruc_util.c
 int32_t		get_arg_value(t_process *process, t_arg *arg);
 int8_t		check_matching_arg(t_process *process, t_arg *arg);
-void		write_4byte(t_process *process, uint32_t value, uint16_t position);
 uint16_t	get_position(uint16_t pos);
 
 //init.c

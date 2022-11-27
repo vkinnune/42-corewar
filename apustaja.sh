@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/21 05:16:27 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/25 15:51:25 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -117,9 +117,9 @@ test_v_flag()
 	then
 		printf "${GREEN}All of your instructions executed perfectly (and the printing too), me proud very (￣︶￣;)\n$NORMAL"
 	fi
-	runtime=$(tail -n 3 time_result | head -n 1 | cut -d 'm' -f 2)
+	runtime=$(tail -n 3 time_result | head -n 1 | cut -d '	' -f 2)
 	printf "It took you $BLUE$runtime$NORMAL to run\n"
-	test_runtime=$(tail -n 3 test_timeresult | head -n 1 | cut -d 'm' -f 2)
+	test_runtime=$(tail -n 3 test_timeresult | head -n 1 | cut -d '	' -f 2)
 	printf "It took that other one $BLUE$test_runtime$NORMAL\n"
 	if [[ $runtime < $test_runtime ]]
 	then

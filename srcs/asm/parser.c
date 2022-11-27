@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/09 15:20:52 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/26 07:18:40 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "asm.h"
+#include "../../includes/asm.h"
 
 t_parser	*get_parser()
 {
@@ -283,9 +283,9 @@ char	*save_header_string(char *p, t_header_type type)
 		{
 			if (stay_p)
 			{
-				if (type == name && (p - stay_p) < NAME_SIZE)
+				if (type == name && (p - stay_p) < PROG_NAME_LENGTH)
 					ft_memcpy(get_source()->name, &stay_p[1], (p - stay_p) - 1);
-				else if (type == comment && (p - stay_p) < COMMENT_SIZE)
+				else if (type == comment && (p - stay_p) < COMMENT_LENGTH)
 					ft_memcpy(get_source()->comment, &stay_p[1], (p - stay_p) - 1);
 				else
 					ft_out(HEADER_TOO_BIG);
@@ -305,13 +305,15 @@ char	*handle_header(const char *input)
 	char	*p;
 
 	p = (char *)input;
+	ft_bzero(get_source()->name, PROG_NAME_LENGTH);
+	ft_bzero(get_source()->comment, COMMENT_LENGTH);
 	while (!*(get_source()->name) || !*(get_source()->comment))
 	{
 		if (*p == '\t' || *p == ' ' || *p == '\n')
 			p++;
-		else if (!ft_strncmp(".name", p, 5))
+		else if (!ft_strncmp(NAME_CMD_STRING, p, 5))
 			p = save_header_string(&p[5], name);
-		else if (!ft_strncmp(".comment", p, 8))
+		else if (!ft_strncmp(COMMENT_CMD_STRING, p, 8))
 			p = save_header_string(&p[8], comment);
 		else
 			ft_out(HEADER_ERROR);
@@ -358,17 +360,16 @@ char *read_file(char *file_name)
 
 void	print_tokens()
 {
-	const char* tokenstr[]={"label","instruction", "register", "separator", "direct_label", "direct", "indirect"};
-	int	i;
+	const char		*tokenstr[]={"label","instruction", "register", "separator", "direct_label", "direct", "indirect"};
+	int				i;
 	t_token_list	*token_list;
 
 	token_list = get_token_list();
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		if (token_list->tokens[i].type != separator && token_list->tokens[i].type != label )
+		if (token_list->tokens[i].type == label)
 			ft_printf("%s %s\n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
 		i++;
 	}
 }
-

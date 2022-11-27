@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 05:42:13 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/26 20:27:16 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,21 @@ void	l_ld(t_process *process, t_arg *arg, t_game_param *game)
 	}
 	process->reg[arg[1].value] = arg[0].value;
 	process->carry = (process->reg[arg[1].value] == 0);
-	// ft_printf("value is in ld: %u\n", value);
-	// ft_printf("in ld reg: %u\n", process->reg[arg[1].value]);
 }
 
 void	st(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	arg0;
 	int32_t	arg1;
+	t_file	arena;
 
 	arg0 = get_arg_value(process, &arg[0]);
 	if (arg[1].type == IND_CODE)
 	{
 		arg1 = get_arg_value(process, &arg[1]);
-		write_4byte(process, arg0, get_position(arg1));
+		arena.str = g_arena;
+		arena.idx = get_position(arg1);
+		write_n_byte(&arena, arg0, get_position, 4);
 	}
 	else
 		process->reg[arg[1].value] = arg0;
@@ -115,14 +116,6 @@ void	ldi(t_process *process, t_arg *arg, t_game_param *game)
 	position = get_position(process->pc + position);
 	process->reg[arg[2].value] = get_n_byte(4, 0, position);
 }
-/* 	if (game->current_cycle == 2725)
-	{
-		ft_printf("befoer getpos :%d\n", process->pc + (arg[0].value + arg[1].value) % IDX_MOD);
-		ft_printf("after getpos: %d\n", get_position(process->pc + (arg[0].value + arg[1].value) % IDX_MOD));
-		ft_printf("\tvalue: %d\n", process->reg[arg[2].value]);
-	} */
-	// ft_printf("pos: %u\n", position);
-	// ft_printf("reg ldi value: %d\n", process->reg[arg[2].value]);
 
 void	lldi(t_process *process, t_arg *arg, t_game_param *game)
 {
@@ -146,6 +139,7 @@ void	lldi(t_process *process, t_arg *arg, t_game_param *game)
 void	sti(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	position;
+	t_file	arena;
 
 	arg[1].value = get_arg_value(process, &arg[1]);
 	if (arg[1].type == IND_CODE)
@@ -155,14 +149,10 @@ void	sti(t_process *process, t_arg *arg, t_game_param *game)
 	}
 	arg[2].value = get_arg_value(process, &arg[2]);
 	position = process->pc + ((arg[1].value + arg[2].value) % IDX_MOD);
-	position = get_position(position);
-	write_4byte(process, get_arg_value(process, &arg[0]), position);
+	arena.str = g_arena;
+	arena.idx = get_position(position);
+	write_n_byte(&arena, get_arg_value(process, &arg[0]), get_position, 4);
 }
-/* 	if (game->current_cycle == 2810)
-	{
-		ft_printf("\tvalue: %d\n", get_arg_value(process, &arg[0]));
-		ft_printf("\twriting pos: %d\n", position);
-	} */
 
 void	l_foork(t_process *process, t_arg *arg, t_game_param *game)
 {

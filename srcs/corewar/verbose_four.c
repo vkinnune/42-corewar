@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:18:53 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 06:21:14 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:08:55 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@ void	verbose_live(t_process *process, t_arg *arg)
 	ft_printf(" %d\n", get_arg_value(process, &arg[0]));
 }
 
-void	verbose_l_ld(t_process *process, t_arg *arg)
+void	verbose_ld(t_process *process, t_arg *arg)
 {
+	ft_printf(" %d r%d\n", arg[0].value, arg[1].value);
+}
+
+void	verbose_lld(t_process *process, t_arg *arg)
+{
+	if (arg[0].type == IND_CODE)
+		arg[0].value >>= 16;
 	ft_printf(" %d r%d\n", arg[0].value, arg[1].value);
 }
 

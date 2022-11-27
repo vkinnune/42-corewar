@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:41:52 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/12 23:40:25 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/26 18:30:11 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	print_arena(t_header_t *player)
 		if (i % g_flags.byte == 0)
 		{
 			if (i != 0)
-				ft_printf("\n%#06x : ", i);
+				ft_printf("\n%#06x :", i);
 			else
-				ft_printf("0x0000 : "); // quick fix until i fix my printf
+				ft_printf("0x0000 :"); // quick fix until i fix my printf
 		}
-		ft_printf("%02x ", g_arena[i++]);
+		ft_printf(" %02x", g_arena[i++]);
 	}
 	ft_printf("\n");
 }

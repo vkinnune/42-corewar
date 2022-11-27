@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/18 04:51:13 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/25 15:12:58 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,6 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 		i++;
 	}
 	return (result);
-}
-
-void	write_4byte(t_process *process, uint32_t value, uint16_t position)
-{
-	uint8_t	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		g_arena[get_position(position + i)] = get_2hext(value, i);
-		i++;
-	}
 }
 
 uint16_t	get_position(uint16_t pos)
