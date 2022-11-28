@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/26 20:27:16 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:18:38 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	and_or_xor(t_process *process, t_arg *arg, t_game_param *game)
 void	zjmp(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	position;
+	int		i;
 
 	position = process->pc + ((int16_t)arg[0].value % IDX_MOD);
 	position = get_position(position);

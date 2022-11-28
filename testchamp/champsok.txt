@@ -1,0 +1,22 @@
+CHAMPIONS SELECTED: test_champs/ForgottenOne.cor, test_champs/Douceur_power.cor, test_champs/overwatch.cor & test_champs/littlepuppy.cor
+CHAMPIONS SELECTED: test_champs/le_pet_de_nonne.cor, test_champs/loose.cor, test_champs/le_pet_de_nonne.cor & test_champs/katchup.cor
+CHAMPIONS SELECTED: test_champs/ex.cor, test_champs/zork_lld.cor, test_champs/justin_bee.cor & test_champs/skynet.cor
+CHAMPIONS SELECTED: test_champs/mise_a_jour_windows95.cor, test_champs/zork_or.cor, test_champs/wave.cor & test_champs/_honeybadger.cor
+CHAMPIONS SELECTED: test_champs/all_ops_VM.cor, test_champs/mise_a_jour_windows95.cor, test_champs/Explosive_Kitty.cor & test_champs/sencha.cor
+CHAMPIONS SELECTED: test_champs/turtle.cor, test_champs/zork_lldi2.cor, test_champs/Hidden.cor & test_champs/all_ops_VM.cor
+CHAMPIONS SELECTED: test_champs/corelol.cor, test_champs/zork_ld.cor, test_champs/_.cor & test_champs/salamahenagalabadoun.cor
+CHAMPIONS SELECTED: test_champs/Douceur_power.cor, test_champs/zork_xor.cor, test_champs/O-Maley_Miaou.cor & test_champs/zork_lldi.cor
+CHAMPIONS SELECTED: test_champs/zork_lldi.cor, test_champs/Octobre_Rouge_V4.2.cor, test_champs/master_of_puppets.cor & test_champs/big_feet.cor
+CHAMPIONS SELECTED: test_champs/champ.cor, test_champs/Gagnant.cor, test_champs/zork_add2.cor & test_champs/Machine-gun.cor
+CHAMPIONS SELECTED: test_champs/zork_lldi2.cor, test_champs/zork_add2.cor, test_champs/meowluigi.cor & test_champs/doge.cor
+CHAMPIONS SELECTED: test_champs/Asombra.cor, test_champs/littlepuppy.cor, test_champs/Octobre_Rouge_V4.2.cor & test_champs/zork_ld.cor
+CHAMPIONS SELECTED: test_champs/ultima.cor, test_champs/kamelkaze.cor, test_champs/zork.cor & test_champs/ultima.cor
+CHAMPIONS SELECTED: test_champs/Octobre_Rouge_V4.2.cor, test_champs/jumper.cor, test_champs/fast.cor & test_champs/Kitty_Miaou.cor
+CHAMPIONS SELECTED: test_champs/tchupka.cor, test_champs/littlepuppy.cor, test_champs/_.cor & test_champs/zork_and.cor
+CHAMPIONS SELECTED: test_champs/doge.cor, test_champs/Varimathras.cor, test_champs/doge.cor & test_champs/doge.cor
+CHAMPIONS SELECTED: test_champs/terminator.cor, test_champs/zork_xor.cor, test_champs/jinx.cor & test_champs/katchup.cor
+CHAMPIONS SELECTED: test_champs/jumper.cor, test_champs/casimir.cor, test_champs/Machine-gun.cor & test_champs/Horace.cor
+CHAMPIONS SELECTED: test_champs/zork_sub.cor, test_champs/zork_xor.cor, test_champs/mandragore.cor & test_champs/ex.cor
+
+^^ 0 leaks, 0 diffs on dump file
+
