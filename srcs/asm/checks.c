@@ -29,6 +29,21 @@ int	find_ins(char *content)
 	return (-1);
 }
 
+int	check_token_args(t_token_type type, int ins, int arg)
+{
+	uint8_t	arg_type;
+
+	if (type == direct || type == direct_label)
+		arg_type = T_DIR;
+	else if (type == indirect || type == indirect_label)
+		arg_type = T_IND;
+	else if (type == reg)
+		arg_type = T_REG;
+	if (!(op_tab[ins].arg_type[arg] & arg_type))
+		return (0);
+	return (1);
+}
+
 int	check_instruction(int *i, t_token_list *token_list) // in need of some mad refactoring
 {
 	int	ins;
@@ -39,24 +54,22 @@ int	check_instruction(int *i, t_token_list *token_list) // in need of some mad r
 	if (!token_list->tokens[*i].content)
 		return (0);
 	if (token_list->tokens[*i].type == label)
-		(*i)++; // why not add_label_list() here?
+		(*i)++; // add label list here later
 	if (token_list->tokens[*i].type != instruction)
 		ft_out("ERRRORRR");
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
-	while (1)
+	while (arg != op_tab[ins].arg_amt)
 	{
-		token_list->tokens[*i].content; //check that is correct argument
+		if (!check_token_args(token_list->tokens[*i].type, ins, arg)) //check that is correct argument
+			ft_out("ERROR ON ARGS");
 		(*i)++;
 		arg++;
-		if (arg == op_tab[ins].arg_amt)
-			break ;
-		else if (token_list->tokens[*i].type == separator)
+		if (token_list->tokens[*i].type == separator)
 			(*i)++;
-		else
+		else if (arg != op_tab[ins].arg_amt)
 			ft_out("ERROR ON SEPERATOR");
 	}
-	op_tab[ins].arg_type[0];
 	return (1);
 }
 
