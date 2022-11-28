@@ -58,7 +58,7 @@ int	label_check(char **p)
 	i = 0;
 	while (1)
 	{
-		if ((*p)[i] == ':')
+		if ((*p)[i] == ':' && i > 0)
 		{
 			*p = &(*p)[i + 1];
 			get_source()->col += i + 1;
@@ -68,7 +68,10 @@ int	label_check(char **p)
 		else if ((*p)[i] == '\n' || (*p)[i] == '\0'
 			|| (*p)[i] == ' ' || (*p)[i] == '\t' || (*p)[i] == '%')
 			return (0);
-		i++;
+		if (ft_isascii((*p)[i]))
+			i++;
+		else
+			return (0);
 	}
 }
 
@@ -206,6 +209,26 @@ int	indirect_check(char **p)
 	return (1);
 }
 
+int	indirect_label_check(char **p)
+{
+	int	i;
+
+	i = 2;
+	if ((*p)[0] == ':')
+	{
+		while (ft_isprint((*p)[i]) && (*p)[i] != ','
+			&& (*p)[i] != ' ' && (*p)[i] != '\t' && (*p)[i] != '\n')
+			i++;
+		if (i > 1)
+		{
+			get_source()->col += (i - 1);
+			*p = &(*p)[i - 1];
+			return (1);
+		}
+	}
+	return (0);
+}
+
 int	check_valid(char **p)
 {
 	t_token_type	token_type;
@@ -226,6 +249,8 @@ int	check_valid(char **p)
 		token_type = direct;
 	else if (indirect_check(p))
 		token_type = indirect;
+	else if (indirect_label_check(p))
+		token_type = indirect_label;
 	else
 		return (0);
 	save_token(p, old_p, token_type);
@@ -373,3 +398,4 @@ void	print_tokens()
 		i++;
 	}
 }
+

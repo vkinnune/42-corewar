@@ -35,7 +35,8 @@ typedef enum	e_token_type
 	separator, //,
 	direct_label, //%: live
 	direct, //% 1
-	indirect //1
+	indirect, //1
+	indirect_label //: live
 }	t_token_type;
 
 typedef enum	e_header_type
@@ -117,3 +118,4 @@ void	write_token(t_file *cor);
 void	cor_init(t_file *cor, uint8_t **name, int *fd);
 // void	arg_func_init(t_arg_func **arg_funcs);
 #endif
+
