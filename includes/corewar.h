@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/26 18:56:34 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:41:49 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,9 @@ void		verbose_zjmp(t_process *process, t_arg *arg);
 void		verbose_l_ldi(t_process *process, t_arg *arg);
 void		verbose_sti(t_process *process, t_arg *arg);
 void		verbose_l_foork(t_process *process, t_arg *arg);
+
+//verbose_sixteen.c
+void		print_sixteen(t_process *process);
 
 //instruc_util.c
 int32_t		get_arg_value(t_process *process, t_arg *arg);

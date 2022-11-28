@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 14:51:41 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:50:51 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,6 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 	}
 	if (process->cmd == 0)
 		update_live_player(game, process, arg, player);
-	if ((g_flags.verbose & 16) && process->cmd != 8)
-	{
-		i = -1;
-		ft_printf("ADV %d ", process->bytes_to_next);
-		ft_printf("(0x%0.4x -> 0x%0.4x) ", process->pc, process->pc + process->bytes_to_next);
-		while (i++ < process->bytes_to_next - 1)
-		{
-			if (g_arena[process->pc + i] < 16)
-			{
-				ft_printf("0%x ", g_arena[process->pc + i]);
-			}
-			else
-				ft_printf("%x ", g_arena[process->pc + i]);
-		}
-		ft_printf("\n");
-	}
 }
 
 void	processor(t_game_param *game, t_table *tab, t_header_t *player)
@@ -96,6 +80,8 @@ void	processor(t_game_param *game, t_table *tab, t_header_t *player)
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, tab, player);
+			if (g_flags.verbose ^ 16)
+				print_sixteen(process);
 			process->pc = get_position(process->pc + process->bytes_to_next);
 			process->cmd = -1;
 			process->bytes_to_next = 1;
