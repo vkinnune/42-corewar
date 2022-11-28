@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 15:50:51 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:57:43 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	processor(t_game_param *game, t_table *tab, t_header_t *player)
 		if (process->wait_cycle == 0)
 		{
 			execute_le_code(game, process, tab, player);
-			if (g_flags.verbose ^ 16)
+			if (g_flags.verbose & 16)
 				print_sixteen(process);
 			process->pc = get_position(process->pc + process->bytes_to_next);
 			process->cmd = -1;
