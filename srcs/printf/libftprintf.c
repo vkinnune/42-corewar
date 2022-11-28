@@ -6,16 +6,18 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 10:49:10 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/10/28 11:49:34 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/19 05:29:42 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-t_order		g_order;
-t_function	*g_function_arr[5] = {put_c, put_s, put_d, put_f, put_pbouxx};
+t_order			g_order;
+t_printf_funcs	*g_print_funcs[5] = {put_c, put_s, put_d, put_f, put_pbouxx};
+t_printf_string	g_p_str;
+char			g_printf_default_color[5];
 
-int	print_error(char *og_fmt, char *fmt)
+static int	print_error(char *og_fmt, char *fmt)
 {
 	int	i;
 
@@ -34,7 +36,7 @@ int	print_error(char *og_fmt, char *fmt)
 	return (i);
 }
 
-int	take_subway_order(char **fmt, va_list ap)
+static int	take_subway_order(char **fmt, va_list ap)
 {
 	char	*og_fmt;
 	int		i;
@@ -49,54 +51,48 @@ int	take_subway_order(char **fmt, va_list ap)
 	conversion_adapter();
 	if (g_order.conv)
 	{
-		i = g_function_arr[g_order.func_idx](ap);
+		i = g_print_funcs[g_order.func_idx](ap);
 		if (g_order.neg)
-			put_flag(g_order.num_of_padding, ' ', g_order.fd);
+			put_flag(g_order.num_of_padding, ' ');
 		return (i);
 	}
 	return (print_error(og_fmt, *fmt));
 }
 
-int	grouping_grouper(char **fmt, va_list ap,
-			char default_color[5], int *fd)
+static int	convert(char **fmt, va_list ap, int *fd)
 {
 	int	char_printed;
 
-	if (**fmt == '%')
-	{
-		initialize_order(*fd);
-		char_printed = take_subway_order(fmt, ap);
-		if (g_order.color)
-			write(*fd, default_color, 5);
-	}
-	else if (**fmt == '$')
-	{
-		extra_functionality(fmt, default_color, fd, ap);
-		char_printed = 0;
-	}
-	else
-		char_printed = write(*fd, *fmt, 1);
+	initialize_order(*fd);
+	char_printed = take_subway_order(fmt, ap);
+	if (g_order.color)
+		cpy_to_g_str(g_printf_default_color, ft_strlen(g_printf_default_color));
 	return (char_printed);
 }
 
 int	ft_printf(const char *fmt, ...)
 {
-	char	default_color[6];
 	int		char_printed;
-	va_list	ap;
 	int		fd;
+	va_list	ap;
 
-	fd = 1;
-	ft_strcpy(default_color, "\x1b[0m");
+	printf_init(&fd, &char_printed);
 	va_start(ap, fmt);
-	char_printed = 0;
 	while (*fmt)
 	{
-		char_printed += grouping_grouper((char **)&fmt, ap,
-				default_color, &fd);
+		if (*fmt == '%')
+			char_printed += convert((char **)&fmt, ap, &fd);
+		else if (*fmt == '$')
+			extra_functionality((char **)&fmt, ap, &fd, 1);
+		else
+		{
+			g_p_str.s[g_p_str.i++] = *fmt;
+			char_printed++;
+		}
 		if (*fmt)
 			fmt++;
 	}
 	va_end(ap);
+	write(fd, g_p_str.s, g_p_str.i);
 	return (char_printed);
 }

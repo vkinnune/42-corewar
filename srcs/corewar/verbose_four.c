@@ -6,85 +6,83 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 19:18:53 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 22:25:28 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:08:55 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
-void	verbose_live(t_process *process, t_arg *arg, t_game_param *game)
+
+void	verbose_live(t_process *process, t_arg *arg)
 {
 	ft_printf(" %d\n", get_arg_value(process, &arg[0]));
 }
 
-void	verbose_l_ld(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_ld(t_process *process, t_arg *arg)
 {
 	ft_printf(" %d r%d\n", arg[0].value, arg[1].value);
 }
 
-void	verbose_st(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_lld(t_process *process, t_arg *arg)
+{
+	if (arg[0].type == IND_CODE)
+		arg[0].value >>= 16;
+	ft_printf(" %d r%d\n", arg[0].value, arg[1].value);
+}
+
+void	verbose_st(t_process *process, t_arg *arg)
 {
 	ft_printf(" r%d %d\n", arg[0].value, (int16_t)arg[1].value);
-	// ft_printf("\t\targ %d\n", get_arg_value(process, &arg[1]));
-	// ft_printf("\t\tpos :%d\n", get_position(arg[1].value));
 }
 
-void	verbose_add_sub(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_add_sub(t_process *process, t_arg *arg)
 {
-	uint8_t	i;
-
-	i = 0;
-	while (i < 3)
-		ft_printf(" r%d", arg[i++].value);
-	ft_printf("\n");
+	ft_printf(" r%d r%d r%d\n", arg[0].value, arg[1].value, arg[2].value);
 }
 
-void	verbose_and_or_xor(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_and_or_xor(t_process *process, t_arg *arg)
 {
-	ft_printf(" %d", arg[0].value);
-	ft_printf(" %d", arg[1].value);
-	ft_printf(" r%d\n", arg[2].value);
+	ft_printf(" %d %d r%d\n", arg[0].value, arg[1].value, arg[2].value);
 }
 
-void	verbose_zjmp(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_zjmp(t_process *process, t_arg *arg)
 {
-	ft_printf(" %hd", arg[0].value);
 	if (process->carry == 1)
-		ft_printf(" OK\n");
+		ft_printf(" %d OK\n", (int16_t)arg[0].value);
 	else
-		ft_printf(" FAILED\n");
+		ft_printf(" %d FAILED\n", (int16_t)arg[0].value);
 }
 
-void	verbose_l_ldi(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_l_ldi(t_process *process, t_arg *arg)
 {
-	ft_printf(" %d", arg[0].value);
-	ft_printf(" %d", arg[1].value);
-	ft_printf(" r%d\n", arg[2].value);
+	int32_t	pos;
+
+	ft_printf(" %d %d r%d\n", arg[0].value, arg[1].value, arg[2].value);
+	pos = arg[0].value + arg[1].value;
 	if (process->cmd == 9)
-		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", arg[0].value, arg[1].value, arg[0].value + arg[1].value, process->pc + (arg[0].value + arg[1].value) % IDX_MOD);
+		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+			arg[0].value, arg[1].value, pos, process->pc + pos % IDX_MOD);
 	else
-		ft_printf("       | -> load from %d + %d = %d (with pc %d)\n", arg[0].value, arg[1].value, arg[0].value + arg[1].value, process->pc + arg[0].value + arg[1].value);
+		ft_printf("       | -> load from %d + %d = %d (with pc %d)\n",
+			arg[0].value, arg[1].value, pos, process->pc + pos);
 }
 
-void	verbose_sti(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_sti(t_process *process, t_arg *arg)
 {
-	ft_printf(" r%d", arg[0].value);
-	ft_printf(" %d", arg[1].value);
-	ft_printf(" %d\n", arg[2].value);
-	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", arg[1].value, arg[2].value, arg[1].value + arg[2].value, process->pc + (arg[1].value + arg[2].value) % IDX_MOD);
+	int32_t	pos;
+
+	ft_printf(" r%d %d %d\n", arg[0].value, arg[1].value, arg[2].value);
+	pos = arg[1].value + arg[2].value;
+	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
+		arg[1].value, arg[2].value,	pos, process->pc + (pos) % IDX_MOD);
 }
 
-void	verbose_l_foork(t_process *process, t_arg *arg, t_game_param *game)
+void	verbose_l_foork(t_process *process, t_arg *arg)
 {
-	uint32_t	position;
+	int32_t	pos;
 
 	if (process->cmd == 11)
-		position = process->pc + (int16_t)arg[0].value % IDX_MOD;
+		pos = process->pc + (int16_t)arg[0].value % IDX_MOD;
 	else
-		position = process->pc + (int16_t)arg[0].value;
-	ft_printf(" %d (%d)\n", (int16_t)arg[0].value, position);
-}
-
-void	verbose_aff(t_process *process, t_arg *arg, t_game_param *game)
-{
-
+		pos = process->pc + (int16_t)arg[0].value;
+	ft_printf(" %d (%d)\n", (int16_t)arg[0].value, pos);
 }

@@ -6,16 +6,22 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 16:19:29 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/06 21:48:35 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/19 05:30:54 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	put_flag(int ammount, char c, int fd)
+void	put_flag(int ammount, char c)
 {
-	while (ammount-- > 0)
-		write(fd, &c, 1);
+	int	i;
+
+	i = 0;
+	while (i < ammount)
+	{
+		g_p_str.s[g_p_str.i++] = c;
+		i++;
+	}
 }
 
 void	a_wild_mfw_appeared(va_list ap, char mfw_prec)
@@ -54,49 +60,4 @@ void	mfw_prec_assigner(char **fmt, va_list ap)
 	}
 	else
 		g_order.mfw = ft_atoi(*fmt);
-}
-
-void	print_fd(int *fd, va_list ap, char fmt)
-{
-	char	*s;
-
-	if (fmt == '0')
-		*fd = va_arg(ap, int);
-	else
-	{
-		s = va_arg(ap, char *);
-		*fd = open(s, O_WRONLY);
-	}
-	if (*fd == -1)
-		write(2, "error: cannot open file\n", 24);
-}
-
-void	extra_functionality(char **fmt, char default_color[5], int *fd,
-			va_list ap)
-{
-	char	*color;
-
-	color = NULL;
-	(*fmt)++;
-	if (*(*fmt) == 'r')
-		color = "\x1B[31m";
-	else if (**fmt == 'g')
-		color = "\x1B[32m";
-	else if (**fmt == 'b')
-		color = "\x1B[34m";
-	else if (**fmt == 'd')
-		color = "\x1B[0m";
-	else if (**fmt == '0' || **fmt == '1')
-		print_fd(fd, ap, **fmt);
-	else
-	{
-		write(*fd, "$", 1);
-		if (**fmt == '$')
-			(*fmt)++;
-		write(*fd, *fmt, 1);
-	}
-	if (color)
-		write(*fd, color, 5);
-	if (default_color && color)
-		ft_strcpy(default_color, color);
 }

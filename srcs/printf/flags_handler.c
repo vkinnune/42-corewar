@@ -6,32 +6,40 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 18:42:06 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/06/10 19:05:36 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/19 01:59:13 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
+static int	do_bpxx(void)
+{
+	if (g_order.conv == 'b')
+		cpy_to_g_str("0b", 2);
+	else if (g_order.conv == 'X')
+		cpy_to_g_str("0X", 2);
+	else if (g_order.conv == 'x' || g_order.conv == 'p')
+		cpy_to_g_str("0x", 2);
+	return (2);
+}
+
 int	hash_pos_spc(void)
 {
 	if (g_order.hash > 0)
 	{
-		if (g_order.conv == 'b')
-			return (write(g_order.fd, "0b", 2));
-		if (g_order.conv == 'X')
-			return (write(g_order.fd, "0X", 2));
-		if (g_order.conv == 'x' || g_order.conv == 'p')
-			return (write(g_order.fd, "0x", 2));
+		if (g_order.conv == 'b' || g_order.conv == 'X'
+			|| g_order.conv == 'x' || g_order.conv == 'p')
+			return (do_bpxx());
 		if (g_order.conv == 'o')
-			write(g_order.fd, "0", 1);
+			g_p_str.s[g_p_str.i++] = '0';
 		return (1);
 	}
 	if (g_order.conv == 'd' || g_order.conv == 'f')
 	{
 		if (g_order.pos)
-			write(g_order.fd, "+", 1);
+			g_p_str.s[g_p_str.i++] = '+';
 		else if (g_order.space)
-			write(g_order.fd, " ", 1);
+			g_p_str.s[g_p_str.i++] = ' ';
 		return ((g_order.pos || g_order.space)
 			* (g_order.conv == 'd' || g_order.conv == 'f'));
 	}
@@ -98,7 +106,7 @@ int	mfw(int length, int (*f)(void))
 		cal_padding(length);
 		i += g_order.num_of_padding;
 		if (!g_order.neg)
-			put_flag(g_order.num_of_padding, ' ', g_order.fd);
+			put_flag(g_order.num_of_padding, ' ');
 	}
 	if (f)
 		i += f();

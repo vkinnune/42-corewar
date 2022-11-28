@@ -1,21 +1,28 @@
-these needs to be tested
-Jyris checklist:
-add, works
-Sub, works
-and,or,xor works
-lldi,
-zjmp,workss
-lld, works atleast on direct, indirect value
+man page
+
+-d > last cycle ?
 
 
-test with all provided files that actual instructions does what needed
-change arg.value to int32
+//asm
+handle indirect lable
+handle double label:
+	"moro1:
+	 moro:
+		live %1"
 
-354087
+fix label at EOF
+
+change the old lable list to a hash table
 
 
-problem text in test file is because their dumb test are using -d flag on given vm and -dump flags on own. remember to modify the script.
-	1. Make sure the flag 8 is functional? there might be something. (and make flags until 25?)
-	2. make new script that instead of just rewriting the results, it writes error messages and error dumps in separate files.
-	3. moulinette ofc.
-	4. keep on testing with random combination of champions (but at the time of testing no error in -v4)
+// to calculate lable position
+go through the tokens
+	if (instruction)
+		if (label arg)
+			save current token token, dir_size, instruc_idx, arg_idx to an label_args array
+	if (label)
+		save current cor.idx to hash table
+
+go through the array of label_args
+	get hash in label_list, get idx
+	write  label_idx - instruc_idx --> cor->str[arg_idx]

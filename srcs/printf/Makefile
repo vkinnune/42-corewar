@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/24 10:35:47 by qnguyen           #+#    #+#              #
-#    Updated: 2022/10/26 00:54:42 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/19 05:33:58 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = ../../libraries/libftprintf.a
 LIBFT = ../../libraries/libft.a
 LIBFT_DIR = ../libft/
 SRCS = libftprintf prefix utilities utilities_2 printer flags_handler\
-conversion_prefix_adapter
+conversion_prefix_adapter init printf_d2base print_float extra
 FLAGS = -Wall -Wextra -Werror
 INCLUDES = ../../includes/
 OBJS_DIR = ../../objs/ft_printf/

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/11/13 00:05:02 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/26 19:06:31 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,16 @@ typedef struct s_op
 	uint8_t			dir_size :1;
 }				t_op;
 
+typedef struct s_file
+{
+	unsigned char	*str;
+	uint32_t		idx;
+}				t_file;
 extern t_op				op_tab[17];
+
+//shared_util.c
+uint32_t	get_2hext(uint32_t num, uint8_t position, uint8_t n);
+void		write_n_byte(t_file *file, uint32_t val, uint16_t f(uint16_t), int8_t n);
+
 #endif
+
