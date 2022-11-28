@@ -4,12 +4,6 @@ man page
 
 
 //asm
-handle double label:
-	"moro1:
-	 moro:
-		live %1"
-
-fix label at EOF
 
 change the old lable list to a hash table
 

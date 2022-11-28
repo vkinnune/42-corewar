@@ -56,7 +56,7 @@ int	check_instruction(int *i, t_token_list *token_list) // in need of some mad r
 	if (token_list->tokens[*i].type == label)
 		(*i)++; // add label list here later
 	if (token_list->tokens[*i].type != instruction)
-		ft_out("ERRRORRR");
+		return (1);
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
 	while (arg != op_tab[ins].arg_amt)
