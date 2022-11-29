@@ -21,7 +21,7 @@ int	find_ins(char *content)
 	size = ft_strlen(content);
 	while (ins != INSTRUCTION_AMOUNT)
 	{
-		if (!ft_strncmp(op_tab[ins].name, content, size)) //why not strcmp
+		if (!ft_strncmp(op_tab[ins].name, content, size))
 			return (ins);
 		ins++;
 	}
@@ -44,27 +44,40 @@ int	check_token_args(t_token_type type, int ins, int arg)
 	return (1);
 }
 
-int	check_instruction(int *i, t_token_list *token_list) // in need of some mad refactoring
-{														// why is this taking token_list when all it does is to point to tokens?
-	int	ins;											// ->try passing tokens
-	int	arg;
-
-	ins = 0;
-	arg = 0;
+int	more_check_instruction(int *i, t_token_list *token_list)
+{
 	if (!token_list->tokens[*i].content)
 		return (0);
-	if (token_list->tokens[*i].type == label || token_list->tokens[*i].type == direct_label)
+	if (token_list->tokens[*i].type == label
+		|| token_list->tokens[*i].type == direct_label)
 	{
-		add_label_list(token_list->tokens[*i].content, token_list->tokens[*i].type);
+		add_label_list(token_list->tokens[*i].content,
+			token_list->tokens[*i].type);
 		(*i)++;
 	}
 	if (token_list->tokens[*i].type != instruction)
 		return (1);
+	return (2);
+}
+
+int	check_instruction(int *i, t_token_list *token_list)
+{
+	int	ins;
+	int	ret;
+	int	arg;
+
+	ins = 0;
+	arg = 0;
+	ret = more_check_instruction(i, token_list);
+	if (ret == 1)
+		return (1);
+	else if (ret == 0)
+		return (0);
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
 	while (arg != op_tab[ins].arg_amt)
 	{
-		if (!check_token_args(token_list->tokens[*i].type, ins, arg)) //check that is correct argument
+		if (!check_token_args(token_list->tokens[*i].type, ins, arg))
 			ft_out("ERROR ON ARGS");
 		(*i)++;
 		arg++;
@@ -76,13 +89,16 @@ int	check_instruction(int *i, t_token_list *token_list) // in need of some mad r
 	return (1);
 }
 
-void	token_check()
+void	token_check(void)
 {
+	int				i;
 	t_token_list	*token_list;
-	int		i;
 
 	i = 0;
 	token_list = get_token_list();
-	while (check_instruction(&i, token_list));
+	while (check_instruction(&i, token_list))
+	{
+	}
 	label_list_error();
 }
+

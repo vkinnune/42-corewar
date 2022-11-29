@@ -90,6 +90,15 @@ t_token_list	*get_token_list();
 t_label	**get_labels();
 void	token_check();
 t_source	*get_source();
+int	label_check(char **p);
+int	instruction_check(char **p);
+int	register_check(char **p);
+int	separator_check(char **p);
+int direct_label_check(char **p);
+int	direct_check(char **p);
+char	*handle_header(const char *input);
+void	handle_asm(char *p);
+void	save_token(char **p, char *old_p, t_token_type token_type);
 
 //label.c
 void	add_label_list(char *content, t_token_type token_type);
@@ -120,3 +129,4 @@ void	write_token(t_file *cor);
 void	cor_init(t_file *cor, uint8_t **name, int *fd);
 // void	arg_func_init(t_arg_func **arg_funcs);
 #endif
+
