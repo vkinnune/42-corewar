@@ -6,18 +6,20 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/27 19:46:55 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 12:08:54 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # define MAX_TOKENS 100000
-# define MAX_LABELS 100000
+// # define MAX_LABELS 100000
 # define BUF_SIZE 100000
 # define COR_FILE_SIZE 1000000
 # define INSTRUCTION_AMOUNT 16
-# define HASH_SIZE 500
+# define HASH_SIZE 5000
+# define LABEL_EXIST 1
+# define LABEL_NO_EXIST 0
 # include "libftprintf.h"
 # include <fcntl.h>
 # include "errors.h"
@@ -56,24 +58,25 @@ typedef struct s_token_list {
 }	t_token_list;
 
 typedef struct s_source {
-	int		col;
-	int		row;
-	char	*argc;
-	char	name[PROG_NAME_LENGTH];
-	char	comment[COMMENT_LENGTH];
-	bool	label;
-	bool	ins;
+	int				col;
+	int				row;
+	unsigned char	*argc;
+	char			name[PROG_NAME_LENGTH];
+	char			comment[COMMENT_LENGTH];
+	bool			label;
+	bool			ins;
 }	t_source;
 
 typedef struct s_label {
-	unsigned int	id;
+	char	*name;
 	// unsigned int	idx;
 	bool			is_init;
+	struct s_label	*next;
 }	t_label;
 
 typedef struct s_label_list {
 	int		label_count;
-	t_label	labels[MAX_LABELS];
+	t_label	*labels[HASH_SIZE];
 }	t_label_list;
 
 typedef	struct s_parser {
@@ -82,8 +85,6 @@ typedef	struct s_parser {
 	t_label_list	label_list;
 }	t_parser;
 
-
-uint8_t	*get_name(uint8_t*argc);
 void	validate_argument(int ac, char **av);
 
 void	init_parser();
@@ -93,17 +94,22 @@ void	print_tokens();
 t_token_list	*get_token_list();
 t_label_list	*get_label_list();
 void	token_check();
-void	label_list_check();
 t_source	*get_source();
+
+//label.c
+void	add_label_list(char *content, t_token_type token_type);
+void	label_list_error();
+t_label	*retrieve_label(char *content);
 
 //instruction_handler.c
 void	handle_instruction(t_file *cor, int *tok_idx);
-uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
-uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
-uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
-uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, uint8_t *content);
+uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, char *content);
+uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, char *content);
+uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, char *content);
+uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, char *content);
 
 //label.c
+unsigned int	hash(char *content);
 void	handle_label(t_file *cor, int *tok_idx);
 
 //error.c
@@ -118,4 +124,3 @@ void	write_token(t_file *cor);
 void	cor_init(t_file *cor, uint8_t **name, int *fd);
 // void	arg_func_init(t_arg_func **arg_funcs);
 #endif
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 13:59:59 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/27 14:15:18 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:34:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	validate_argument(int ac, char **av)
 {
 	if (ac == 2 && is_dot_s(av[1]))
 	{
-		get_source()->argc = av[1];
+		get_source()->argc = (unsigned char *)av[1];
 		return ;
 	}
 	else if (ac == 2)
@@ -44,4 +44,3 @@ void	validate_argument(int ac, char **av)
 	else
 		ft_out(USAGE);
 }
-

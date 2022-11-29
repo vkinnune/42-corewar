@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/25 15:51:25 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/11/28 21:25:01 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BLUE='\e[94m'
 YELLOW='\e[93m'
 NORMAL='\e[0m'
 OUR_CORE=./corewar
-TEST_CORE=./c_corewar
+TEST_CORE=/Users/qnguyen/Workspace/Corewar/resources/vm_champs/corewar
 CHAMP_DIR=./testchamp/
 
 check_file()
@@ -50,7 +50,9 @@ apu()
 		echo "Okei u lazy bum"
 		for i in {0..3}
 		do
-			champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | shuf -n 1)
+			champ_num=$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l)
+			random_num=$(jot -r 1 1 $champ_num)
+			champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | head -$((random_num)) | tail -1)
 		done
 		count=4
 	else

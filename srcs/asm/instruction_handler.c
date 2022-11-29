@@ -6,19 +6,20 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 13:47:41 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/27 19:45:02 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/28 17:43:42 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, uint8_t *content)
+uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, char *content)
 {
 	//save current token idx, dir_size, and cor.idx to an label_args array
 	//return (DIR || IND _CODE);
+	return (0);
 }
 
-uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, uint8_t *content)
+uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, char *content)
 {
 	uint8_t	dir_size;
 
@@ -26,15 +27,14 @@ uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, uint8_t *content)
 	write_n_byte(cor, ft_atoi(&content[1]), 0, dir_size);
 	return (DIR_CODE << (2 * (3 - arg_i)));
 }
-	//dont forget lable
 
-uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, uint8_t *content)
+uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, char *content)
 {
 	write_n_byte(cor, (uint16_t)ft_atoi(&content[0]), 0, IND_SIZE);
 	return (IND_CODE << (2 * (3 - arg_i)));
 }
 
-uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, uint8_t *content)
+uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, char *content)
 {
 	write_n_byte(cor, (uint8_t)ft_atoi(&content[1]), 0, REG_NAME_SIZE);
 	return (REG_CODE << (2 * (3 - arg_i)));
