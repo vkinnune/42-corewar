@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 16:56:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 19:28:39 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token_list	*get_token_list(void)
 	return (&get_parser()->token_list);
 }
 
-t_label	**get_labels()
+t_label	**get_labels(void)
 {
 	return (get_parser()->labels);
 }
@@ -34,7 +34,16 @@ t_source	*get_source(void)
 	return (&get_parser()->source);
 }
 
-void	init_parser(void)
+t_label_arg	**get_label_args(void)
 {
-	ft_bzero(get_parser(), sizeof(t_parser));
+	static t_label_arg	*label_args;
+
+	return (&label_args);
+}
+
+t_file	*get_core_file(void)
+{
+	static t_file	cor;
+
+	return (&cor);
 }

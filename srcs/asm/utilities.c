@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:22:35 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 16:35:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 19:05:00 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ static unsigned char	*get_name(unsigned char *argc)
 	return (name);
 }
 
-void	cor_init(t_file *cor, unsigned char **name, int *fd)
+void	cor_init(unsigned char **name, int *fd)
 {
+	t_file	*cor;
+
+	cor = get_core_file();
 	cor->str = (unsigned char *)ft_memalloc(COR_FILE_SIZE);
 	cor->idx = 0;
 	*name = get_name(get_source()->argc);

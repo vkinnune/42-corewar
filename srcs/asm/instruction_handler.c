@@ -6,81 +6,107 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 13:47:41 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 17:43:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 19:29:54 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, char *content)
+uint8_t	lab_arg(int instr_idx, int arg_i, int op_size, t_token *toks)
 {
-	//save current token idx, dir_size, and cor.idx to an label_args array
+	uint8_t		size;
+	t_file		*cor;
+	t_label_arg	*new;
+	t_label_arg	**head;
+
+	if (toks->type != direct_label && toks->type != indirect_label)
+		return (0);
+	cor = get_core_file();
+	if (toks->type == direct_label)
+		size = DIR_SIZE / (1 + op_size);
+	else
+		size = IND_SIZE;
+	head = get_label_args();
+	new = new_l_arg(toks, cor->idx, instr_idx, size);
+	new->next = *head;
+	*head = new;
 	//return (DIR || IND _CODE);
-	return (0);
+	return (0); //for now
 }
 
-uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, char *content)
+uint8_t	dir_arg(int arg_i, int op_size, t_token *toks)
 {
+	t_file			*cor;
 	uint8_t	dir_size;
 
+	if (toks->type != direct)
+		return (0);
+	cor = get_core_file();
 	dir_size = DIR_SIZE / (1 + op_size);
-	write_n_byte(cor, ft_atoi(&content[1]), 0, dir_size);
+	write_n_byte(cor, ft_atoi(&toks->content[1]), 0, dir_size);
 	return (DIR_CODE << (2 * (3 - arg_i)));
 }
 
-uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, char *content)
+uint8_t	ind_arg(int arg_i, t_token *toks)
 {
-	write_n_byte(cor, (uint16_t)ft_atoi(&content[0]), 0, IND_SIZE);
+	t_file			*cor;
+
+	if (toks->type != indirect)
+		return (0);
+	cor = get_core_file();
+	write_n_byte(cor, (uint16_t)ft_atoi(&toks->content[0]), 0, IND_SIZE);
 	return (IND_CODE << (2 * (3 - arg_i)));
 }
 
-uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, char *content)
+uint8_t	reg_arg(int arg_i, t_token *toks)
 {
-	write_n_byte(cor, (uint8_t)ft_atoi(&content[1]), 0, REG_NAME_SIZE);
+	t_file			*cor;
+
+	cor = get_core_file();
+	write_n_byte(cor, (uint8_t)ft_atoi(&toks->content[1]), 0, REG_NAME_SIZE);
 	return (REG_CODE << (2 * (3 - arg_i)));
 }
 
-void	handle_arg_byte(t_file *cor, int op_i, int *tok_idx)
+void	handle_arg_byte(int op_i, int *tok_i)
 {
-	int				arg_i;
+	int				i;
+	int				ins_byte;
 	unsigned char	*a_byte;
 	t_token			*toks;
+	t_file			*cor;
 
 	toks = get_token_list()->tokens;
-	arg_i = 0;
+	cor = get_core_file();
+	i = 0;
+	ins_byte = cor->idx++;
 	a_byte = &(cor->str[cor->idx++]);
-	while (arg_i < op_tab[op_i].arg_amt)
+	while (i < op_tab[op_i].arg_amt)
 	{
-		if (toks[*tok_idx].type == direct)
-			*a_byte |= dir_arg(cor, arg_i,
-					op_tab[op_i].dir_size, toks[*tok_idx].content);
-		else if (toks[*tok_idx].type == indirect)
-			*a_byte |= ind_arg(cor, arg_i, op_tab[op_i].dir_size, toks[*tok_idx].content);
-		else if (toks[*tok_idx].type == reg)
-			*a_byte |= reg_arg(cor, arg_i, op_tab[op_i].dir_size, toks[*tok_idx].content);
-		else if (toks[*tok_idx].type == direct_label)
-			//|| toks[*tok_idx].type == ind_label
-			lab_arg(cor, arg_i,
-				op_tab[op_i].dir_size, toks[*tok_idx].content);
-		arg_i++;
-		(*tok_idx) += 1 + (*tok_idx < get_token_list()->token_count
-				&& toks[(*tok_idx) + 1].type == separator);
+		*a_byte |= lab_arg(ins_byte, i, op_tab[op_i].dir_size, &toks[*tok_i]);
+		*a_byte |= dir_arg(i, op_tab[op_i].dir_size, &toks[*tok_i]);
+		*a_byte |= ind_arg(i, &toks[*tok_i]);
+		*a_byte |= reg_arg(i, &toks[*tok_i]);
+		i++;
+		(*tok_i) += 1 + (*tok_i < get_token_list()->token_count
+				&& toks[(*tok_i) + 1].type == separator);
 	}
 }
 
-void	handle_instruction(t_file *cor, int *tok_idx)
+void	handle_instruction(int *tok_idx)
 {
 	int		op_idx;
 	t_token	*tokens;
+	t_file	*cor;
 
 	op_idx = 0;
+	cor = get_core_file();
 	tokens = get_token_list()->tokens;
 	while (ft_strcmp(tokens[*tok_idx].content, op_tab[op_idx].name))
 		op_idx++;
-	cor->str[cor->idx++] = op_tab[op_idx].order_num;
+	cor->str[cor->idx] = op_tab[op_idx].order_num;
 	(*tok_idx)++;
 	if (op_tab[op_idx].arg_byte)
-		handle_arg_byte(cor, op_idx, tok_idx);
-	else
-		dir_arg(cor, 0, op_tab[op_idx].dir_size, tokens[*tok_idx].content);
+		handle_arg_byte(op_idx, tok_idx);
+	else // or label
+		dir_arg(0, op_tab[op_idx].dir_size, &tokens[*tok_idx]);
 }

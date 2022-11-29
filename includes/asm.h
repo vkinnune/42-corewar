@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 16:44:08 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 19:28:46 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include "op.h"
 
 // typedef uint8_t	t_arg_func(t_file *cor, int arg_i, int op_size, uint8_t *data);
+typedef struct s_label t_label;
+typedef struct s_label_arg t_label_arg;
 
 typedef enum	e_token_type
 {
@@ -67,12 +69,22 @@ typedef struct s_source {
 	bool			ins;
 }	t_source;
 
-typedef struct s_label {
-	char	*name;
-	// unsigned int	idx;
+struct s_label
+{
 	bool			is_init;
-	struct s_label	*next;
-}	t_label;
+	unsigned int	idx;
+	char			*name;
+	t_label			*next;
+};
+
+struct s_label_arg
+{
+	uint8_t		size :3;
+	int			map_idx; //where to write the bytes to
+	int			instruct_idx;
+	t_token		*token;
+	t_label_arg	*next;
+};
 
 typedef	struct s_parser {
 	t_token_list	token_list;
@@ -82,14 +94,17 @@ typedef	struct s_parser {
 
 void	validate_argument(int ac, char **av);
 
+t_parser	*get_parser(void);
 void	init_parser();
 void	parser(const char *input);
 char	*read_file(char *file_name);
 void	print_tokens();
 t_token_list	*get_token_list();
 t_label	**get_labels();
+t_label_arg	**get_label_args(void);
 void	token_check();
 t_source	*get_source();
+t_file	*get_core_file(void);
 int	label_check(char **p);
 int	instruction_check(char **p);
 int	register_check(char **p);
@@ -106,27 +121,27 @@ void	label_list_error();
 t_label	*retrieve_label(char *content);
 
 //instruction_handler.c
-void	handle_instruction(t_file *cor, int *tok_idx);
-uint8_t	lab_arg(t_file *cor, int arg_i, int op_size, char *content);
-uint8_t	dir_arg(t_file *cor, int arg_i, int op_size, char *content);
-uint8_t	ind_arg(t_file *cor, int arg_i, int op_size, char *content);
-uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, char *content);
+void	handle_instruction(int *tok_idx);
+uint8_t	lab_arg(int instr_idx, int arg_i, int op_size, t_token *toks);
+uint8_t	dir_arg(int arg_i, int op_size, t_token *toks);
+uint8_t	ind_arg(int arg_i, t_token *toks);
+uint8_t	reg_arg(int arg_i, t_token *toks);
 
 //label.c
 unsigned int	hash(char *content);
-void	handle_label(t_file *cor, int *tok_idx);
-void	print_label();
+void			handle_label(int *tok_idx);
+void			print_label();
+t_label_arg	*new_l_arg(t_token *tok, int map_idx, int inst_idx, uint8_t d_size);
 
 //error.c
 void	check_open_error(int fd);
 
 //write.c
-void	write_header(t_file *cor);
-void	write_intro(t_file *cor);
-void	write_token(t_file *cor);
+void	write_header();
+void	write_intro();
+void	write_token();
 
 //utilities.c
-void	cor_init(t_file *cor, uint8_t **name, int *fd);
+void	cor_init(uint8_t **name, int *fd);
 // void	arg_func_init(t_arg_func **arg_funcs);
 #endif
-

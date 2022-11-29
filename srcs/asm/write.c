@@ -6,23 +6,25 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:20:03 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/27 19:46:27 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 19:10:07 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-void	write_header(t_file *cor)
+void	write_header(void)
 {
-	write_n_byte(cor, 0x00ea83f3, 0, 4);
+	write_n_byte(get_core_file(), 0x00ea83f3, 0, 4);
 }
 
-void	write_intro(t_file *cor)
+void	write_intro(void)
 {
 	t_source	*wtfisasource;
+	t_file		*cor;
 	int			i;
 
 	wtfisasource = get_source();
+	cor = get_core_file();
 	i = 0;
 	while (i < PROG_NAME_LENGTH)
 		cor->str[cor->idx++] = wtfisasource->name[i++];
@@ -35,7 +37,7 @@ void	write_intro(t_file *cor)
 	cor->idx += 4;
 }
 
-void	write_token(t_file *cor)
+void	write_token(void)
 {
 	int			tok_idx;
 	t_token		*tokens;
@@ -45,9 +47,9 @@ void	write_token(t_file *cor)
 	while (tok_idx < get_token_list()->token_count)
 	{
 		if (tokens[tok_idx].type == instruction)
-			handle_instruction(cor, &tok_idx);
+			handle_instruction(&tok_idx);
 		else if (tokens[tok_idx].type == label)
-			handle_label(cor, &tok_idx);
+			handle_label(&tok_idx);
 		else
 			tok_idx++;
 	}
