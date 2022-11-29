@@ -12,7 +12,7 @@
 
 #include "../../includes/asm.h"
 
-void	things_into_bits()
+void	things_into_bits(void)
 {
 	int		fd;
 	uint8_t	*name;
@@ -37,3 +37,4 @@ int	main(int ac, char**av)
 	print_tokens();
 	return (0);
 }
+

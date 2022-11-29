@@ -22,7 +22,7 @@ COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 ASM_NAME = asm
 ASM_DIR = srcs/asm/
 # add new .c files here
-ASM_FILE = main validate parser checks error write instruction_handler utilities\
+ASM_FILE = main validate parser parser2 parser3 parser4 parser5 checks error write instruction_handler utilities\
 			label
 ASM_OBJS_DIR = objs/asm/
 ASM_OBJS = $(addprefix $(ASM_OBJS_DIR), $(addsuffix .o, $(ASM_FILE)))

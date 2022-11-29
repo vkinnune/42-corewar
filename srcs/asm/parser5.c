@@ -12,42 +12,54 @@
 
 #include "../../includes/asm.h"
 
-t_parser	*get_parser(void)
+void	save_token(char **p, char *old_p, t_token_type token_type)
 {
-	static t_parser	parse;
+	int				size;
+	t_token_list	*token_list;
+	char			*p_copy;
 
-	return (&parse);
+	p_copy = *p;
+	while (*p_copy == ' ' || *p_copy == '\t' || *p_copy == '\n')
+		p_copy--;
+	size = (p_copy - old_p) + 1;
+	token_list = get_token_list();
+	token_list->tokens[token_list->token_count].type = token_type;
+	token_list->tokens[token_list->token_count].content = ft_memalloc(size);
+	ft_memcpy(token_list->tokens[token_list->token_count].content, old_p, size);
+	token_list->token_count++;
 }
 
-t_token_list	*get_token_list(void)
+int	direct_check(char **p)
 {
-	t_parser	*parse;
+	int	i;
 
-	parse = get_parser();
-	return (&parse->token_list);
+	i = 1;
+	if (**p == '%')
+	{
+		if ((*p)[1] == '-')
+			i++;
+		while (1)
+		{
+			if (ft_isdigit((*p)[i]))
+				i++;
+			else if (i == 1)
+				break ;
+			else
+			{
+				*p = &(*p)[i - 1];
+				get_source()->col += (i - 1);
+				return (1);
+			}
+		}
+	}
+	return (0);
 }
 
-t_label_list	*get_label_list(void)
+void	parser(const char *input)
 {
-	t_parser	*parse;
+	char	*p;
 
-	parse = get_parser();
-	return (&parse->label_list);
-}
-
-t_source	*get_source(void)
-{
-	t_parser	*parse;
-
-	parse = get_parser();
-	return (&parse->source);
-}
-
-void	init_parser(void)
-{
-	t_parser	*parse;
-
-	parse = get_parser();
-	ft_bzero(parse, sizeof(t_parser));
+	p = handle_header(input);
+	handle_asm(p);
 }
 
