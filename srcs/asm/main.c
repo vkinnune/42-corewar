@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 11:45:06 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:21:15 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(int ac, char**av)
 	parser(read_file(av[1]));
 	token_check();
 	things_into_bits();
-	print_tokens();
+	print_label();
+	// print_tokens();
 	return (0);
 }

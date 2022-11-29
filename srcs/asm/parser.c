@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 18:12:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:49:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,22 @@ t_parser	*get_parser()
 
 t_token_list	*get_token_list()
 {
-	t_parser	*parse;
-
-	parse = get_parser();
-	return (&parse->token_list);
+	return (&get_parser()->token_list);
 }
 
-t_label_list	*get_label_list()
+t_label	**get_labels()
 {
-	t_parser	*parse;
-
-	parse = get_parser();
-	return (&parse->label_list);
+	return (get_parser()->labels);
 }
 
 t_source	*get_source()
 {
-	t_parser	*parse;
-
-	parse = get_parser();
-	return (&parse->source);
+	return (&get_parser()->source);
 }
 
 void	init_parser()
 {
-	t_parser	*parse;
-
-	parse = get_parser();
-	ft_bzero(parse, sizeof(t_parser));
+	ft_bzero(get_parser(), sizeof(t_parser));
 }
 
 int	label_check(char **p)

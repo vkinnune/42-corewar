@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 12:08:54 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:44:08 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,10 @@ typedef struct s_label {
 	struct s_label	*next;
 }	t_label;
 
-typedef struct s_label_list {
-	int		label_count;
-	t_label	*labels[HASH_SIZE];
-}	t_label_list;
-
 typedef	struct s_parser {
 	t_token_list	token_list;
-	t_source	source;
-	t_label_list	label_list;
+	t_source		source;
+	t_label			*labels[HASH_SIZE];
 }	t_parser;
 
 void	validate_argument(int ac, char **av);
@@ -92,7 +87,7 @@ void	parser(const char *input);
 char	*read_file(char *file_name);
 void	print_tokens();
 t_token_list	*get_token_list();
-t_label_list	*get_label_list();
+t_label	**get_labels();
 void	token_check();
 t_source	*get_source();
 
@@ -111,6 +106,7 @@ uint8_t	reg_arg(t_file *cor, int arg_i, int op_size, char *content);
 //label.c
 unsigned int	hash(char *content);
 void	handle_label(t_file *cor, int *tok_idx);
+void	print_label();
 
 //error.c
 void	check_open_error(int fd);

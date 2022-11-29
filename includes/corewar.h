@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 15:41:49 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/11/29 15:37:00 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,7 @@ void		aff(t_process *process, t_arg *arg, t_game_param *game);
 
 //verbose_four.c
 void		verbose_live(t_process *process, t_arg *arg);
-void		verbose_ld(t_process *process, t_arg *arg);
-void		verbose_lld(t_process *process, t_arg *arg);
+void		verbose_l_ld(t_process *process, t_arg *arg);
 void		verbose_st(t_process *process, t_arg *arg);
 void		verbose_add_sub(t_process *process, t_arg *arg);
 void		verbose_and_or_xor(t_process *process, t_arg *arg);

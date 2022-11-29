@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 12:31:28 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/29 16:54:24 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,70 +34,110 @@ unsigned int	hash(char *content)
 	return ((unsigned int)(res % HASH_SIZE));
 }
 
+t_label	*new_label(char *content)
+{
+	t_label	*new;
+
+	new = (t_label *)ft_memalloc(sizeof(t_label));
+	new->name = ft_strdup(content);
+	return (new);
+}
+
 t_label	*retrieve_label(char *content)
 {
 	t_label	*temp;
 
-	temp = get_label_list()->labels[hash(content)];
+	temp = get_labels()[hash(content)];
 	while (temp)
 	{
 		if (!ft_strcmp(temp->name, content))
 			return (temp);
 		temp = temp->next;
 	}
-	return(NULL);
+	return (NULL);
 }
 
-t_label	*retrieve_handle_collision(char *content)
+t_label	*add_label(char *content)
 {
 	t_label	**head;
 	t_label	*temp;
-	t_label	*last_slot;
 
-	head = &get_label_list()->labels[hash(content)];
-	temp = *head;
-	last_slot = 0;
-	while (temp)
+	head = &get_labels()[hash(content)];
+	if (*head == NULL)
 	{
-		if (!ft_strcmp(temp->name, content))
-			return (temp);
-		last_slot = temp;
-		temp = temp->next;
+		*head = new_label(content);
+		return (*head);
 	}
-	temp = (t_label *)ft_memalloc(sizeof(t_label));
-	temp->name = ft_strdup(content);
-	if (last_slot)
-		last_slot->next = temp;
-	else
-		*head = temp;
-	return (temp);
+	temp = *head;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new_label(content);
+	return (temp->next);
 }
 
 void	add_label_list(char *content, t_token_type token_type)
 {
-	int				i;
-	uint32_t		id;
-	t_label_list	*label_list;
+	int			i;
+	uint32_t	id;
+	t_label		*current_label;
 
 	if (token_type == label)
 		content[ft_strlen(content) - 1] = '\0';
 	else
 		ft_strcpy(content, &content[2]);
+	current_label = retrieve_label(content);
+	if (!current_label)
+		current_label = add_label(content);
 	if (token_type == label)
-		retrieve_handle_collision(content)->is_init = true;
+		current_label->is_init = true;
 }
 
 void	label_list_error()
 {
-	int				i;
-	t_label_list	*label_list;
+	int			i;
+	t_label		*temp;
+	t_label		**labels;
 
 	i = 0;
-	label_list = get_label_list();
-	while (i != label_list->label_count)
+	labels = get_labels();
+	while (i < HASH_SIZE)
 	{
-		if (label_list->labels[i]->is_init == false)
-			ft_out("ERROR ON LABELS");
+		if (labels[i])
+		{
+			if (labels[i]->is_init == false)
+				ft_out("ERROR ON LABELS");
+			temp = labels[i]->next;
+			while (temp)
+			{
+				if (temp->is_init == false)
+					ft_out("ERROR ON LABELS");
+				temp = temp->next;
+			}
+		}
+		i++;
+	}
+}
+
+void	print_label()
+{
+	int	i;
+	t_label	**labels;
+	t_label	*temp;
+
+	i = 0;
+	labels = get_labels();
+	while (i < HASH_SIZE)
+	{
+		if (labels[i])
+		{
+			ft_printf("%s\n", labels[i]->name);
+			temp = labels[i]->next;
+			while (temp)
+			{
+				ft_printf("%s\n", temp->name);
+				temp = temp->next;
+			}
+		}
 		i++;
 	}
 }
