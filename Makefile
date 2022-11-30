@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
+#    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/28 15:45:59 by jrummuka         ###   ########.fr        #
+#    Updated: 2022/11/30 17:48:31 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ ASM_NAME = asm
 ASM_DIR = srcs/asm/
 # add new .c files here
 ASM_FILE = main validate parser parser2 parser3 parser4 parser5 checks error write instruction_handler utilities\
-			label
+			label label_utils arg_handler
 ASM_OBJS_DIR = objs/asm/
 ASM_OBJS = $(addprefix $(ASM_OBJS_DIR), $(addsuffix .o, $(ASM_FILE)))
 

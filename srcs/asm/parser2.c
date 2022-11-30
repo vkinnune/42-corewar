@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 18:12:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 22:48:10 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ void	print_tokens(void)
 	i = 0;
 	while (i != token_list->token_count)
 	{
-		if (token_list->tokens[i].type == label)
+		if (token_list->tokens[i].type == label
+		|| token_list->tokens[i].type == direct_label
+		|| token_list->tokens[i].type == indirect_label)
 			ft_printf("%s %s\n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
 		i++;
 	}

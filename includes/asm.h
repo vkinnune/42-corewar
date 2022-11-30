@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 19:28:46 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 22:37:21 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define HASH_SIZE 5000
 # define LABEL_EXIST 1
 # define LABEL_NO_EXIST 0
+# define EXEC_CODE_POSITION 2192
 # include "libftprintf.h"
 # include <fcntl.h>
 # include "errors.h"
@@ -79,11 +80,11 @@ struct s_label
 
 struct s_label_arg
 {
-	uint8_t		size :3;
-	int			map_idx; //where to write the bytes to
-	int			instruct_idx;
-	t_token		*token;
-	t_label_arg	*next;
+	uint8_t			size :3;
+	int				map_idx; //where to write the bytes to
+	unsigned int	instruct_idx;
+	t_token			*token;
+	t_label_arg		*next;
 };
 
 typedef	struct s_parser {
@@ -116,30 +117,34 @@ void	handle_asm(char *p);
 void	save_token(char **p, char *old_p, t_token_type token_type);
 
 //label.c
-void	add_label_list(char *content, t_token_type token_type);
-void	label_list_error();
-t_label	*retrieve_label(char *content);
+void			handle_label(int *tok_idx);
+unsigned int	hash(char *content);
+t_label			*retrieve_label(char *content);
+void			add_label_list(char *content, t_token_type token_type);
+void			label_list_error();
+void			print_label();
+
+//label_utils.c
+t_label		*add_label(char *content);
+void		add_l_arg(t_token *toks, int instr_idx, int size);
 
 //instruction_handler.c
 void	handle_instruction(int *tok_idx);
-uint8_t	lab_arg(int instr_idx, int arg_i, int op_size, t_token *toks);
-uint8_t	dir_arg(int arg_i, int op_size, t_token *toks);
-uint8_t	ind_arg(int arg_i, t_token *toks);
-uint8_t	reg_arg(int arg_i, t_token *toks);
 
-//label.c
-unsigned int	hash(char *content);
-void			handle_label(int *tok_idx);
-void			print_label();
-t_label_arg	*new_l_arg(t_token *tok, int map_idx, int inst_idx, uint8_t d_size);
+//arg_handler.c
+uint8_t	lab_arg(t_token *toks, int instr_idx, int arg_i, int op_size);
+uint8_t	dir_arg(t_token *toks, int arg_i, int op_size);
+uint8_t	ind_arg(t_token *toks, int arg_i);
+uint8_t	reg_arg(t_token *toks, int arg_i);
 
 //error.c
 void	check_open_error(int fd);
 
 //write.c
-void	write_header();
-void	write_intro();
-void	write_token();
+void	write_header(void);
+void	write_intro(uint32_t champ_size);
+void	write_token(void);
+void	write_label(void);
 
 //utilities.c
 void	cor_init(uint8_t **name, int *fd);

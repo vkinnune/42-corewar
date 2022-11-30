@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/17 23:09:37 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:31:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_process(t_process *prev, t_process *delete)
 		free(delete);
 }
 
-void	free_all_process(t_process *head)
+void	free_and_exit(t_process *head)
 {
 	t_process	*next;
 
@@ -30,6 +30,7 @@ void	free_all_process(t_process *head)
 		free_process(0, head);
 		head = next;
 	}
+	exit(0);
 }
 
 void	kill_process(t_game_param *game)

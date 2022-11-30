@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:20:03 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 19:10:07 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 22:08:45 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 void	write_header(void)
 {
-	write_n_byte(get_core_file(), 0x00ea83f3, 0, 4);
+	t_file	*cor;
+
+	cor = get_core_file();
+	cor->idx = 0;
+	write_n_byte(cor, 0x00ea83f3, 0, 4);
 }
 
-void	write_intro(void)
+void	write_intro(uint32_t champ_size)
 {
 	t_source	*wtfisasource;
 	t_file		*cor;
@@ -29,8 +33,7 @@ void	write_intro(void)
 	while (i < PROG_NAME_LENGTH)
 		cor->str[cor->idx++] = wtfisasource->name[i++];
 	cor->idx += 4;
-	//execcode
-	cor->idx += 4;
+	write_n_byte(cor, champ_size, 0, 4);
 	i = 0;
 	while (i < COMMENT_LENGTH)
 		cor->str[cor->idx++] = wtfisasource->comment[i++];
@@ -43,6 +46,7 @@ void	write_token(void)
 	t_token		*tokens;
 
 	tok_idx = 0;
+	get_core_file()->idx = EXEC_CODE_POSITION;
 	tokens = get_token_list()->tokens;
 	while (tok_idx < get_token_list()->token_count)
 	{
@@ -52,5 +56,25 @@ void	write_token(void)
 			handle_label(&tok_idx);
 		else
 			tok_idx++;
+	}
+}
+
+void	write_label(void)
+{
+	uint32_t	value;
+	t_label_arg	*temp;
+	t_label		*label;
+	t_file		*cor;
+
+	temp = *get_label_args();
+	cor = get_core_file();
+	while (temp)
+	{
+		label = retrieve_label(temp->token->content);
+		value = label->idx - temp->instruct_idx;
+		cor->idx = temp->map_idx;
+		write_n_byte(cor, value, 0, temp->size);
+		//free current temp;
+		temp = temp->next;
 	}
 }

@@ -5,3 +5,6 @@ corewar
 #resources/*
 result
 valout
+test_result
+time_result
+time_testresult

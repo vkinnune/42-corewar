@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 21:02:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 23:16:51 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 void	things_into_bits(void)
 {
 	int		fd;
+	int		file_size;
 	t_file	*cor;
 	uint8_t	*name;
 
 	cor_init(&name, &fd);
-	// write_header();
-	// write_intro();
-	write_token();
-	//write_label();
-	// ft_printf("Writing output program to %s\n", name);
 	cor = get_core_file();
-	write(fd, cor->str, cor->idx);
+	write_token();
+	file_size = cor->idx;
+	write_label();
+	write_header();
+	write_intro(file_size - EXEC_CODE_POSITION);
+	ft_printf("Writing output program to %s\n", name);
+	write(fd, cor->str, file_size);
+	close(fd);
 	free(cor->str);
 }
 
@@ -36,7 +39,7 @@ int	main(int ac, char**av)
 	parser(read_file(av[1]));
 	token_check();
 	things_into_bits();
-	// print_label();
 	// print_tokens();
+	// print_label();
 	return (0);
 }

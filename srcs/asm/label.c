@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 19:10:36 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 23:16:37 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,6 @@ unsigned int	hash(char *content)
 	return ((unsigned int)(res % HASH_SIZE));
 }
 
-t_label	*new_label(char *content)
-{
-	t_label	*new;
-
-	new = (t_label *)ft_memalloc(sizeof(t_label));
-	new->name = ft_strdup(content);
-	return (new);
-}
-
 t_label	*retrieve_label(char *content)
 {
 	t_label	*temp;
@@ -62,24 +53,6 @@ t_label	*retrieve_label(char *content)
 	return (NULL);
 }
 
-t_label	*add_label(char *content)
-{
-	t_label	**head;
-	t_label	*temp;
-
-	head = &get_labels()[hash(content)];
-	if (*head == NULL)
-	{
-		*head = new_label(content);
-		return (*head);
-	}
-	temp = *head;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new_label(content);
-	return (temp->next);
-}
-
 void	add_label_list(char *content, t_token_type token_type)
 {
 	int			i;
@@ -88,51 +61,15 @@ void	add_label_list(char *content, t_token_type token_type)
 
 	if (token_type == label)
 		content[ft_strlen(content) - 1] = '\0';
-	else
+	else if (token_type == direct_label)
 		ft_strcpy(content, &content[2]);
+	else
+		ft_strcpy(content, &content[1]);
 	current_label = retrieve_label(content);
 	if (!current_label)
 		current_label = add_label(content);
 	if (token_type == label)
 		current_label->is_init = true;
-}
-
-void	label_list_error()
-{
-	int			i;
-	t_label		*temp;
-	t_label		**labels;
-
-	i = 0;
-	labels = get_labels();
-	while (i < HASH_SIZE)
-	{
-		if (labels[i])
-		{
-			if (labels[i]->is_init == false)
-				ft_out("ERROR ON LABELS");
-			temp = labels[i]->next;
-			while (temp)
-			{
-				if (temp->is_init == false)
-					ft_out("ERROR ON LABELS");
-				temp = temp->next;
-			}
-		}
-		i++;
-	}
-}
-
-t_label_arg	*new_l_arg(t_token *tok, int map_idx, int inst_idx, uint8_t size)
-{
-	t_label_arg	*new;
-
-	new = (t_label_arg *)ft_memalloc(sizeof(t_label_arg));
-	new->token = tok;
-	new->map_idx = map_idx;
-	new->instruct_idx = inst_idx;
-	new->size = size;
-	return (new);
 }
 
 // test

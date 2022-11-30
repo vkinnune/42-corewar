@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 15:37:18 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:32:15 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ void	check(t_game_param *game)
 
 void	corewar(t_header_t *player)
 {
-	t_process			*head;
-	t_game_param		game;
-	t_table				tab;
+	t_process		*head;
+	t_game_param	game;
+	t_table			tab;
 
 	arena_init(player);
 	head = process_init(player);
@@ -91,15 +91,10 @@ void	corewar(t_header_t *player)
 		if (game.current_cycle >= g_flags.dump_nbr)
 		{
 			print_arena(player);
-			// ft_printf("cycle to die %u\n", game.cycle_to_die);
-			// ft_printf("check counter: %d\n", game.check_counter);
-			// ft_printf("live during period: %d\n", game.live_performed);
-			free_all_process(game.head);
-			exit (0);
+			free_and_exit(game.head);
 		}
 		game.current_cycle++;
 	}
 	ft_printf("Contestant %d, \"%s\", has won !\n", game.last_alive, player[game.last_alive - 1].prog_name);
-	// ft_printf("@%d\n", game.current_cycle - 1);
-	free_all_process(game.head);
+	free_and_exit(game.head);
 }

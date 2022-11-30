@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 15:37:00 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/11/30 18:32:12 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void		processor(t_game_param *game, t_table *tab, t_header_t *player);
 
 //process_util.c
 void		free_process(t_process *prev, t_process *delete);
-void		free_all_process(t_process *head);
+void		free_and_exit(t_process *head);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
 t_process	*process_init(t_header_t *player);
 void		kill_process(t_game_param *game);
