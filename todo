@@ -2,5 +2,7 @@ man page
 
 -d > last cycle ?
 
+./corewar is -v 1 by default
+
 
 ADD MALLOC CHECKS FOR EVERY MALLOC SO SOME PEOPLE WON'T CRY ABOUT IT
