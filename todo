@@ -6,3 +6,7 @@ man page
 
 
 ADD MALLOC CHECKS FOR EVERY MALLOC SO SOME PEOPLE WON'T CRY ABOUT IT
+
+//asm
+too_many_args.s is causing an infinite loop
+asm has leaks
