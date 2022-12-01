@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/20 18:54:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/01 20:56:55 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,19 @@ void	introduce_le_champ(t_header_t *player)
 
 	i = 0;
 	ft_printf("Introducing contestants...\n");
+	static uint64_t	process_id;
 	while (i < g_p_count)
 	{
 		check_missing_id(player[i].id);
-		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+/* 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 			player[i].id, player[i].prog_size,
 			player[i].prog_name, player[i].comment);
+		ft_printf("* Player %d,",player[i].id);
+		ft_printf(" weighing %d ", player[i].prog_size);
+		ft_printf("bytes, \"%s\" ",player[i].prog_name);
+		ft_printf("(\"%s\") !\n",player[i].comment);
+		ft_printf("TESTING COMES HERE !!!!! %u\n", process_id); */
+		// ?????
 		// print_mem(player[i].prog_size, player[i].code);
 		i++;
 	}

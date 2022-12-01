@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 18:32:12 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/01 20:49:35 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ void		corewar(t_header_t *player);
 
 //instruction.c
 void		live(t_process *process, t_arg *arg, t_game_param *game);
-void		l_ld(t_process *process, t_arg *arg, t_game_param *game);
+void		ld(t_process *process, t_arg *arg, t_game_param *game);
+void		lld(t_process *process, t_arg *arg, t_game_param *game);
 void		st(t_process *process, t_arg *arg, t_game_param *game);
 void		add_sub(t_process *process, t_arg *arg, t_game_param *game);
 void		and_or_xor(t_process *process, t_arg *arg, t_game_param *game);

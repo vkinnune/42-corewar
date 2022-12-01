@@ -6,17 +6,17 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/26 20:39:59 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/01 19:27:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
 //get n byte from the arena
-int	get_n_byte(uint8_t n, unsigned char *data, uint32_t idx)
+int32_t	get_n_byte(uint8_t n, unsigned char *data, uint32_t idx)
 {
 	uint8_t		i;
-	uint32_t	value;
+	int32_t		value;
 
 	value = 0;
 	i = 0;

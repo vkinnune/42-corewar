@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/30 22:13:36 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/01 19:51:17 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ YELLOW='\e[93m'
 NORMAL='\e[0m'
 OUR_CORE=./corewar
 TEST_CORE=/Users/qnguyen/Workspace/Corewar/resources/vm_champs/corewar
-CHAMP_DIR=./testchamp/
+CHAMP_DIR=./testchamp/valid_core
 
 check_file()
 {
@@ -94,7 +94,7 @@ apu()
 	done
 	printf "\n$NORMAL"
 
-	flag=4
+	flag=6
 	test_v_flag
 	check_run_type
 }
@@ -155,7 +155,7 @@ more_test()
 		exit
 	elif [[ $flag == "yes" ]]
 	then
-		flag_num=( "3" "7" "15" )
+		flag_num=( "31" )
 		for i in "${flag_num[@]}"
 		do
 			flag=$i

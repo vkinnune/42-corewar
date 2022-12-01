@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 18:32:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/01 20:18:36 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	set_instr_table(t_table *tab)
 {
 	tab->instruct_table[0] = live;
-	tab->instruct_table[1] = l_ld;
+	tab->instruct_table[1] = ld;
 	tab->instruct_table[2] = st;
 	tab->instruct_table[3] = add_sub;
 	tab->instruct_table[4] = add_sub;
@@ -26,7 +26,7 @@ static void	set_instr_table(t_table *tab)
 	tab->instruct_table[9] = ldi;
 	tab->instruct_table[10] = sti;
 	tab->instruct_table[11] = l_foork;
-	tab->instruct_table[12] = l_ld;
+	tab->instruct_table[12] = lld;
 	tab->instruct_table[13] = lldi;
 	tab->instruct_table[14] = l_foork;
 	tab->instruct_table[15] = aff;
