@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 23:05:45 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/01 16:20:14 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 	arg = 0;
 	ret = more_check_instruction(i, token_list);
 	if (ret == 1)
-		return (1);
+		ft_out("ERROR ON ARG AMOUNT");
 	else if (ret == 0)
 		return (0);
 	ins = find_ins(token_list->tokens[*i].content);
