@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:56:55 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 00:21:01 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,12 @@ void	introduce_le_champ(t_header_t *player)
 
 	i = 0;
 	ft_printf("Introducing contestants...\n");
-	static uint64_t	process_id;
 	while (i < g_p_count)
 	{
 		check_missing_id(player[i].id);
-/* 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 			player[i].id, player[i].prog_size,
 			player[i].prog_name, player[i].comment);
-		ft_printf("* Player %d,",player[i].id);
-		ft_printf(" weighing %d ", player[i].prog_size);
-		ft_printf("bytes, \"%s\" ",player[i].prog_name);
-		ft_printf("(\"%s\") !\n",player[i].comment);
-		ft_printf("TESTING COMES HERE !!!!! %u\n", process_id); */
-		// ?????
-		// print_mem(player[i].prog_size, player[i].code);
 		i++;
 	}
 }
@@ -80,10 +72,11 @@ void	parse(t_header_t *player, char **argv, int argc)
 {
 	uint8_t			i;
 	uint16_t		ret;
-	unsigned char	str[MEM_SIZE];
+	unsigned char	*str;
 
 	g_p_count = 0;
 	i = 1;
+	str = ft_memalloc(sizeof(unsigned char) * FILE_SIZE);
 	while (i < argc)
 	{
 		if (argv[i][0] == '-')

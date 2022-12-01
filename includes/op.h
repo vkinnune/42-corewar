@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/12/01 20:45:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 00:11:01 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ extern t_op				op_tab[17];
 
 //shared_util.c
 uint32_t	get_2hext(uint32_t num, uint8_t position, uint8_t n);
-void	write_n_byte(t_file *file, uint32_t val
+void		write_n_byte(t_file *file, uint32_t val
 		, uint16_t get_pos(uint16_t), int8_t n);
 #endif

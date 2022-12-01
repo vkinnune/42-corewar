@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:49:35 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 00:20:01 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define SET		1
 # define NOT_OKEI	0
 # define OKEI		1
+# define FILE_SIZE	100000
 
 typedef struct	s_process t_process;
 typedef struct 	s_game_param	t_game_param;
