@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/22 01:11:02 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 17:22:59 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	check_matching_champ_size(uint32_t byte_size, uint32_t actual)
 {
 	if (byte_size != actual)
 	{
-		ft_printf("U trying ta gaslight me, punk??\n");
+		ft_printf("U trying ta gaslight me with the weights, punk? (゜Д゜;)\n");
 		exit(0);
 	}
 }

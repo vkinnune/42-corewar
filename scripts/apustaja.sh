@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/01 19:51:17 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/02 19:47:23 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,8 +50,7 @@ apu()
 		echo "Okei u lazy bum"
 		for i in {0..3}
 		do
-			champ_num=$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l)
-			random_num=$(jot -r 1 1 $champ_num)
+			random_num=$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l | xargs jot -r 1 1)
 			champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | head -$((random_num)) | tail -1)
 		done
 		count=4
@@ -94,7 +93,7 @@ apu()
 	done
 	printf "\n$NORMAL"
 
-	flag=6
+	flag=4
 	test_v_flag
 	check_run_type
 }
@@ -144,7 +143,7 @@ more_test()
 	printf "\t$YELLOW\"yes\"$NORMAL: run the rest of the flags\n"
 	printf "\t$YELLOW[num]$NORMAL: run a certain -v flag\n"
 	printf "\t$YELLOW\"rerun\"$NORMAL: compare different champs\n"
-	printf "\t$YELLOW\"no\"$NORMAL: No :(\n"
+	printf "\t$YELLOW\"no\"$NORMAL: No (╯︵╰,)\n"
 	read flag
 	if [[ $flag == "rerun" ]]
 	then

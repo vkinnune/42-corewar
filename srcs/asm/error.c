@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:09:33 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 19:02:54 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 17:44:53 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	label_list_error()
 		if (labels[i])
 		{
 			if (labels[i]->is_init == false)
-				ft_out("ERROR ON LABELS");
+				ft_out("Error: On labels");
 			temp = labels[i]->next;
 			while (temp)
 			{
 				if (temp->is_init == false)
-					ft_out("ERROR ON LABELS");
+					ft_out("Error: On labels");
 				temp = temp->next;
 			}
 		}

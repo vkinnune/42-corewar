@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 13:59:59 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/11/28 16:34:50 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 18:46:00 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_dot_s(char *av)
 	len = ft_strlen(av);
 	while (len)
 	{
-		if (av[len - 1] == '.')
+		if (!ft_strncmp(&av[len - 1], ".s\0", 3))
 			break ;
 		len--;
 	}
