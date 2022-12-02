@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 22:48:10 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/02 19:23:20 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,20 @@ char	*save_header_string(char *p, t_header_type type)
 char	*handle_header(const char *input)
 {
 	char	*p;
+	bool	is_newline;
 
 	p = (char *)input;
+	is_newline = false;
 	ft_bzero(get_source()->name, PROG_NAME_LENGTH);
 	ft_bzero(get_source()->comment, COMMENT_LENGTH);
 	while (!*(get_source()->name) || !*(get_source()->comment))
 	{
 		if (*p == '\t' || *p == ' ' || *p == '\n')
+		{
+			if (*p == '\n')
+				is_newline = true;
 			p++;
+		}
 		else if (!ft_strncmp(NAME_CMD_STRING, p, 5))
 			p = save_header_string(&p[5], name);
 		else if (!ft_strncmp(COMMENT_CMD_STRING, p, 8))
@@ -65,6 +71,8 @@ char	*handle_header(const char *input)
 		else
 			ft_out(HEADER_ERROR);
 	}
+	if (is_newline == false)
+		ft_out("Error: No newline in comment and name");
 	get_source()->row = 2;
 	get_source()->col = 0;
 	return (p);

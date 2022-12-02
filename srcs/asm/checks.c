@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 16:20:14 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/02 18:10:37 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	find_ins(char *content)
 			return (ins);
 		ins++;
 	}
-	ft_out("ERROR");
+	ft_out("Error: Did not find the instruction");
 	return (-1);
 }
 
@@ -57,7 +57,6 @@ int	check_and_handle_labolz(t_token_list *toks, int *i)
 	return (0);
 }
 
-//????
 int	more_check_instruction(int *i, t_token_list *token_list)
 {
 	if (!token_list->tokens[*i].content)
@@ -68,7 +67,6 @@ int	more_check_instruction(int *i, t_token_list *token_list)
 	return (2);
 }
 
-//????
 int	check_instruction(int *i, t_token_list *token_list)
 {
 	int	ins;
@@ -79,7 +77,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 	arg = 0;
 	ret = more_check_instruction(i, token_list);
 	if (ret == 1)
-		ft_out("ERROR ON ARG AMOUNT");
+		ft_out("Error: Too many instruction arguments");
 	else if (ret == 0)
 		return (0);
 	ins = find_ins(token_list->tokens[*i].content);
@@ -87,14 +85,14 @@ int	check_instruction(int *i, t_token_list *token_list)
 	while (arg != op_tab[ins].arg_amt)
 	{
 		if (!check_token_args(token_list->tokens[*i].type, ins, arg))
-			ft_out("ERROR ON ARGS");
+			ft_out("Error: Invalid instruction argument");
 		if (!check_and_handle_labolz(token_list, i))
 			(*i)++;
 		arg++;
 		if (token_list->tokens[*i].type == separator)
 			(*i)++;
 		else if (arg != op_tab[ins].arg_amt)
-			ft_out("ERROR ON SEPERATOR");
+			ft_out("Error: Wrong seperator");
 	}
 	return (1);
 }
@@ -110,4 +108,6 @@ void	token_check(void)
 	{
 	}
 	label_list_error();
+	if (token_list->token_count == 0)
+		ft_out("Error: No tokens");
 }
