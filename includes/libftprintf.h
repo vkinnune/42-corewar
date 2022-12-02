@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 10:49:12 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 00:27:12 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 01:35:39 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include <fcntl.h>
 
-# define STRING_SIZE 2100
+# define STRING_SIZE 42000
 
 typedef struct s_order
 {
@@ -41,7 +41,7 @@ typedef struct s_order
 typedef struct s_printf_string
 {
 	int		i;
-	char	s[STRING_SIZE];
+	char	*s;
 }				t_printf_string;
 
 typedef int				t_printf_funcs(va_list ap);
@@ -59,7 +59,7 @@ void	check_flag(char **fmt);
 void	check_conv(char **fmt);
 
 //init.c
-void	printf_init(int *fd, int *char_count);
+void	printf_init(int *fd, int *char_count, int *str_idx);
 void	initialize_order(int fd);
 
 //utilities.c

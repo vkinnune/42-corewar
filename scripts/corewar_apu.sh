@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/02 19:47:23 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/03 01:33:44 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,13 @@ BLUE='\e[94m'
 YELLOW='\e[93m'
 NORMAL='\e[0m'
 OUR_CORE=./corewar
-TEST_CORE=/Users/qnguyen/Workspace/Corewar/resources/vm_champs/corewar
+TEST_CORE=./corewar1
 CHAMP_DIR=./testchamp/valid_core
+
+RESULT_FILE=./scripts/core_result
+TEST_RESULT=./scripts/core_test_result
+TIME_RESULT=./scripts/core_time
+TEST_TIME_RESULT=./scripts/core_test_time
 
 check_file()
 {
@@ -50,8 +55,9 @@ apu()
 		echo "Okei u lazy bum"
 		for i in {0..3}
 		do
-			random_num=$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l | xargs jot -r 1 1)
-			champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | head -$((random_num)) | tail -1)
+			# random_num=$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l | xargs jot -r 1 1)
+			# champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | head -$((random_num)) | tail -1)
+			champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | shuf -n 1)
 		done
 		count=4
 	else
@@ -100,17 +106,17 @@ apu()
 
 test_v_flag()
 {
-	(time $OUR_CORE -v $flag $string > result) 2>>time_result
-	(time $TEST_CORE -v $flag $string > test_result) 2>>test_timeresult
+	(time $OUR_CORE -v $flag ${string} > ${RESULT_FILE}) 2>>${TIME_RESULT}
+	(time $TEST_CORE -v $flag ${string} > ${TEST_RESULT}) 2>>${TEST_TIME_RESULT}
 
-	diff=$(cmp result test_result)
+	diff=$(cmp ${RESULT_FILE} ${TEST_RESULT})
 	if [[ $diff != "" ]]
 	then
 		printf "\n${RED}haha RIP (≧∇≦)ﾉ\n${NORMAL}"
 		printf "$diff\n"
 		line=$(echo $diff | rev | cut -d ' ' -f 1 | rev)
-		printf "${RED}Yours:  $(sed -n ${line}p result)\n"
-		printf "${GREEN}Test's: $(sed -n ${line}p test_result)\n${NORMAL}"
+		printf "${RED}Yours:  $(sed -n ${line}p ${RESULT_FILE})\n"
+		printf "${GREEN}Test's: $(sed -n ${line}p ${TEST_RESULT})\n${NORMAL}"
 		exit
 	fi
 
@@ -118,13 +124,14 @@ test_v_flag()
 	then
 		printf "${GREEN}All of your instructions executed perfectly (and the printing too), me proud very (￣︶￣;)\n$NORMAL"
 	fi
-	runtime=$(tail -n 3 time_result | head -n 1 | cut -d '	' -f 2)
-	printf "It took you $BLUE$runtime$NORMAL to run\n"
-	test_runtime=$(tail -n 3 test_timeresult | head -n 1 | cut -d '	' -f 2)
-	printf "It took that other one $BLUE$test_runtime$NORMAL\n"
+	runtime=$(tail -n 3 ${TIME_RESULT} | head -n 1 | cut -d '	' -f 2)
+	printf "It took you $BLUE${runtime}$NORMAL to run\n"
+	test_runtime=$(tail -n 3 ${TEST_TIME_RESULT} | head -n 1 | cut -d '	' -f 2)
+	printf "It took that other one $BLUE${test_runtime}$NORMAL\n"
 	if [[ $runtime < $test_runtime ]]
 	then
 		printf "You fast af ${BLUE}>─=≡Σ((( つ•̀ω•́)つ\n\n$NORMAL"
+		rm -f ${RESULT_FILE} ${TEST_RESULT} ${TIME_RESULT} ${TEST_TIME_RESULT}
 	fi
 }
 
@@ -150,7 +157,6 @@ more_test()
 		apu
 	elif [[ $flag == "no" ]]
 	then
-		rm -f result test_result time_result test_timeresult
 		exit
 	elif [[ $flag == "yes" ]]
 	then

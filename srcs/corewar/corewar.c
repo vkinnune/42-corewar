@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:18:36 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 01:41:40 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ void	corewar(t_header_t *player)
 		if (game.current_cycle >= g_flags.dump_nbr)
 		{
 			print_arena(player);
-			free_and_exit(game.head);
+			print_free_exit(game.head);
 		}
 		game.current_cycle++;
 	}
 	ft_printf("Contestant %d, \"%s\", has won !\n", game.last_alive, player[game.last_alive - 1].prog_name);
-	free_and_exit(game.head);
+	print_free_exit(game.head);
 }

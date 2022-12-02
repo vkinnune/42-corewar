@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 10:49:10 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 05:29:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 01:28:44 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ static int	convert(char **fmt, va_list ap, int *fd)
 
 int	ft_printf(const char *fmt, ...)
 {
-	int		char_printed;
-	int		fd;
-	va_list	ap;
+	static int	str_idx;
+	int			char_printed;
+	int			fd;
+	va_list		ap;
 
-	printf_init(&fd, &char_printed);
+	printf_init(&fd, &char_printed, &str_idx);
 	va_start(ap, fmt);
 	while (*fmt)
 	{
@@ -93,6 +94,6 @@ int	ft_printf(const char *fmt, ...)
 			fmt++;
 	}
 	va_end(ap);
-	write(fd, g_p_str.s, g_p_str.i);
+	str_idx = g_p_str.i;
 	return (char_printed);
 }

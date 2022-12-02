@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 00:24:02 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 01:41:36 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	free_process(t_process *prev, t_process *delete)
 		free(delete);
 }
 
-void	free_and_exit(t_process *head)
+void	print_free_exit(t_process *head)
 {
 	t_process	*next;
 
+	write(1, g_p_str.s, g_p_str.i);
 	while (head)
 	{
 		next = head->next;

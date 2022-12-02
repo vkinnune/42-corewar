@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 00:09:24 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 02:37:38 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 01:30:25 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,18 @@ void	initialize_order(int fd)
 	g_order.fd = fd;
 }
 
-void	printf_init(int *fd, int *char_count)
+void	printf_init(int *fd, int *char_count, int *str_idx)
 {
 	*fd = 1;
 	ft_strcpy(g_printf_default_color, "\x1b[0m");
 	*char_count = 0;
-	g_p_str.i = 0;
-	ft_bzero(g_p_str.s, STRING_SIZE);
+	g_p_str.i = *str_idx;
+	if (g_p_str.i == 0)
+		g_p_str.s = ft_memalloc(sizeof(char) * STRING_SIZE);
+	else if (STRING_SIZE - g_p_str.i <= 100)
+	{
+		write(*fd, g_p_str.s, g_p_str.i);
+		ft_bzero(g_p_str.s, STRING_SIZE);
+		g_p_str.i = 0;
+	}
 }

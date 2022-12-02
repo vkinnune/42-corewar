@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 22:44:04 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/02 19:49:52 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/03 01:39:36 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ GREEN='\e[32m'
 BLUE='\e[94m'
 YELLOW='\e[93m'
 NORMAL='\e[0m'
+
+RESULT_FILE=${CURRENT_DIR}/asm_result
+TEST_RESULT=${CURRENT_DIR}/asm_test_result
 
 check_exisiting_asm()
 {
@@ -61,21 +64,20 @@ test_asm()
 	${TEST_ASM} "${champ}"
 	if [[ -f "${cor_champ}" ]]
 	then
-		hexdump -vC "${cor_champ}" > ${CURRENT_DIR}/test_result
+		hexdump -vC "${cor_champ}" > ${TEST_RESULT}
 		rm ${cor_champ}
 	fi
 	${OUR_ASM} "${champ}"
 	if [[ -f "${cor_champ}" ]]
 	then
-		hexdump -vC "${cor_champ}" > ${CURRENT_DIR}/result
+		hexdump -vC "${cor_champ}" > ${RESULT_FILE}
 		rm ${cor_champ}
 	fi
-	differs=$(diff ${CURRENT_DIR}/result ${CURRENT_DIR}/test_result)
+	differs=$(diff ${RESULT_FILE} ${TEST_RESULT})
 	if [[ $differs == "" ]]
 	then
 		printf "${GREEN}Hihi me see no diff ( っ´ω｀c)${NORMAL}\n"
-		rm ${CURRENT_DIR}/result
-		rm ${CURRENT_DIR}/test_result
+		rm ${RESULT_FILE} ${TEST_RESULT}
 	else
 		printf "${RED}Oh oh senpaii~ made a big boo boo (p≧w≦q) me go away nao \n${NORMAL}"
 		printf "$differs\n"
