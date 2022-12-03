@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 05:42:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 02:28:47 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 17:59:48 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	put_s(va_list ap)
 
 int	put_d(va_list ap)
 {
-	long long int	n;
 	int				length;
 	int				long_min_val;
+	long long int	n;
 
 	length = 0;
 	n = va_arg(ap, long long int);
@@ -86,7 +86,7 @@ int	put_d(va_list ap)
 			return (length - 1);
 	}
 	else
-		cpy_to_g_str(ft_itoa(n), ft_diglen(n));
+		special_case_helper(n);
 	return (length);
 }
 

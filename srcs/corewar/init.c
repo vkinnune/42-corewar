@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:49:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:44:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:19:04 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	arena_init(t_header_t *player)
 	while (i < g_p_count)
 	{
 		ft_memcpy(g_arena + p_start, player[i].code, player[i].prog_size);
+		free(player[i].code);
 		p_start += MEM_SIZE / g_p_count;
 		i++;
 	}
@@ -58,5 +59,5 @@ void	flag_init()
 	g_flags.aff = NOT_SET;
 	g_flags.byte = NOT_SET;
 	g_flags.id = NOT_SET;
-	g_flags.verbose = NOT_SET;
+	g_flags.verbose = 1;
 }

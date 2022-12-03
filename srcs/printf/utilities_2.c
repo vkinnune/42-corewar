@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 16:19:29 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/19 05:30:54 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:00:50 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,13 @@ void	mfw_prec_assigner(char **fmt, va_list ap)
 	}
 	else
 		g_order.mfw = ft_atoi(*fmt);
+}
+
+void	special_case_helper(long long int n)
+{
+	char	*i_to_a;
+
+	i_to_a = ft_itoa(n);
+	cpy_to_g_str(i_to_a, ft_diglen(n));
+	free(i_to_a);
 }

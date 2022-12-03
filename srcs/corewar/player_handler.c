@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:13:37 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:50:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:28:59 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	assign_player(t_header_t *player, unsigned char *file, int8_t id, uint16_t 
 	idx += get_data(player[p_num].comment, &file[idx], COMMENT_LENGTH);
 	check_matching_champ_size(player[p_num].prog_size, ret - idx);
 	player[p_num].code = ft_memalloc(ret - idx);
+	check_err_malloc(player[p_num].code);
 	get_data(player[p_num].code, &file[idx], player[p_num].prog_size);
 	p_num++;
 }

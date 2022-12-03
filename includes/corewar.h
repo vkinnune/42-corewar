@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 01:41:45 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:30:49 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ void		player_sort(t_header_t *player);
 void		check_file_type(unsigned char *file, int16_t fd);
 void		check_file_size(uint32_t size);
 void		check_matching_champ_size(uint32_t byte_size, uint32_t actual);
-void		check_err_malloc(void *ptr);
 void		check_valid_arg(char **argv, int argc, uint8_t i);
 void		check_existing_id(int8_t id);
 void		check_missing_id(int8_t id);

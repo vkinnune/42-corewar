@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 00:21:01 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:28:49 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	parse(t_header_t *player, char **argv, int argc)
 	g_p_count = 0;
 	i = 1;
 	str = ft_memalloc(sizeof(unsigned char) * FILE_SIZE);
+	check_err_malloc(str);
 	while (i < argc)
 	{
 		if (argv[i][0] == '-')
@@ -93,4 +94,5 @@ void	parse(t_header_t *player, char **argv, int argc)
 	check_num_within_range(g_p_count);
 	player_sort(player);
 	introduce_le_champ(player);
+	free(str);
 }

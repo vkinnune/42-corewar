@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:44:27 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:35:36 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	print_man_page(void)
 	"\t\t\t16: hihi (*^▽^*)\n"
 	"\t-n\n"
 	"\t\tAssign the player's number manually\n");
-	exit(0);
+	print_and_exit(0);
 }
 
 int	main(int argc, char **argv)

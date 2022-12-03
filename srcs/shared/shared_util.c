@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:21:15 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 18:02:00 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:30:35 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,22 @@ void	write_n_byte(t_file *file, uint32_t val
 		if (get_pos)
 			file->idx = get_pos(file->idx);
 		file->str[file->idx++] = get_2hext(val, i++, n);
+	}
+}
+
+//as it says
+void	print_and_exit(int err_no)
+{
+	write(1, g_p_str.s, g_p_str.i);
+	exit(err_no);
+}
+
+//exit when malloc fails
+void	check_err_malloc(void *ptr)
+{
+	if (!ptr)
+	{
+		ft_printf("You already had my everything Senpai UwU \n");
+		print_and_exit (0);
 	}
 }

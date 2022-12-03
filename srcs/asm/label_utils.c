@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 17:28:26 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 21:49:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:32:15 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_label	*new_label(char *content)
 	t_label	*new;
 
 	new = (t_label *)ft_memalloc(sizeof(t_label));
+	check_err_malloc(new);
 	new->name = ft_strdup(content);
 	return (new);
 }
@@ -46,6 +47,7 @@ void	add_l_arg(t_token *toks, int instr_idx, int size)
 
 	head = get_label_args();
 	new = (t_label_arg *)ft_memalloc(sizeof(t_label_arg));
+	check_err_malloc(new);
 	new->token = toks;
 	new->map_idx = get_core_file()->idx;
 	new->instruct_idx = instr_idx;

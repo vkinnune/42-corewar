@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 18:12:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:32:31 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	save_token(char **p, char *old_p, t_token_type token_type)
 	token_list = get_token_list();
 	token_list->tokens[token_list->token_count].type = token_type;
 	token_list->tokens[token_list->token_count].content = ft_memalloc(size);
+	check_err_malloc(token_list->tokens[token_list->token_count].content);
 	ft_memcpy(token_list->tokens[token_list->token_count].content, old_p, size);
 	token_list->token_count++;
 }

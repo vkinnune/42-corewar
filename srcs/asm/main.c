@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 18:10:16 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:05:56 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ void	things_into_bits(void)
 	write_header();
 	write_intro(file_size - EXEC_CODE_POSITION);
 	ft_printf("Writing output program to %s\n", name);
+	write(1, g_p_str.s, g_p_str.i);
 	write(fd, cor->str, file_size);
 	close(fd);
 	free(cor->str);
+	free_label();
 }
 
 int	main(int ac, char**av)

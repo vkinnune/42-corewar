@@ -6,14 +6,13 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 22:37:21 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:22:31 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ASM_H
 # define ASM_H
 # define MAX_TOKENS 100000
-// # define MAX_LABELS 100000
 # define BUF_SIZE 100000
 # define COR_FILE_SIZE 1000000
 # define INSTRUCTION_AMOUNT 16
@@ -28,20 +27,19 @@
 # include <stdbool.h>
 # include "op.h"
 
-// typedef uint8_t	t_arg_func(t_file *cor, int arg_i, int op_size, uint8_t *data);
 typedef struct s_label t_label;
 typedef struct s_label_arg t_label_arg;
 
 typedef enum	e_token_type
 {
-	label,	//loop:
-	instruction,	//sti
-	reg,	//r1
-	separator, //,
-	direct_label, //%: live
-	direct, //% 1
-	indirect, //1
-	indirect_label //: live
+	label,
+	instruction,
+	reg,
+	separator,
+	direct_label,
+	direct,
+	indirect,
+	indirect_label
 }	t_token_type;
 
 typedef enum	e_header_type
@@ -81,7 +79,7 @@ struct s_label
 struct s_label_arg
 {
 	uint8_t			size :3;
-	int				map_idx; //where to write the bytes to
+	int				map_idx;
 	unsigned int	instruct_idx;
 	t_token			*token;
 	t_label_arg		*next;
@@ -148,5 +146,6 @@ void	write_label(void);
 
 //utilities.c
 void	cor_init(uint8_t **name, int *fd);
-// void	arg_func_init(t_arg_func **arg_funcs);
+void	free_label(void);
+void	free_label_arg(void);
 #endif

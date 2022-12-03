@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 23:16:37 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 17:29:10 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,29 +70,4 @@ void	add_label_list(char *content, t_token_type token_type)
 		current_label = add_label(content);
 	if (token_type == label)
 		current_label->is_init = true;
-}
-
-// test
-void	print_label()
-{
-	int	i;
-	t_label	**labels;
-	t_label	*temp;
-
-	i = 0;
-	labels = get_labels();
-	while (i < HASH_SIZE)
-	{
-		if (labels[i])
-		{
-			ft_printf("%s\n", labels[i]->name);
-			temp = labels[i]->next;
-			while (temp)
-			{
-				ft_printf("%s\n", temp->name);
-				temp = temp->next;
-			}
-		}
-		i++;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 10:49:12 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 01:35:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:00:52 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_order
 typedef struct s_printf_string
 {
 	int		i;
-	char	*s;
+	char	s[STRING_SIZE];
 }				t_printf_string;
 
 typedef int				t_printf_funcs(va_list ap);
@@ -73,6 +73,7 @@ void	cpy_to_g_str(char *src, int amount);
 void	put_flag(int ammount, char c);
 void	a_wild_mfw_appeared(va_list ap, char m_p);
 void	mfw_prec_assigner(char **fmt, va_list ap);
+void	special_case_helper(long long int n);
 
 //extra.c
 void	extra_functionality(char **fmt, va_list ap, int *fd, int default_mod);

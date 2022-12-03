@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:09:33 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 17:44:53 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:37:27 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_open_error(int fd)
 	if (fd == -1)
 	{
 		ft_printf("Unable to open the file\n");
-		exit(0);
+		print_and_exit(0);
 	}
 }
 
