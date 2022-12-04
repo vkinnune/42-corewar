@@ -40,7 +40,7 @@ char	*save_header_string(char *p, t_header_type type)
 			}
 			stay_p = p;
 		}
-		else if (*p != ' ' && *p != '\t' && !stay_p)
+		else if (*p != ' ' && *p != '\t' && !stay_p || (*p == '\0'))
 			ft_out(HEADER_ERROR);
 		p++;
 	}

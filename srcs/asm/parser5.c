@@ -56,11 +56,12 @@ int	direct_check(char **p)
 	return (0);
 }
 
-void	parser(const char *input)
+void	parser(char *input)
 {
 	char	*p;
 
 	p = handle_header(input);
 	handle_asm(p);
+	free(input);
 }
 
