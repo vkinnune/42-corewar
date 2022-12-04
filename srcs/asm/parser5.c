@@ -24,7 +24,7 @@ void	save_token(char **p, char *old_p, t_token_type token_type)
 	size = (p_copy - old_p) + 1;
 	token_list = get_token_list();
 	token_list->tokens[token_list->token_count].type = token_type;
-	token_list->tokens[token_list->token_count].content = ft_memalloc(size);
+	token_list->tokens[token_list->token_count].content = ft_memalloc(size * 10);
 	ft_memcpy(token_list->tokens[token_list->token_count].content, old_p, size);
 	token_list->token_count++;
 }

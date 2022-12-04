@@ -57,10 +57,14 @@ void	add_label_list(char *content, t_token_type token_type)
 {
 	int			i;
 	uint32_t	id;
+	int		size;
 	t_label		*current_label;
 
+	size = ft_strlen(content);
+	if (size > 0)
+		size--;
 	if (token_type == label)
-		content[ft_strlen(content) - 1] = '\0';
+		content[size] = '\0';
 	else if (token_type == direct_label)
 		ft_strcpy(content, &content[2]);
 	else
@@ -96,3 +100,4 @@ void	print_label()
 		i++;
 	}
 }
+
