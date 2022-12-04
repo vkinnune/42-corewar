@@ -97,7 +97,7 @@ void	validate_argument(int ac, char **av);
 
 t_parser	*get_parser(void);
 void	init_parser();
-void	parser(const char *input);
+void	parser(char *input);
 char	*read_file(char *file_name);
 void	print_tokens();
 t_token_list	*get_token_list();
@@ -150,3 +150,4 @@ void	write_label(void);
 void	cor_init(uint8_t **name, int *fd);
 // void	arg_func_init(t_arg_func **arg_funcs);
 #endif
+

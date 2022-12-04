@@ -6,7 +6,4 @@ man page
 
 
 ADD MALLOC CHECKS FOR EVERY MALLOC SO SOME PEOPLE WON'T CRY ABOUT IT
-
-//asm
-asm has leaks
-./.cor
+valtteri: no

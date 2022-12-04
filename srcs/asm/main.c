@@ -30,6 +30,21 @@ void	things_into_bits(void)
 	write(fd, cor->str, file_size);
 	close(fd);
 	free(cor->str);
+	free(name);
+}
+
+void	free_tokens()
+{
+	int	i;
+	t_token_list	*token_list;
+
+	i = 0;
+	token_list = get_token_list();
+	while (i != token_list->token_count)
+	{
+		free(token_list->tokens[i].content);
+		i++;
+	}
 }
 
 int	main(int ac, char**av)
@@ -39,7 +54,9 @@ int	main(int ac, char**av)
 	parser(read_file(av[1]));
 	token_check();
 	things_into_bits();
+	free_tokens();
 	// print_tokens();
 	// print_label();
 	return (0);
 }
+

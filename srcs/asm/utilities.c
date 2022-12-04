@@ -43,3 +43,4 @@ void	cor_init(unsigned char **name, int *fd)
 	*fd = open((const char *)*name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	check_open_error(*fd);
 }
+
