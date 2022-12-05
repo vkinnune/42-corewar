@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 21:14:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 01:41:40 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:43:21 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	corewar(t_header_t *player)
 		}
 		game.current_cycle++;
 	}
-	ft_printf("Contestant %d, \"%s\", has won !\n", game.last_alive, player[game.last_alive - 1].prog_name);
+	ft_printf("Contestant %d, \"%s\", has won !\n",
+		game.last_alive, player[game.last_alive - 1].prog_name);
 	print_free_exit(game.head);
 }

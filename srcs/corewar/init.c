@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:49:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:44:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:44:17 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	game_init(t_game_param *game, t_process *head)
 	game->check_counter = 1;
 }
 
-void	flag_init()
+void	flag_init(void)
 {
 	g_flags.dump_nbr = -1;
 	g_flags.aff = NOT_SET;

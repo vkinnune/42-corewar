@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   instruc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 19:05:39 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:45:44 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
 
-int32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with individual value transformer when they are called
+//replaced casting with individual value transformer when they are called
+int32_t	get_arg_value(t_process *process, t_arg *arg)
 {
 	if (arg->type == REG_CODE)
 		return (process->reg[arg->value]);
@@ -23,7 +24,8 @@ int32_t	get_arg_value(t_process *process, t_arg *arg) //replaced casting with in
 	return (arg->value);
 }
 
-int8_t	check_reg(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
+int8_t	check_reg(t_process *process, uint8_t cur_2bit,
+			uint8_t arg_type, t_arg *arg)
 {
 	uint16_t	pos;
 
@@ -38,10 +40,10 @@ int8_t	check_reg(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 		return (NOT_OKEI);
 	arg->type = cur_2bit;
 	return (OKEI);
-
 }
 
-int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
+int8_t	check_dir(t_process *process, uint8_t cur_2bit,
+			uint8_t arg_type, t_arg *arg)
 {
 	uint8_t		byte_ammount;
 	uint16_t	pos;
@@ -58,7 +60,8 @@ int8_t	check_dir(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *
 	return (OKEI);
 }
 
-int8_t	check_ind(t_process *process, uint8_t cur_2bit, uint8_t arg_type, t_arg *arg)
+int8_t	check_ind(t_process *process, uint8_t cur_2bit,
+			uint8_t arg_type, t_arg *arg)
 {
 	uint16_t	pos;
 
@@ -85,14 +88,14 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 	result = OKEI;
 	if (op_tab[process->cmd].arg_byte == 0)
 		return (OKEI);
-	process->bytes_to_next++; //count arg_byte into the total amount
+	process->bytes_to_next++;
 	while (i < op_tab[process->cmd].arg_amt)
 	{
 		op_arg_type = op_tab[process->cmd].arg_type[i];
 		cur_2bit = get_2bit(g_arena[get_position(process->pc + 1)], i);
 		if (!check_reg(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_dir(process, cur_2bit, op_arg_type, &arg[i])
-			&& !check_ind(process, cur_2bit, op_arg_type, &arg[i])) //same as before, +100% readability, +50% line consumption, -25% mental health, -1HP
+			&& !check_ind(process, cur_2bit, op_arg_type, &arg[i]))
 			result = NOT_OKEI;
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 19:42:24 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:46:25 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	lld(t_process *process, t_arg *arg, t_game_param *game)
 	process->reg[arg[1].value] = arg[0].value;
 	process->carry = (process->reg[arg[1].value] == 0);
 }
+
 void	st(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	arg0;
@@ -190,7 +191,7 @@ void	l_foork(t_process *process, t_arg *arg, t_game_param *game)
 
 void	aff(t_process *process, t_arg *arg, t_game_param *game)
 {
-	char a;
+	char	a;
 
 	if (g_flags.aff == SET)
 	{

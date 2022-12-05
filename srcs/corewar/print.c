@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:41:52 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 00:28:19 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:48:04 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	colored_arena(t_header_t *player, int i, int p_area)
 {
 	if (i == p_area * 0)
 		ft_printf("$g");
-	else if (i == p_area * 1 )
+	else if (i == p_area * 1)
 		ft_printf("$b");
 	else if (i == p_area * 2)
 		ft_printf("$r");
