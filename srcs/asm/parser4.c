@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:21:22 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:41:57 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	instruction_check(char **p)
 	i = 0;
 	size = 0;
 	while ((*p)[size] != ' ' && (*p)[size]
-			!= '\t' && (*p)[size] != '\n' && (*p)[size] != '\0')
+			!= '\t' && (*p)[size] != '\n' && (*p)[size] != '\0' && (*p)[size] != '%')
 		size++;
 	while (i != INSTRUCTION_AMOUNT)
 	{

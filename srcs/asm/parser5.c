@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:30:44 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:12:00 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	token_check(void)
 	{
 	}
 	label_list_error();
-	if (token_list->token_count == 0)
+	if (token_list->token_count == 0
+		|| get_source()->is_instructions == false)
 		ft_out("Error: No tokens");
 }

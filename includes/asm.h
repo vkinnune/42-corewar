@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:34:16 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:09:02 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,9 @@ typedef struct s_source {
 	char			comment[COMMENT_LENGTH];
 	bool			label;
 	bool			ins;
+	bool			is_instructions;
+	bool			save_comment;
+	bool			save_name;
 }	t_source;
 
 struct s_label

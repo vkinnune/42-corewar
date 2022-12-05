@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 18:02:35 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:50:50 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	handle_asm(char *p)
 			continue ;
 		else if (*p == '\0')
 			break ;
-		if (*p == '#')
+		if (*p == '#' || *p == ';')
 			while (*p != '\n' && *p != '\0')
 				p++;
 		else if (!check_valid(&p))

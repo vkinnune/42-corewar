@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:31:56 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:29:09 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ int	more_check_instruction(int *i, t_token_list *token_list)
 {
 	if (!token_list->tokens[*i].content)
 		return (0);
-	check_and_handle_labolz(token_list, i);
+	if (check_and_handle_labolz(token_list, i))
+		return (1);
 	if (token_list->tokens[*i].type != instruction)
 		ft_out("Error: Too many instruction arguments");
 	return (2);
@@ -76,10 +77,13 @@ int	check_instruction(int *i, t_token_list *token_list)
 	ins = 0;
 	arg = 0;
 	ret = more_check_instruction(i, token_list);
+	if (ret == 1)
+		return (1);
 	if (ret == 0)
 		return (0);
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
+	get_source()->is_instructions = true;
 	while (arg != op_tab[ins].arg_amt)
 	{
 		if (!check_token_args(token_list->tokens[*i].type, ins, arg))

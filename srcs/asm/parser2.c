@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:26:24 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:36:13 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*save_header_string(char *p, t_header_type type)
 			}
 			stay_p = p;
 		}
-		else if ((*p != ' ' && *p != '\t' && !stay_p) || (*p == '\0'))
+		else if ((*p != ' ' && *p != '\n'
+				&& *p != '\t' && !stay_p) || (*p == '\0'))
 			ft_out(HEADER_ERROR);
 		p++;
 	}
@@ -55,6 +56,35 @@ void	one_more_function(void)
 	ft_bzero(get_source()->comment, COMMENT_LENGTH);
 }
 
+char	*more_functions(bool	*is_newline, char *p)
+{
+	if (*p == '\t' || *p == ' ' || *p == '\n')
+	{
+		if (*p == '\n')
+			*is_newline = true;
+		p++;
+	}
+	else if (*p == '#' || *p == ';')
+	{
+		while (*p != '\n' && *p != '\0')
+			p++;
+		p++;
+	}
+	else if (!ft_strncmp(NAME_CMD_STRING, p, 5))
+	{
+		p = save_header_string(&p[5], name);
+		get_source()->save_name = true;
+	}
+	else if (!ft_strncmp(COMMENT_CMD_STRING, p, 8))
+	{
+		p = save_header_string(&p[8], comment);
+		get_source()->save_comment = true;
+	}
+	else
+		ft_out(HEADER_ERROR);
+	return (p);
+}
+
 char	*handle_header(const char *input)
 {
 	char	*p;
@@ -63,47 +93,10 @@ char	*handle_header(const char *input)
 	p = (char *)input;
 	is_newline = false;
 	one_more_function();
-	while (!*(get_source()->name) || !*(get_source()->comment))
-	{
-		if (*p == '\t' || *p == ' ' || *p == '\n')
-		{
-			if (*p == '\n')
-				is_newline = true;
-			p++;
-		}
-		else if (!ft_strncmp(NAME_CMD_STRING, p, 5))
-			p = save_header_string(&p[5], name);
-		else if (!ft_strncmp(COMMENT_CMD_STRING, p, 8))
-			p = save_header_string(&p[8], comment);
-		else
-			ft_out(HEADER_ERROR);
-	}
+	while ((!*(get_source()->name) && (!(get_source()->save_name)))
+		|| (!*(get_source()->comment) && (!(get_source()->save_comment))))
+		p = more_functions(&is_newline, p);
 	if (is_newline == false)
 		ft_out("Error: No newline in comment and name");
 	return (p);
-}
-
-char	*read_file(char *file_name)
-{
-	int		fd;
-	char	buf[BUF_SIZE];
-	int		ret;
-	int		read_size;
-	char	*str;
-
-	fd = open(file_name, O_RDONLY);
-	if (fd == -1)
-		ft_out(CANNOT_OPEN_FILE);
-	ret = 1;
-	str = 0;
-	read_size = 0;
-	while (ret)
-	{
-		ret = read(fd, buf, BUF_SIZE);
-		read_size += ret;
-		str = realloc(str, read_size + 1);
-		ft_memcpy(str, buf, ret);
-	}
-	str[read_size] = 0;
-	return (str);
 }
