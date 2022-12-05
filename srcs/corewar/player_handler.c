@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:13:37 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 18:28:59 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:00:23 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static int	get_data(unsigned char *player_data, unsigned char *data, int size)
 	return (size + 4);
 }
 
-void	assign_player(t_header_t *player, unsigned char *file, int8_t id, uint16_t ret)
+void	assign_player(t_header_t *player, unsigned char *file,
+			int8_t id, uint16_t ret)
 {
 	static uint8_t	p_num;
 	uint16_t		idx;

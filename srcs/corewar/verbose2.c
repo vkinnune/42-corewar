@@ -1,41 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   verbose_four.c                                     :+:      :+:    :+:   */
+/*   verbose2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/12 19:18:53 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 19:28:01 by qnguyen          ###   ########.fr       */
+/*   Created: 2022/11/28 15:40:05 by jrummuka          #+#    #+#             */
+/*   Updated: 2022/12/05 17:47:16 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/corewar.h"
-
-void	verbose_live(t_process *process, t_arg *arg)
-{
-	ft_printf(" %d\n", get_arg_value(process, &arg[0]));
-}
-
-void	verbose_l_ld(t_process *process, t_arg *arg)
-{
-	ft_printf(" %d r%d\n", arg[0].value, arg[1].value);
-}
-
-void	verbose_st(t_process *process, t_arg *arg)
-{
-	ft_printf(" r%d %d\n", arg[0].value, (int16_t)arg[1].value);
-}
-
-void	verbose_add_sub(t_process *process, t_arg *arg)
-{
-	ft_printf(" r%d r%d r%d\n", arg[0].value, arg[1].value, arg[2].value);
-}
-
-void	verbose_and_or_xor(t_process *process, t_arg *arg)
-{
-	ft_printf(" %d %d r%d\n", arg[0].value, arg[1].value, arg[2].value);
-}
 
 void	verbose_zjmp(t_process *process, t_arg *arg)
 {
@@ -66,7 +41,7 @@ void	verbose_sti(t_process *process, t_arg *arg)
 	ft_printf(" r%d %d %d\n", arg[0].value, arg[1].value, arg[2].value);
 	pos = arg[1].value + arg[2].value;
 	ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n",
-		arg[1].value, arg[2].value,	pos, process->pc + (pos) % IDX_MOD);
+		arg[1].value, arg[2].value, pos, process->pc + (pos) % IDX_MOD);
 }
 
 void	verbose_l_foork(t_process *process, t_arg *arg)
