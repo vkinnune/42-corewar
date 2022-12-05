@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/05 17:37:38 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/05 20:30:25 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,11 @@ apu()
 			fi
 		done
 	fi
-
+	if [[ ${flag} == "" ]]
+	then
+		echo "How verbose do you want me senpai (ﾉ≧ڡ≦)??"
+		read -r flag
+	fi
 	if [[ $count -eq 0 ]]
 	then
 		printf "Me no see champ, me no do work $GREEN( っ´ω｀c)$NORMAL \n"
@@ -103,7 +107,6 @@ apu()
 	done
 	printf "\n$NORMAL"
 
-	flag=4
 	test_v_flag
 	check_run_type
 }
@@ -182,4 +185,5 @@ printf "Moro moro $GREEN╰(⸝⸝⸝´꒳\`⸝⸝⸝)╯$NORMAL\n"
 declare -A champs
 declare string
 declare file
+declare flag
 apu
