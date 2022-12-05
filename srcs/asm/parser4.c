@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 18:57:19 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:21:22 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	label_check(char **p)
 		else if ((*p)[i] == '\n' || (*p)[i] == '\0'
 			|| (*p)[i] == ' ' || (*p)[i] == '\t' || (*p)[i] == '%')
 			return (0);
-		if (((*p)[i] <= 'z' && (*p)[i] >= 'a') || (*p)[i] == '_' || ((*p)[i] >= '0' && (*p)[i] <= '9'))
+		if (((*p)[i] <= 'z' && (*p)[i] >= 'a') || (*p)[i] == '_'
+				|| ((*p)[i] >= '0' && (*p)[i] <= '9'))
 			i++;
 		else
 			return (0);
@@ -43,7 +44,8 @@ int	instruction_check(char **p)
 
 	i = 0;
 	size = 0;
-	while ((*p)[size] != ' ' && (*p)[size] != '\t' && (*p)[size] != '\n' && (*p)[size] != '\0')
+	while ((*p)[size] != ' ' && (*p)[size]
+			!= '\t' && (*p)[size] != '\n' && (*p)[size] != '\0')
 		size++;
 	while (i != INSTRUCTION_AMOUNT)
 	{
@@ -110,4 +112,3 @@ int	direct_label_check(char **p)
 	}
 	return (0);
 }
-

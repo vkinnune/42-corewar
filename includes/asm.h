@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 18:22:31 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:34:16 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int	direct_check(char **p);
 char	*handle_header(const char *input);
 void	handle_asm(char *p);
 void	save_token(char **p, char *old_p, t_token_type token_type);
+int	check_instruction(int *i, t_token_list *token_list);
 
 //label.c
 void			handle_label(int *tok_idx);

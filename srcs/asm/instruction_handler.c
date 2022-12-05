@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 13:47:41 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 21:47:48 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:30:10 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ static void	handle_arg_byte(int *tok_i, int ins_byte, int op_i)
 		*a_byte |= reg_arg(&toks[*tok_i], i);
 		i++;
 		(*tok_i)++;
-		if (*tok_i < get_token_list()->token_count && toks[(*tok_i)].type == separator)
+		if (*tok_i < get_token_list()->token_count
+			&& toks[(*tok_i)].type == separator)
 			(*tok_i)++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 17:38:51 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:26:24 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,19 @@ char	*save_header_string(char *p, t_header_type type)
 			}
 			stay_p = p;
 		}
-		else if (*p != ' ' && *p != '\t' && !stay_p || (*p == '\0'))
+		else if ((*p != ' ' && *p != '\t' && !stay_p) || (*p == '\0'))
 			ft_out(HEADER_ERROR);
 		p++;
 	}
 	return (p + 1);
+}
+
+void	one_more_function(void)
+{
+	get_source()->row = 2;
+	get_source()->col = 0;
+	ft_bzero(get_source()->name, PROG_NAME_LENGTH);
+	ft_bzero(get_source()->comment, COMMENT_LENGTH);
 }
 
 char	*handle_header(const char *input)
@@ -54,8 +62,7 @@ char	*handle_header(const char *input)
 
 	p = (char *)input;
 	is_newline = false;
-	ft_bzero(get_source()->name, PROG_NAME_LENGTH);
-	ft_bzero(get_source()->comment, COMMENT_LENGTH);
+	one_more_function();
 	while (!*(get_source()->name) || !*(get_source()->comment))
 	{
 		if (*p == '\t' || *p == ' ' || *p == '\n')
@@ -73,8 +80,6 @@ char	*handle_header(const char *input)
 	}
 	if (is_newline == false)
 		ft_out("Error: No newline in comment and name");
-	get_source()->row = 2;
-	get_source()->col = 0;
 	return (p);
 }
 
@@ -102,23 +107,3 @@ char	*read_file(char *file_name)
 	str[read_size] = 0;
 	return (str);
 }
-
-/* void	print_tokens(void)
-{
-	const char		*tokenstr[]={"label","instruction", "register", "separator", "direct_label", "direct", "indirect"};
-	int				i;
-	t_token_list	*token_list;
-
-	token_list = get_token_list();
-	i = 0;
-	while (i != token_list->token_count)
-	{
-		if (token_list->tokens[i].type == label
-		|| token_list->tokens[i].type == direct_label
-		|| token_list->tokens[i].type == indirect_label)
-			ft_printf("%s %s\n", tokenstr[token_list->tokens[i].type], token_list->tokens[i].content);
-		i++;
-	}
-}
-
- */

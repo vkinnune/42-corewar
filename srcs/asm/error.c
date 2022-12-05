@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:09:33 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 17:37:27 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:30:23 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	check_open_error(int fd)
 	}
 }
 
-void	label_list_error()
+void	label_list_error(void)
 {
 	int			i;
 	t_label		*temp;

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 18:32:31 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:30:44 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@ void	save_token(char **p, char *old_p, t_token_type token_type)
 	size = (p_copy - old_p) + 1;
 	token_list = get_token_list();
 	token_list->tokens[token_list->token_count].type = token_type;
-<<<<<<< HEAD
-	token_list->tokens[token_list->token_count].content = ft_memalloc(size * 10);
-=======
-	token_list->tokens[token_list->token_count].content = ft_memalloc(size);
+	token_list->tokens[token_list->token_count].content
+		= ft_memalloc(size * 10);
 	check_err_malloc(token_list->tokens[token_list->token_count].content);
->>>>>>> main
 	ft_memcpy(token_list->tokens[token_list->token_count].content, old_p, size);
 	token_list->token_count++;
 }
@@ -69,3 +66,24 @@ void	parser(char *input)
 	free(input);
 }
 
+t_file	*get_core_file(void)
+{
+	static t_file	cor;
+
+	return (&cor);
+}
+
+void	token_check(void)
+{
+	int				i;
+	t_token_list	*token_list;
+
+	i = 0;
+	token_list = get_token_list();
+	while (check_instruction(&i, token_list))
+	{
+	}
+	label_list_error();
+	if (token_list->token_count == 0)
+		ft_out("Error: No tokens");
+}

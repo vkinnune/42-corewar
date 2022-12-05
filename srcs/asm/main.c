@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 00:41:34 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:27:42 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	things_into_bits(void)
 	free(name);
 }
 
-void	free_tokens()
+void	free_tokens(void)
 {
-	int	i;
+	int				i;
 	t_token_list	*token_list;
 
 	i = 0;
@@ -57,8 +57,5 @@ int	main(int ac, char**av)
 	token_check();
 	things_into_bits();
 	free_tokens();
-	// print_tokens();
-	// print_label();
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 17:29:10 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:29:10 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	handle_label(int *tok_idx)
 {
-	t_token	*tokens;
-	t_label	*current_label;
+	t_token		*tokens;
+	t_label		*current_label;
 	t_file		*cor;
 
 	cor = get_core_file();
@@ -24,8 +24,6 @@ void	handle_label(int *tok_idx)
 	current_label->idx = cor->idx;
 	(*tok_idx)++;
 }
-	// ft_printf("label found: %s @%d\n", current_label->name, current_label->idx);
-	// ft_printf("\tinstruction: %s\n", tokens[*tok_idx + 1].content);
 
 unsigned int	hash(char *content)
 {
@@ -57,7 +55,7 @@ void	add_label_list(char *content, t_token_type token_type)
 {
 	int			i;
 	uint32_t	id;
-	int		size;
+	int			size;
 	t_label		*current_label;
 
 	size = ft_strlen(content);
@@ -75,12 +73,10 @@ void	add_label_list(char *content, t_token_type token_type)
 	if (token_type == label)
 		current_label->is_init = true;
 }
-<<<<<<< HEAD
 
-// test
-void	print_label()
+void	print_label(void)
 {
-	int	i;
+	int		i;
 	t_label	**labels;
 	t_label	*temp;
 
@@ -101,6 +97,3 @@ void	print_label()
 		i++;
 	}
 }
-
-=======
->>>>>>> main

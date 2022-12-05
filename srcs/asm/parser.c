@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 21:34:10 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:26:52 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,4 @@ t_label_arg	**get_label_args(void)
 	static t_label_arg	*label_args;
 
 	return (&label_args);
-}
-
-t_file	*get_core_file(void)
-{
-	static t_file	cor;
-
-	return (&cor);
 }

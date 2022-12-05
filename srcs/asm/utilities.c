@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:22:35 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 00:41:17 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:19:50 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static unsigned char	*get_name(unsigned char *argc)
 {
-	int	len;
-	int	name_len;
+	int				len;
+	int				name_len;
 	unsigned char	*name;
 
 	len = ft_strlen((const char *)argc);

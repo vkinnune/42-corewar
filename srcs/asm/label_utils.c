@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 17:28:26 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 18:32:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:28:12 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_label	*add_label(char *content)
 	temp = *head;
 	while (temp->next)
 		temp = temp->next;
-	temp->next = new_label(content); // rev linked list cuz why not
-	return (temp->next);			//the first one to be indexed remains the head
+	temp->next = new_label(content);
+	return (temp->next);
 }
 
 void	add_l_arg(t_token *toks, int instr_idx, int size)
@@ -52,6 +52,6 @@ void	add_l_arg(t_token *toks, int instr_idx, int size)
 	new->map_idx = get_core_file()->idx;
 	new->instruct_idx = instr_idx;
 	new->size = size;
-	new->next = *head; //normal linked list
+	new->next = *head;
 	*head = new;
 }
