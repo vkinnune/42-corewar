@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 19:01:07 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:15:54 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ int	label_check(char **p)
 	}
 }
 
+int	get_size_of_instruction(char **p)
+{
+	int	size;
+
+	size = 0;
+	while ((*p)[size] != ' ' && (*p)[size]
+			!= '\t' && (*p)[size] != '\n'
+			&& (*p)[size] != '\0' && (*p)[size] != '%')
+		size++;
+	return (size);
+}
+
 int	instruction_check(char **p)
 {
 	int		i;
@@ -44,11 +56,8 @@ int	instruction_check(char **p)
 	bool	prcnt;
 
 	i = 0;
-	size = 0;
 	prcnt = false;
-	while ((*p)[size] != ' ' && (*p)[size]
-			!= '\t' && (*p)[size] != '\n' && (*p)[size] != '\0' && (*p)[size] != '%')
-		size++;
+	size = get_size_of_instruction(p);
 	if ((*p)[size] == '%')
 		prcnt = true;
 	while (i != INSTRUCTION_AMOUNT)
@@ -60,7 +69,7 @@ int	instruction_check(char **p)
 			else
 				size = ft_strlen(op_tab[i].name);
 			*p = &(*p)[size];
-			get_source()->col += ft_strlen(op_tab[i].name);
+			get_source()->col += size;
 			get_source()->ins = true;
 			return (1);
 		}
@@ -99,24 +108,4 @@ int	separator_check(char **p)
 		return (1);
 	else
 		return (0);
-}
-
-int	direct_label_check(char **p)
-{
-	int	i;
-
-	i = 2;
-	if ((*p)[0] == '%' && (*p)[1] == ':')
-	{
-		while (ft_isprint((*p)[i]) && (*p)[i] != ','
-			&& (*p)[i] != ' ' && (*p)[i] != '\t' && (*p)[i] != '\n')
-			i++;
-		if (i > 2)
-		{
-			get_source()->col += (i - 1);
-			*p = &(*p)[i - 1];
-			return (1);
-		}
-	}
-	return (0);
 }

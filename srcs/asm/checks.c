@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:46:14 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:17:07 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ int	check_instruction(int *i, t_token_list *token_list)
 	ins = 0;
 	arg = 0;
 	ret = more_check_instruction(i, token_list);
-	if (ret == 1)
-		return (1);
-	if (ret == 0)
-		return (0);
+	if (ret != 2)
+		return (ret);
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
 	get_source()->is_instructions = true;

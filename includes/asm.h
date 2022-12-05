@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:09:02 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:17:43 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ char	*handle_header(const char *input);
 void	handle_asm(char *p);
 void	save_token(char **p, char *old_p, t_token_type token_type);
 int	check_instruction(int *i, t_token_list *token_list);
+void	init_name_comment(void);
+char	*check_string_comment_name(bool	*is_newline, char *p);
 
 //label.c
 void			handle_label(int *tok_idx);

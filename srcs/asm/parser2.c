@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 19:07:46 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:10:26 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*save_header_string(char *p, t_header_type type)
 	return (p + 1);
 }
 
-void	one_more_function(void)
+void	init_name_comment(void)
 {
 	get_source()->row = 2;
 	get_source()->col = 0;
@@ -54,7 +54,15 @@ void	one_more_function(void)
 	ft_bzero(get_source()->comment, COMMENT_LENGTH);
 }
 
-char	*more_functions(bool	*is_newline, char *p)
+char	*skip_comment(char	*p)
+{
+	while (*p != '\n' && *p != '\0')
+		p++;
+	p++;
+	return (p);
+}
+
+char	*check_string_comment_name(bool	*is_newline, char *p)
 {
 	if (*p == '\t' || *p == ' ' || *p == '\n')
 	{
@@ -64,9 +72,7 @@ char	*more_functions(bool	*is_newline, char *p)
 	}
 	else if (*p == '#' || *p == ';')
 	{
-		while (*p != '\n' && *p != '\0')
-			p++;
-		p++;
+		p = skip_comment(p);
 		*is_newline = true;
 	}
 	else if (!ft_strncmp(NAME_CMD_STRING, p, 5))
@@ -81,21 +87,5 @@ char	*more_functions(bool	*is_newline, char *p)
 	}
 	else
 		ft_out(HEADER_ERROR);
-	return (p);
-}
-
-char	*handle_header(const char *input)
-{
-	char	*p;
-	bool	is_newline;
-
-	p = (char *)input;
-	is_newline = false;
-	one_more_function();
-	while ((!*(get_source()->name) && (!(get_source()->save_name)))
-		|| (!*(get_source()->comment) && (!(get_source()->save_comment))))
-		p = more_functions(&is_newline, p);
-	if (is_newline == false)
-		ft_out("Error: No newline in comment and name");
 	return (p);
 }
