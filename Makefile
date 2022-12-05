@@ -3,19 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
+#    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/12/05 18:12:22 by vkinnune         ###   ########.fr        #
+=======
+#    Updated: 2022/12/05 17:24:49 by jrummuka         ###   ########.fr        #
+>>>>>>> 1d1399577b69a8a616c89dc3cf06c76b49c464c9
 #                                                                              #
 # **************************************************************************** #
 
 COR_NAME = corewar
 COR_DIR = srcs/corewar/
 # add new .c files here
-COR_FILE = main player_handler error utilities parse process process_util \
-			 corewar player_sort instruction instruc_util init print verbose_four \
-			 verbose_sixteen
+COR_FILE = main player_handler error error2 utilities parse process process_util \
+			 corewar player_sort instruction instruction2 instruction3 instruc_util \
+			 init print verbose verbose2 verbose3
 COR_OBJS_DIR = objs/corewar/
 COR_OBJS = $(addprefix $(COR_OBJS_DIR), $(addsuffix .o, $(COR_FILE)))
 
@@ -44,26 +48,26 @@ all: $(COR_NAME) $(ASM_NAME)
 ################ COREWAR ################
 
 $(COR_NAME): $(SHARED_OBJS) $(COR_OBJS)
-	gcc $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
+	gcc $(FLAG) $(COR_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(COR_OBJS_DIR)%.o: $(COR_DIR)%.c includes/corewar.h
 	@mkdir -p $(COR_OBJS_DIR)
-	gcc -g -c $< $(INCLUDES) -o $@
+	gcc $(FLAG) -c $< $(INCLUDES) -o $@
 
 ################ ASM ################
 
 $(ASM_NAME): $(SHARED_OBJS) $(ASM_OBJS)
-	gcc $(ASM_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
+	gcc $(FLAG) $(ASM_OBJS) $(SHARED_OBJS) $(INCLUDES) $(PRINTF) -o $@
 
 $(ASM_OBJS_DIR)%.o: $(ASM_DIR)%.c includes/asm.h
 	@mkdir -p $(ASM_OBJS_DIR)
-	gcc -g -c $< $(INCLUDES) -o $@
+	gcc $(FLAG) -c $< $(INCLUDES) -o $@
 
 ################ Shared ################
 
 $(SHARED_OBJS_DIR)%.o: $(SHARE_DIR)%.c $(PRINTF)
 	@mkdir -p $(SHARED_OBJS_DIR)
-	gcc -g -c $< $(INCLUDES) -o $@
+	gcc $(FLAG) -c $< $(INCLUDES) -o $@
 
 ################ Printf ################
 

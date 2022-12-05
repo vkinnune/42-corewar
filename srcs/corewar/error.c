@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 12:05:58 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 18:30:15 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:17:14 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,25 +65,6 @@ void	check_valid_arg(char **argv, int argc, uint8_t i)
 	if (error)
 	{
 		ft_printf("Stop teasing me B..BAKA!!! (>ε<)\"\n");
-		print_and_exit(0);
-	}
-}
-
-void	check_existing_id(int8_t id)
-{
-	ft_printf("%d\n", id);
-	if (id != NOT_SET)
-	{
-		ft_printf("Pwayers can has no same id (っ´ω｀c)\n");
-		print_and_exit(0);
-	}
-}
-
-void	check_missing_id(int8_t id)
-{
-	if (id == NOT_SET)
-	{
-		ft_printf("There's empty space in my heart Senpai (⁄ ⁄•⁄ω⁄•⁄ ⁄)\n");
 		print_and_exit(0);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 18:41:52 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/03 00:28:19 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:54:01 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ static void	colored_arena(t_header_t *player, int i, int p_area)
 {
 	if (i == p_area * 0)
 		ft_printf("$g");
-	else if (i == p_area * 1 )
+	else if (i == p_area * 1)
 		ft_printf("$b");
 	else if (i == p_area * 2)
 		ft_printf("$r");
 	else if (i == p_area * 3 && g_p_count > 3)
 		ft_printf("$b");
-	else if (i == p_area * 0 + player[0].prog_size
-		|| i == p_area * 1 + player[1].prog_size
-		|| i == p_area * 2 + player[2].prog_size
-		|| i == p_area * 3 + player[3].prog_size)
+	else if (i == p_area * 0 + (int)player[0].prog_size
+		|| i == p_area * 1 + (int)player[1].prog_size
+		|| i == p_area * 2 + (int)player[2].prog_size
+		|| i == p_area * 3 + (int)player[3].prog_size)
 		ft_printf("$d");
 }
 

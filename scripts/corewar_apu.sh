@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    apustaja.sh                                        :+:      :+:    :+:    #
+#    corewar_apu.sh                                     :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/03 01:33:44 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/05 17:37:38 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ BLUE='\e[94m'
 YELLOW='\e[93m'
 NORMAL='\e[0m'
 OUR_CORE=./corewar
-TEST_CORE=./corewar1
+TEST_CORE=/Users/qnguyen/Workspace/Corewar/resources/vm_champs/corewar
 CHAMP_DIR=./testchamp/valid_core
 
 RESULT_FILE=./scripts/core_result
@@ -55,9 +55,13 @@ apu()
 		echo "Okei u lazy bum"
 		for i in {0..3}
 		do
-			# random_num=$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l | xargs jot -r 1 1)
-			# champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | head -$((random_num)) | tail -1)
-			champs[$i]=$(find "$CHAMP_DIR" -type f -name "*.cor" | shuf -n 1)
+			if [[ ${OSTYPE} == "darwin18" ]]
+			then
+				random_num="$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l | xargs jot -r 1 1)"
+				champs[$i]="$(find "$CHAMP_DIR" -type f -name "*.cor" | head -${random_num} | tail -1 | tr ' ' '_')"
+			else
+				champs[$i]="$(find "$CHAMP_DIR" -type f -name "*.cor" | shuf -n 1)"
+			fi
 		done
 		count=4
 	else

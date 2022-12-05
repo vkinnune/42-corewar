@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 20:20:52 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:45:37 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	read_instruction(t_process *process)
 	process->wait_cycle--;
 }
 
-void	update_live_player(t_game_param *game, t_process *process
-					, t_arg *arg, t_header_t *player)
+void	update_live_player(t_game_param *game, t_arg *arg, t_header_t *player)
 {
 	uint16_t	i;
 
@@ -43,16 +42,17 @@ void	update_live_player(t_game_param *game, t_process *process
 		{
 			game->last_alive = player[i].id;
 			if (g_flags.verbose & 1)
-				ft_printf("Player %d (%s) is said to be alive\n", player[i].id, player[i].prog_name);
+				ft_printf("Player %d (%s) is said to be alive\n",
+					player[i].id, player[i].prog_name);
 		}
 		i++;
 	}
 }
 
-static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab, t_header_t *player)
+static void	execute_le_code(t_game_param *game, t_process *process,
+				t_table *tab, t_header_t *player)
 {
 	t_arg	arg[3];
-	int		i;
 
 	ft_bzero((void *)arg, sizeof(arg));
 	if (check_matching_arg(process, arg) != OKEI)
@@ -66,7 +66,7 @@ static void	execute_le_code(t_game_param *game, t_process *process, t_table *tab
 		tab->verbose_table[process->cmd](process, arg);
 	}
 	if (process->cmd == 0)
-		update_live_player(game, process, arg, player);
+		update_live_player(game, arg, player);
 }
 
 void	processor(t_game_param *game, t_table *tab, t_header_t *player)

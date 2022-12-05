@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/01 19:27:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:20:33 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,21 @@ uint8_t	get_2bit(uint8_t byte, uint8_t position)
 
 	bit = 2 * (3 - position);
 	return ((byte >> bit) & 0b11);
+}
+
+uint16_t	get_position(uint16_t pos)
+{
+	if (pos < 4096)
+		return (pos);
+	return (pos % MEM_SIZE);
+}
+
+void	get_arg_without_arg_byte(t_process *process, t_arg *arg)
+{
+	uint8_t		dir_size;
+
+	dir_size = DIR_SIZE;
+	if (op_tab[process->cmd].dir_size)
+		dir_size = 2;
+	arg->value = get_n_byte(dir_size, 0, process->pc + 1);
 }
