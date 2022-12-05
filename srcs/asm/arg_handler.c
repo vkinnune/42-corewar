@@ -6,13 +6,13 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 17:48:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 23:11:06 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 18:47:26 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/asm.h"
 
-uint8_t	ind_lab_arg(t_token *toks, int instr_idx, int arg_i, int op_size)
+uint8_t	ind_lab_arg(t_token *toks, int instr_idx, int arg_i)
 {
 	uint8_t	size;
 
@@ -27,7 +27,7 @@ uint8_t	lab_arg(t_token *toks, int instr_idx, int arg_i, int op_size)
 	uint8_t	size;
 
 	if (toks->type == indirect_label)
-		return (ind_lab_arg(toks, instr_idx, arg_i, op_size));
+		return (ind_lab_arg(toks, instr_idx, arg_i));
 	else if (toks->type != direct_label)
 		return (0);
 	size = DIR_SIZE / (1 + op_size);

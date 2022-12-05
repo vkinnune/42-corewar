@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:41:57 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:01:07 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,27 @@ int	label_check(char **p)
 
 int	instruction_check(char **p)
 {
-	int	i;
-	int	size;
+	int		i;
+	int		size;
+	bool	prcnt;
 
 	i = 0;
 	size = 0;
+	prcnt = false;
 	while ((*p)[size] != ' ' && (*p)[size]
 			!= '\t' && (*p)[size] != '\n' && (*p)[size] != '\0' && (*p)[size] != '%')
 		size++;
+	if ((*p)[size] == '%')
+		prcnt = true;
 	while (i != INSTRUCTION_AMOUNT)
 	{
 		if (!ft_strncmp(op_tab[i].name, *p, size))
 		{
-			*p = &(*p)[ft_strlen(op_tab[i].name)];
+			if (prcnt == true)
+				size = ft_strlen(op_tab[i].name) - 1;
+			else
+				size = ft_strlen(op_tab[i].name);
+			*p = &(*p)[size];
 			get_source()->col += ft_strlen(op_tab[i].name);
 			get_source()->ins = true;
 			return (1);

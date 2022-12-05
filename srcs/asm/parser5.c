@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:12:00 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:54:32 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	save_token(char **p, char *old_p, t_token_type token_type)
 	char			*p_copy;
 
 	p_copy = *p;
-	while (*p_copy == ' ' || *p_copy == '\t' || *p_copy == '\n')
+	while (*p_copy == ' ' || *p_copy == '%' || *p_copy == '\t' || *p_copy == '\n')
 		p_copy--;
 	size = (p_copy - old_p) + 1;
 	token_list = get_token_list();

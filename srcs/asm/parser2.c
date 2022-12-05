@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:36:13 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:07:46 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	handle_stay_p(char *stay_p, char *p, t_header_type type)
 
 char	*save_header_string(char *p, t_header_type type)
 {
-	char	*saved_string;
 	char	*stay_p;
 
 	stay_p = 0;
@@ -40,8 +39,7 @@ char	*save_header_string(char *p, t_header_type type)
 			}
 			stay_p = p;
 		}
-		else if ((*p != ' ' && *p != '\n'
-				&& *p != '\t' && !stay_p) || (*p == '\0'))
+		else if ((*p != ' ' && *p != '\t' && !stay_p) || (*p == '\0'))
 			ft_out(HEADER_ERROR);
 		p++;
 	}
@@ -69,6 +67,7 @@ char	*more_functions(bool	*is_newline, char *p)
 		while (*p != '\n' && *p != '\0')
 			p++;
 		p++;
+		*is_newline = true;
 	}
 	else if (!ft_strncmp(NAME_CMD_STRING, p, 5))
 	{

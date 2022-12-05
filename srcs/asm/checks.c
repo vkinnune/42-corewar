@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:29:09 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:46:14 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_token_args(t_token_type type, int ins, int arg)
 {
 	uint8_t	arg_type;
 
+	arg_type = 0;
 	if (type == direct || type == direct_label)
 		arg_type = T_DIR;
 	else if (type == indirect || type == indirect_label)

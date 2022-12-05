@@ -6,11 +6,7 @@
 #    By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 23:59:55 by qnguyen           #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2022/12/05 18:12:22 by vkinnune         ###   ########.fr        #
-=======
-#    Updated: 2022/12/05 17:24:49 by jrummuka         ###   ########.fr        #
->>>>>>> 1d1399577b69a8a616c89dc3cf06c76b49c464c9
+#    Updated: 2022/12/05 18:51:48 by vkinnune         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +36,7 @@ SHARED_OBJS = $(addprefix $(SHARED_OBJS_DIR), $(addsuffix .o, $(SHARED_FILE)))
 PRINTF = libraries/libftprintf.a
 PRINTF_DIR = srcs/printf/
 
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -g
 INCLUDES = -I includes
 
 all: $(COR_NAME) $(ASM_NAME)

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:29:10 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:46:38 by vkinnune         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ t_label	*retrieve_label(char *content)
 
 void	add_label_list(char *content, t_token_type token_type)
 {
-	int			i;
-	uint32_t	id;
 	int			size;
 	t_label		*current_label;
 
