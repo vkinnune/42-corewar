@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:10:51 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:59:12 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:39:47 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_man_page(void)
 		"\t\t\t 2: Prints cycle\n"
 		"\t\t\t 4: Prints instructions (Params are NOT litteral ...)\n"
 		"\t\t\t 8: Prints deaths\n"
-		"\t\t\t16: hihi (*^▽^*)\n"
+		"\t\t\t16: Show PC movements (Except for jumps)\n"
 		"\t-n\n"
 		"\t\tAssign the player's number manually\n");
 	print_and_exit(0);
