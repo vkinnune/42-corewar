@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 10:13:37 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:47:35 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:00:23 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	assign_player(t_header_t *player, unsigned char *file,
 	idx += get_data(player[p_num].comment, &file[idx], COMMENT_LENGTH);
 	check_matching_champ_size(player[p_num].prog_size, ret - idx);
 	player[p_num].code = ft_memalloc(ret - idx);
+	check_err_malloc(player[p_num].code);
 	get_data(player[p_num].code, &file[idx], player[p_num].prog_size);
 	p_num++;
 }

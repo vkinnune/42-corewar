@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:53:17 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:48:07 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,13 @@ void	print_free_exit(t_process *head)
 {
 	t_process	*next;
 
-	write(1, g_p_str.s, g_p_str.i);
 	while (head)
 	{
 		next = head->next;
 		free_process(0, head);
 		head = next;
 	}
-	exit(0);
+	print_and_exit(0);
 }
 
 void	kill_process(t_game_param *game)
@@ -50,7 +49,7 @@ void	kill_process(t_game_param *game)
 		if (cycle_since_last_live >= game->cycle_to_die)
 		{
 			if (g_flags.verbose & 8)
-				ft_printf("Process %u hasn't lived for %u cycles (CTD %d)\n", process->id + 1, game->current_cycle - process->last_live_cycle, game->cycle_to_die);
+				print_eight(process, game);
 			free_process(prev, process);
 			if (prev == NULL)
 				game->head = next;
@@ -82,7 +81,6 @@ t_process	*process_init(t_header_t *player)
 	uint8_t		i;
 	uint16_t	p_start;
 	t_process	*head;
-	t_process	*new;
 
 	i = 0;
 	p_start = 0;
@@ -94,14 +92,4 @@ t_process	*process_init(t_header_t *player)
 		i++;
 	}
 	return (head);
-}
-
-void	get_arg_without_arg_byte(t_process *process, t_arg *arg)
-{
-	uint8_t		dir_size;
-
-	dir_size = DIR_SIZE;
-	if (op_tab[process->cmd].dir_size)
-		dir_size = 2;
-	arg->value = get_n_byte(dir_size, 0, process->pc + 1);
 }

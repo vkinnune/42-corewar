@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 12:20:03 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 22:08:45 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:04:01 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	write_label(void)
 {
 	uint32_t	value;
 	t_label_arg	*temp;
+	t_label_arg	*next;
 	t_label		*label;
 	t_file		*cor;
 
@@ -74,7 +75,8 @@ void	write_label(void)
 		value = label->idx - temp->instruct_idx;
 		cor->idx = temp->map_idx;
 		write_n_byte(cor, value, 0, temp->size);
-		//free current temp;
-		temp = temp->next;
+		next = temp->next;
+		free(temp);
+		temp = next;
 	}
 }

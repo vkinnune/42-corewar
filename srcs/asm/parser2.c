@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 19:23:20 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:38:51 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*save_header_string(char *p, t_header_type type)
 			}
 			stay_p = p;
 		}
-		else if (*p != ' ' && *p != '\t' && !stay_p)
+		else if (*p != ' ' && *p != '\t' && !stay_p || (*p == '\0'))
 			ft_out(HEADER_ERROR);
 		p++;
 	}
@@ -103,7 +103,7 @@ char	*read_file(char *file_name)
 	return (str);
 }
 
-void	print_tokens(void)
+/* void	print_tokens(void)
 {
 	const char		*tokenstr[]={"label","instruction", "register", "separator", "direct_label", "direct", "indirect"};
 	int				i;
@@ -121,3 +121,4 @@ void	print_tokens(void)
 	}
 }
 
+ */

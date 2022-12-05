@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:22:35 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/29 19:05:00 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/05 00:41:17 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static unsigned char	*get_name(unsigned char *argc)
 	}
 	name_len = &argc[len] - argc;
 	name = ft_memalloc(name_len + 5);
+	check_err_malloc(name);
 	ft_memcpy(name, argc, name_len);
 	ft_memcpy(&name[name_len], ".cor", 5);
 	return (name);
@@ -38,8 +39,37 @@ void	cor_init(unsigned char **name, int *fd)
 
 	cor = get_core_file();
 	cor->str = (unsigned char *)ft_memalloc(COR_FILE_SIZE);
+	check_err_malloc(cor->str);
 	cor->idx = 0;
 	*name = get_name(get_source()->argc);
 	*fd = open((const char *)*name, O_WRONLY | O_CREAT | O_TRUNC, 0666);
 	check_open_error(*fd);
+}
+
+void	free_label(void)
+{
+	int		i;
+	t_label	*temp;
+	t_label	*next;
+	t_label	**labels;
+
+	i = 0;
+	labels = get_labels();
+	while (i < HASH_SIZE)
+	{
+		if (labels[i])
+		{
+			temp = labels[i]->next;
+			while (temp)
+			{
+				free(temp->name);
+				next = temp->next;
+				free(temp);
+				temp = next;
+			}
+			free(labels[i]->name);
+			free(labels[i]);
+		}
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:45:44 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:14:22 by jrummuka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,4 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 		i++;
 	}
 	return (result);
-}
-
-uint16_t	get_position(uint16_t pos)
-{
-	if (pos < 4096)
-		return (pos);
-	return (pos % MEM_SIZE);
 }

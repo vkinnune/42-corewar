@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/02 17:34:49 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:02:35 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,7 @@ void	handle_asm(char *p)
 		{
 			ft_printf("Error in col: %d row: %d",
 				get_source()->col, get_source()->row);
-			exit(EXIT_FAILURE);
+			print_and_exit(EXIT_FAILURE);
 		}
 	}
 }
-
