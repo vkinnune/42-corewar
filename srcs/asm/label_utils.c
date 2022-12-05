@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 17:28:26 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 16:28:12 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:57:31 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_label	*new_label(char *content)
 	new = (t_label *)ft_memalloc(sizeof(t_label));
 	check_err_malloc(new);
 	new->name = ft_strdup(content);
+	new->idx = -1;
 	return (new);
 }
 

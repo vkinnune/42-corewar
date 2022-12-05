@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 18:46:38 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:59:27 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	handle_label(int *tok_idx)
 	cor = get_core_file();
 	tokens = get_token_list()->tokens;
 	current_label = retrieve_label(tokens[*tok_idx].content);
-	current_label->idx = cor->idx;
+	if (current_label->idx == (unsigned int)-1)
+		current_label->idx = cor->idx;
 	(*tok_idx)++;
 }
 
@@ -70,28 +71,4 @@ void	add_label_list(char *content, t_token_type token_type)
 		current_label = add_label(content);
 	if (token_type == label)
 		current_label->is_init = true;
-}
-
-void	print_label(void)
-{
-	int		i;
-	t_label	**labels;
-	t_label	*temp;
-
-	i = 0;
-	labels = get_labels();
-	while (i < HASH_SIZE)
-	{
-		if (labels[i])
-		{
-			ft_printf("%s\n", labels[i]->name);
-			temp = labels[i]->next;
-			while (temp)
-			{
-				ft_printf("%s\n", temp->name);
-				temp = temp->next;
-			}
-		}
-		i++;
-	}
 }
