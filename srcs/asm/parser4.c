@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 20:15:54 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:05:36 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ int	instruction_check(char **p)
 		prcnt = true;
 	while (i != INSTRUCTION_AMOUNT)
 	{
-		if (!ft_strncmp(op_tab[i].name, *p, size))
+		if (!ft_strncmp(g_op_tab[i].name, *p, size))
 		{
 			if (prcnt == true)
-				size = ft_strlen(op_tab[i].name) - 1;
+				size = ft_strlen(g_op_tab[i].name) - 1;
 			else
-				size = ft_strlen(op_tab[i].name);
+				size = ft_strlen(g_op_tab[i].name);
 			*p = &(*p)[size];
 			get_source()->col += size;
 			get_source()->ins = true;

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 17:50:50 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 22:43:43 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,6 @@ void	handle_asm(char *p)
 			while (*p != '\n' && *p != '\0')
 				p++;
 		else if (!check_valid(&p))
-		{
-			ft_printf("Error in col: %d row: %d",
-				get_source()->col, get_source()->row);
-			print_and_exit(EXIT_FAILURE);
-		}
+			ft_out("Error: Did not find a token");
 	}
 }

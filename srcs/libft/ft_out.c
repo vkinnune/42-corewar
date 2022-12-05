@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_out.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 13:44:27 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/10/31 14:19:51 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 22:42:39 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 int	ft_out(char *reason)
 {
-	char	*p;
-
-	p = reason;
-	while (*p)
+	while (*reason)
 	{
-		write(1, p, 1);
-		p++;
+		write(2, reason, 1);
+		reason++;
 	}
-	write(1, "\n", 1);
+	write(2, "\n", 1);
 	exit(EXIT_FAILURE);
 	return (EXIT_FAILURE);
 }

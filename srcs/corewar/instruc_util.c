@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruc_util.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 15:08:22 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 17:14:22 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:03:46 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int32_t	get_arg_value(t_process *process, t_arg *arg)
 		return (process->reg[arg->value]);
 	else if (arg->type == IND_CODE)
 		return ((int16_t)(process->pc + ((int16_t)arg->value % IDX_MOD)));
-	else if (op_tab[process->cmd].dir_size == 1)
+	else if (g_op_tab[process->cmd].dir_size == 1)
 		return ((int16_t)arg->value);
 	return (arg->value);
 }
@@ -50,7 +50,7 @@ int8_t	check_dir(t_process *process, uint8_t cur_2bit,
 
 	if (cur_2bit != DIR_CODE)
 		return (NOT_OKEI);
-	byte_ammount = DIR_SIZE / (op_tab[process->cmd].dir_size + 1);
+	byte_ammount = DIR_SIZE / (g_op_tab[process->cmd].dir_size + 1);
 	pos = get_position(process->pc + process->bytes_to_next);
 	arg->value = get_n_byte(byte_ammount, 0, pos);
 	process->bytes_to_next += byte_ammount;
@@ -86,12 +86,12 @@ int8_t	check_matching_arg(t_process *process, t_arg *arg)
 
 	i = 0;
 	result = OKEI;
-	if (op_tab[process->cmd].arg_byte == 0)
+	if (g_op_tab[process->cmd].arg_byte == 0)
 		return (OKEI);
 	process->bytes_to_next++;
-	while (i < op_tab[process->cmd].arg_amt)
+	while (i < g_op_tab[process->cmd].arg_amt)
 	{
-		op_arg_type = op_tab[process->cmd].arg_type[i];
+		op_arg_type = g_op_tab[process->cmd].arg_type[i];
 		cur_2bit = get_2bit(g_arena[get_position(process->pc + 1)], i);
 		if (!check_reg(process, cur_2bit, op_arg_type, &arg[i])
 			&& !check_dir(process, cur_2bit, op_arg_type, &arg[i])

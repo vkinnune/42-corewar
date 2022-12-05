@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 19:22:00 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 17:45:37 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:03:59 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	read_instruction(t_process *process)
 			return ;
 		}
 		process->cmd = instruction_code - 1;
-		process->wait_cycle = op_tab[process->cmd].wait_cycle;
+		process->wait_cycle = g_op_tab[process->cmd].wait_cycle;
 	}
 	process->wait_cycle--;
 }
@@ -57,12 +57,12 @@ static void	execute_le_code(t_game_param *game, t_process *process,
 	ft_bzero((void *)arg, sizeof(arg));
 	if (check_matching_arg(process, arg) != OKEI)
 		return ;
-	if (op_tab[process->cmd].arg_byte == 0)
+	if (g_op_tab[process->cmd].arg_byte == 0)
 		get_arg_without_arg_byte(process, &arg[0]);
 	tab->instruct_table[process->cmd](process, arg, game);
 	if ((g_flags.verbose & 4) && process->cmd != 15)
 	{
-		ft_printf("P %4d | %s", process->id + 1, op_tab[process->cmd].name);
+		ft_printf("P %4d | %s", process->id + 1, g_op_tab[process->cmd].name);
 		tab->verbose_table[process->cmd](process, arg);
 	}
 	if (process->cmd == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2022/12/05 17:40:31 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:12:22 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ typedef struct s_file
 	unsigned char	*str;
 	uint32_t		idx;
 }				t_file;
-extern t_op				op_tab[17];
+extern t_op		g_op_tab[16];
 
 //shared_util.c
 uint32_t	get_2hext(uint32_t num, uint8_t position, uint8_t n);
 void		check_err_malloc(void *ptr);
 void		print_and_exit(int err_no);
-void		write_n_byte(t_file *file, uint32_t val
-		, uint16_t get_pos(uint16_t), int8_t n);
+void		write_n_byte(t_file *file, uint32_t val,
+				uint16_t get_pos(uint16_t), int8_t n);
 #endif

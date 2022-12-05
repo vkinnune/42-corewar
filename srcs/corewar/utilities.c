@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 13:00:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 17:20:33 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:04:03 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	get_arg_without_arg_byte(t_process *process, t_arg *arg)
 	uint8_t		dir_size;
 
 	dir_size = DIR_SIZE;
-	if (op_tab[process->cmd].dir_size)
+	if (g_op_tab[process->cmd].dir_size)
 		dir_size = 2;
 	arg->value = get_n_byte(dir_size, 0, process->pc + 1);
 }

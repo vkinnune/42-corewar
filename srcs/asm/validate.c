@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 13:59:59 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/12/05 16:19:20 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:08:22 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ void	validate_argument(int ac, char **av)
 	}
 	else if (ac == 2)
 	{
-		ft_out(INVALID_FILE_TYPE);
+		ft_out("Error: Unrecognised file type");
 	}
 	else
-		ft_out(USAGE);
+	{
+		ft_printf("%s\n", "./asm <sourcefile.s>");
+		print_and_exit(0);
+	}
 }

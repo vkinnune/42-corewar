@@ -6,7 +6,7 @@
 /*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 14:37:01 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 20:23:48 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:10:16 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # define EXEC_CODE_POSITION 2192
 # include "libftprintf.h"
 # include <fcntl.h>
-# include "errors.h"
 # include <stdio.h>
 # include <stdbool.h>
 # include "op.h"

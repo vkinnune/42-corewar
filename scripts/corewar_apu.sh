@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/20 21:11:39 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/05 20:30:25 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/05 22:17:09 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,10 @@ GREEN='\e[32m'
 BLUE='\e[94m'
 YELLOW='\e[93m'
 NORMAL='\e[0m'
+
 OUR_CORE=./corewar
-TEST_CORE=/Users/qnguyen/Workspace/Corewar/resources/vm_champs/corewar
+TEST_CORE=./resources/vm_champs/corewar
+
 CHAMP_DIR=./testchamp/valid_core
 
 RESULT_FILE=./scripts/core_result
@@ -39,7 +41,7 @@ check_file()
 	fi
 }
 
-apu()
+get_champ()
 {
 	count=0
 	if [[ $file != "chill" ]]
@@ -49,7 +51,10 @@ apu()
 		printf "\t$YELLOW\"chill\"$NORMAL: automatically run -v 4 FOREVER ψ(｀∇´)ψ\n"
 		read -r file
 	fi
-	#not an elif
+}
+
+get_random()
+{
 	if [[ "$file" == "chill" ]]
 	then
 		echo "Okei u lazy bum"
@@ -58,13 +63,13 @@ apu()
 			if [[ ${OSTYPE} == "darwin18" ]]
 			then
 				random_num="$(find "$CHAMP_DIR" -type f -name "*.cor" | wc -l | xargs jot -r 1 1)"
-				champs[$i]="$(find "$CHAMP_DIR" -type f -name "*.cor" | head -${random_num} | tail -1 | tr ' ' '_')"
+				champs[$i]="$(find "$CHAMP_DIR" -type f -name "*.cor" | head -${random_num} | tail -1)"
 			else
 				champs[$i]="$(find "$CHAMP_DIR" -type f -name "*.cor" | shuf -n 1)"
 			fi
 		done
 		count=4
-	else
+	else ## handle the manually entered champs
 		for i in {0..3}
 		do
 			file=$(echo "$file" | sed s/\'\//g | sed 's/\\/\//g')
@@ -84,18 +89,22 @@ apu()
 				read -r file
 			fi
 		done
+		if [[ $count -eq 0 ]]
+		then
+			printf "Me no see champ, me no do work $GREEN( っ´ω｀c)$NORMAL \n"
+			exit
+		fi
 	fi
-	if [[ ${flag} == "" ]]
-	then
-		echo "How verbose do you want me senpai (ﾉ≧ڡ≦)??"
-		read -r flag
-	fi
-	if [[ $count -eq 0 ]]
-	then
-		printf "Me no see champ, me no do work $GREEN( っ´ω｀c)$NORMAL \n"
-		exit
-	fi
+}
 
+get_flag()
+{
+	echo "How verbose do you want me senpai (ﾉ≧ڡ≦)??"
+	read -r flag
+}
+
+test_v_flag()
+{
 	############# SHOW TEST CHAMPS
 
 	printf "Testing with:$GREEN\n"
@@ -106,15 +115,8 @@ apu()
 		echo "$(echo ${champs[$i]})"
 	done
 	printf "\n$NORMAL"
-
-	test_v_flag
-	check_run_type
-}
-
-test_v_flag()
-{
-	(time $OUR_CORE -v $flag ${string} > ${RESULT_FILE}) 2>>${TIME_RESULT}
-	(time $TEST_CORE -v $flag ${string} > ${TEST_RESULT}) 2>>${TEST_TIME_RESULT}
+	(time $OUR_CORE -v $flag ${string} > ${RESULT_FILE}) 2>${TIME_RESULT}
+	(time $TEST_CORE -v $flag ${string} > ${TEST_RESULT}) 2>${TEST_TIME_RESULT}
 
 	diff=$(cmp ${RESULT_FILE} ${TEST_RESULT})
 	if [[ $diff != "" ]]
@@ -127,10 +129,8 @@ test_v_flag()
 		exit
 	fi
 
-	if [[ $flag == "4" ]]
-	then
-		printf "${GREEN}All of your instructions executed perfectly (and the printing too), me proud very (￣︶￣;)\n$NORMAL"
-	fi
+	printf "${GREEN}All of your instructions executed perfectly (and the printing too), me proud very (￣︶￣;)\n$NORMAL"
+
 	runtime=$(tail -n 3 ${TIME_RESULT} | head -n 1 | cut -d '	' -f 2)
 	printf "It took you $BLUE${runtime}$NORMAL to run\n"
 	test_runtime=$(tail -n 3 ${TEST_TIME_RESULT} | head -n 1 | cut -d '	' -f 2)
@@ -142,15 +142,6 @@ test_v_flag()
 	fi
 }
 
-check_run_type()
-{
-	if [[ $file == "chill" ]]
-	then
-		apu
-	fi
-	more_test
-}
-
 more_test()
 {
 	printf "\nYa wanna keep going bud?\n"
@@ -159,31 +150,40 @@ more_test()
 	printf "\t$YELLOW\"rerun\"$NORMAL: compare different champs\n"
 	printf "\t$YELLOW\"no\"$NORMAL: No (╯︵╰,)\n"
 	read flag
-	if [[ $flag == "rerun" ]]
-	then
-		apu
-	elif [[ $flag == "no" ]]
+	if [[ $flag == "no" ]]
 	then
 		exit
 	elif [[ $flag == "yes" ]]
 	then
-		flag_num=( "31" )
+		flag_num=( "31" ) #ADD FLAG OPTIONS HERE
 		for i in "${flag_num[@]}"
 		do
 			flag=$i
 			printf "Now testing -v $i\n"
-			test_v_flag
 		done
-	else
-		test_v_flag
+	elif [[ $flag == "rerun" ]]
+	then
+		get_champ
+		get_random
+		get_flag
 	fi
-	more_test
 }
 
-check_file
 printf "Moro moro $GREEN╰(⸝⸝⸝´꒳\`⸝⸝⸝)╯$NORMAL\n"
 declare -A champs
 declare string
 declare file
 declare flag
-apu
+check_file
+get_champ
+get_random
+get_flag
+test_v_flag
+while [[ 1 == 1 ]]
+do
+	if [[ ${file} != "chill" ]]
+	then
+		more_test
+	fi
+	test_v_flag
+done

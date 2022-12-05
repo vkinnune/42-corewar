@@ -1,17 +1,17 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    asm_diff.sh                                        :+:      :+:    :+:    #
+#    asm_apu.sh                                         :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/30 22:44:04 by qnguyen           #+#    #+#              #
-#    Updated: 2022/12/03 01:39:36 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/05 21:47:36 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 OUR_ASM=./asm
-TEST_ASM=/Users/qnguyen/Workspace/Corewar/resources/vm_champs/asm
+TEST_ASM=./resources/vm_champs/asm
 CURRENT_DIR=./scripts
 ASM_DIR=./testchamp/valid_asm
 
@@ -47,15 +47,20 @@ get_program_type()
 		read -r file
 	fi
 
+
 	if [[ $file == "surprise" ]]
 	then
-		random_num=$(find "$ASM_DIR" -type f -name "*.s"  | wc -l | cut -d ' ' -f 8 | xargs jot -r 1 1)
-		champ=$(find "$ASM_DIR" -type f -name "*.s" | head -$((random_num)) | tail -1)
+		if [[ ${OSTYPE} == "darwin18" ]]
+		then
+			random_num="$(find "$ASM_DIR" -type f -name "*.s" | wc -l | xargs jot -r 1 1)"
+			champ="$(find "$ASM_DIR" -type f -name "*.s" | head -${random_num} | tail -1)"
+		else
+			champ="$(find "$ASM_DIR" -type f -name "*.s" | shuf -n 1)"
+		fi
 		printf "\tI gib u\n$GREEN${champ} ( ಠ ‿ <) $NORMAL\n"
 	else
 		champ=$(echo ${file} | sed s/\'//g)
 	fi
-	test_asm
 }
 
 test_asm()
@@ -83,18 +88,6 @@ test_asm()
 		printf "$differs\n"
 		exit
 	fi
-	check_run_type
-}
-
-check_run_type()
-{
-	if [[ ${file} == "surprise" ]]
-	then
-		sleep 1
-		get_program_type
-	else
-		check_rerun
-	fi
 }
 
 check_rerun()
@@ -103,10 +96,8 @@ check_rerun()
 	printf "\t$YELLOW\"yes\"$NORMAL: We do it one more time hihi ${GREEN}(´,,•ω•,,)♡${NORMAL}\n"
 	printf "\t$YELLOW\"no\"$NORMAL: No ${GREEN}(╯︵╰,)${NORMAL}\n"
 	read flag
-	if [[ ${flag} == 'yes' ]]
+	if [[ ${flag} != 'yes' ]]
 	then
-		get_program_type
-	else
 		exit
 	fi
 }
@@ -114,3 +105,12 @@ check_rerun()
 check_exisiting_asm
 get_program_type
 test_asm
+while [[ 1 == 1 ]]
+do
+	if [[ ${file} != "surprise" ]]
+	then
+		check_rerun
+	fi
+	get_program_type
+	test_asm
+done

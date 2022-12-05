@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 20:17:07 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:04:41 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	find_ins(char *content)
 	size = ft_strlen(content);
 	while (ins != INSTRUCTION_AMOUNT)
 	{
-		if (!ft_strncmp(op_tab[ins].name, content, size))
+		if (!ft_strncmp(g_op_tab[ins].name, content, size))
 			return (ins);
 		ins++;
 	}
@@ -40,7 +40,7 @@ int	check_token_args(t_token_type type, int ins, int arg)
 		arg_type = T_IND;
 	else if (type == reg)
 		arg_type = T_REG;
-	if (!(op_tab[ins].arg_type[arg] & arg_type))
+	if (!(g_op_tab[ins].arg_type[arg] & arg_type))
 		return (0);
 	return (1);
 }
@@ -83,7 +83,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 	ins = find_ins(token_list->tokens[*i].content);
 	(*i)++;
 	get_source()->is_instructions = true;
-	while (arg != op_tab[ins].arg_amt)
+	while (arg != g_op_tab[ins].arg_amt)
 	{
 		if (!check_token_args(token_list->tokens[*i].type, ins, arg))
 			ft_out("Error: Invalid instruction argument");
@@ -92,7 +92,7 @@ int	check_instruction(int *i, t_token_list *token_list)
 		arg++;
 		if (token_list->tokens[*i].type == separator)
 			(*i)++;
-		else if (arg != op_tab[ins].arg_amt)
+		else if (arg != g_op_tab[ins].arg_amt)
 			ft_out("Error: Wrong seperator");
 	}
 	return (1);

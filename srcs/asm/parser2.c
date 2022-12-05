@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:29:55 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/12/05 20:10:26 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:10:38 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_stay_p(char *stay_p, char *p, t_header_type type)
 		ft_memcpy(get_source()->comment, &stay_p[1],
 			(p - stay_p) - 1);
 	else
-		ft_out(HEADER_TOO_BIG);
+		ft_out("Error: Header too big");
 }
 
 char	*save_header_string(char *p, t_header_type type)
@@ -40,7 +40,7 @@ char	*save_header_string(char *p, t_header_type type)
 			stay_p = p;
 		}
 		else if ((*p != ' ' && *p != '\t' && !stay_p) || (*p == '\0'))
-			ft_out(HEADER_ERROR);
+			ft_out("Error: Reading header");
 		p++;
 	}
 	return (p + 1);
@@ -86,6 +86,6 @@ char	*check_string_comment_name(bool	*is_newline, char *p)
 		get_source()->save_comment = true;
 	}
 	else
-		ft_out(HEADER_ERROR);
+		ft_out("Error: Reading header");
 	return (p);
 }

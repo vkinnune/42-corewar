@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser6.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkinnune <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:11:52 by vkinnune          #+#    #+#             */
-/*   Updated: 2022/12/05 20:13:41 by vkinnune         ###   ########.fr       */
+/*   Updated: 2022/12/05 23:09:05 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*read_file(char *file_name)
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
-		ft_out(CANNOT_OPEN_FILE);
+		ft_out("Error: File does not exist");
 	ret = 1;
 	str = 0;
 	read_size = 0;
