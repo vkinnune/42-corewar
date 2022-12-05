@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:48:56 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 23:16:37 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 17:29:10 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	add_label_list(char *content, t_token_type token_type)
 	if (token_type == label)
 		current_label->is_init = true;
 }
+<<<<<<< HEAD
 
 // test
 void	print_label()
@@ -101,3 +102,5 @@ void	print_label()
 	}
 }
 
+=======
+>>>>>>> main

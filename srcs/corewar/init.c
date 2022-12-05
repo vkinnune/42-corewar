@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 18:49:57 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/11 19:05:05 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:19:04 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	initialize_players(t_header_t *player)
 	while (i < MAX_PLAYERS)
 	{
 		player[i].code = NULL;
-		player[i].prog_size = 0;
+		player[i].prog_size = NOT_SET;
 		player[i].id = NOT_SET;
 		i++;
 	}
@@ -37,6 +37,7 @@ void	arena_init(t_header_t *player)
 	while (i < g_p_count)
 	{
 		ft_memcpy(g_arena + p_start, player[i].code, player[i].prog_size);
+		free(player[i].code);
 		p_start += MEM_SIZE / g_p_count;
 		i++;
 	}
@@ -48,7 +49,7 @@ void	game_init(t_game_param *game, t_process *head)
 	game->last_alive = -head->reg[r1];
 	game->current_cycle = 1;
 	game->cycle_to_die = CYCLE_TO_DIE;
-	game->live_performed = 1;
+	game->live_performed = 0;
 	game->check_counter = 1;
 }
 
@@ -58,5 +59,5 @@ void	flag_init()
 	g_flags.aff = NOT_SET;
 	g_flags.byte = NOT_SET;
 	g_flags.id = NOT_SET;
-	g_flags.verbose = NOT_SET;
+	g_flags.verbose = 1;
 }

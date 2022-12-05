@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jrummuka <jrummuka@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 16:53:47 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/28 15:18:38 by jrummuka         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:42:24 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ void	live(t_process *process, t_arg *arg, t_game_param *game)
 	game->live_performed++;
 }
 
-void	l_ld(t_process *process, t_arg *arg, t_game_param *game)
+void	ld(t_process *process, t_arg *arg, t_game_param *game)
 {
-	if (arg[0].type == IND_CODE && process->cmd == 12)
-		arg[0].value = process->pc + (int16_t)(arg[0].value);
-	else
-		arg[0].value = get_arg_value(process, &arg[0]);
+	arg[0].value = get_arg_value(process, &arg[0]);
 	if (arg[0].type == IND_CODE)
 	{
 		arg[0].value = get_position(arg[0].value);
@@ -34,6 +31,20 @@ void	l_ld(t_process *process, t_arg *arg, t_game_param *game)
 	process->carry = (process->reg[arg[1].value] == 0);
 }
 
+void	lld(t_process *process, t_arg *arg, t_game_param *game)
+{
+	if (arg[0].type == IND_CODE)
+		arg[0].value = process->pc + (int16_t)(arg[0].value);
+	else
+		arg[0].value = get_arg_value(process, &arg[0]);
+	if (arg[0].type == IND_CODE)
+	{
+		arg[0].value = get_position(arg[0].value);
+		arg[0].value = (int16_t)get_n_byte(2, 0, arg[0].value);
+	}
+	process->reg[arg[1].value] = arg[0].value;
+	process->carry = (process->reg[arg[1].value] == 0);
+}
 void	st(t_process *process, t_arg *arg, t_game_param *game)
 {
 	int32_t	arg0;

@@ -1,9 +1,9 @@
-man page
-
 -d > last cycle ?
 
-./corewar is -v 1 by default
+//asm
 
+chek yo leaks
 
-ADD MALLOC CHECKS FOR EVERY MALLOC SO SOME PEOPLE WON'T CRY ABOUT IT
-valtteri: no
+LOTS AND LOTS OF INVALID READ IN ASM
+ ->WOULD CAUSE SEGFAULT
+pliz fix

@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 00:32:42 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 18:32:12 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:30:49 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define SET		1
 # define NOT_OKEI	0
 # define OKEI		1
+# define FILE_SIZE	100000
 
 typedef struct	s_process t_process;
 typedef struct 	s_game_param	t_game_param;
@@ -113,7 +114,6 @@ void		player_sort(t_header_t *player);
 void		check_file_type(unsigned char *file, int16_t fd);
 void		check_file_size(uint32_t size);
 void		check_matching_champ_size(uint32_t byte_size, uint32_t actual);
-void		check_err_malloc(void *ptr);
 void		check_valid_arg(char **argv, int argc, uint8_t i);
 void		check_existing_id(int8_t id);
 void		check_missing_id(int8_t id);
@@ -124,7 +124,7 @@ void		processor(t_game_param *game, t_table *tab, t_header_t *player);
 
 //process_util.c
 void		free_process(t_process *prev, t_process *delete);
-void		free_and_exit(t_process *head);
+void		print_free_exit(t_process *head);
 t_process	*new_process(t_process *head, uint16_t pos, int id);
 t_process	*process_init(t_header_t *player);
 void		kill_process(t_game_param *game);
@@ -139,7 +139,8 @@ void		corewar(t_header_t *player);
 
 //instruction.c
 void		live(t_process *process, t_arg *arg, t_game_param *game);
-void		l_ld(t_process *process, t_arg *arg, t_game_param *game);
+void		ld(t_process *process, t_arg *arg, t_game_param *game);
+void		lld(t_process *process, t_arg *arg, t_game_param *game);
 void		st(t_process *process, t_arg *arg, t_game_param *game);
 void		add_sub(t_process *process, t_arg *arg, t_game_param *game);
 void		and_or_xor(t_process *process, t_arg *arg, t_game_param *game);

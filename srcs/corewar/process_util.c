@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 20:01:21 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/30 18:31:56 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:27:31 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_process(t_process *prev, t_process *delete)
 		free(delete);
 }
 
-void	free_and_exit(t_process *head)
+void	print_free_exit(t_process *head)
 {
 	t_process	*next;
 
@@ -30,7 +30,7 @@ void	free_and_exit(t_process *head)
 		free_process(0, head);
 		head = next;
 	}
-	exit(0);
+	print_and_exit(0);
 }
 
 void	kill_process(t_game_param *game)
@@ -67,10 +67,10 @@ t_process	*new_process(t_process *head, uint16_t pos, int id)
 
 	process = (t_process *)ft_memalloc(sizeof(t_process));
 	check_err_malloc((void *)process);
-	process->id = process_id++; //might still not be needed - currently only used for testing
+	process->id = process_id++;
 	process->cmd = -1;
 	process->pc = pos;
-	process->bytes_to_next = 1; //1 up from the instruction byte
+	process->bytes_to_next = 1;
 	process->next = head;
 	process->reg[r1] = -id;
 	return (process);

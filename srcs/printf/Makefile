@@ -6,7 +6,7 @@
 #    By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/24 10:35:47 by qnguyen           #+#    #+#              #
-#    Updated: 2022/11/19 05:33:58 by qnguyen          ###   ########.fr        #
+#    Updated: 2022/12/03 00:49:06 by qnguyen          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,11 +26,9 @@ $(NAME): $(OBJS)
 	cp $(LIBFT) $(NAME)
 	ar -rcs $(NAME) $(OBJS)
 
-$(OBJS_DIR)%.o: %.c $(INCLUDES)libftprintf.h $(LIBFT) $(OBJS_DIR)
+$(OBJS_DIR)%.o: %.c $(INCLUDES)libftprintf.h $(LIBFT)
+	@mkdir -p $(OBJS_DIR)
 	gcc -c $< $(FLAGS) -I$(INCLUDES) -o $@ #-O3 remove -O3 for linux
-
-$(OBJS_DIR):
-	mkdir -p $(OBJS_DIR)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)

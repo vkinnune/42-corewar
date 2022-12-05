@@ -6,7 +6,7 @@
 /*   By: qnguyen <qnguyen@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 14:09:11 by qnguyen           #+#    #+#             */
-/*   Updated: 2022/11/20 18:54:42 by qnguyen          ###   ########.fr       */
+/*   Updated: 2022/12/03 18:28:49 by qnguyen          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	introduce_le_champ(t_header_t *player)
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n",
 			player[i].id, player[i].prog_size,
 			player[i].prog_name, player[i].comment);
-		// print_mem(player[i].prog_size, player[i].code);
 		i++;
 	}
 }
@@ -73,10 +72,12 @@ void	parse(t_header_t *player, char **argv, int argc)
 {
 	uint8_t			i;
 	uint16_t		ret;
-	unsigned char	str[MEM_SIZE];
+	unsigned char	*str;
 
 	g_p_count = 0;
 	i = 1;
+	str = ft_memalloc(sizeof(unsigned char) * FILE_SIZE);
+	check_err_malloc(str);
 	while (i < argc)
 	{
 		if (argv[i][0] == '-')
@@ -93,4 +94,5 @@ void	parse(t_header_t *player, char **argv, int argc)
 	check_num_within_range(g_p_count);
 	player_sort(player);
 	introduce_le_champ(player);
+	free(str);
 }
